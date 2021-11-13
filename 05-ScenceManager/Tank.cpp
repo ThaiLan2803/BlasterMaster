@@ -22,7 +22,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-//	vy += TANK_GRAVITY;
+	vy += TANK_GRAVITY;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -39,10 +39,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (vx > 0 && x > 275 && nx == 1) { x = 275; }
-	if (vx < 0 && x < 0 && nx == -1) { x = 0; }
-	if (vy > 0 && y > 180 && ny == 1) { y = 180; }
-	if (vy < 0 && y < 4 && ny == -1) { y = 4; }
+
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -69,7 +66,10 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 //		if (nx != 0) vx = 0;
 //		if (ny != 0) vy = 0;*/
 
-	
+		if (vx > 0 && x > 275 && nx == 1) { x = 275; }
+		if (vx < 0 && x < 0 && nx == -1) { x = 0; }
+		if (vy > 0 && y > 180 && ny == 1) { y = 180; }
+		if (vy < 0 && y < 4 && ny == -1) { y = 4; }
 
 		//
 		// Collision logic with other objects
@@ -137,7 +137,7 @@ void CTank::SetState(int state)
 //		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
-		vy = 0;
+//		vy = 0;
 		break;
 //	case TANK_STATE_DIE:
 //		vy = -TANK_DIE_DEFLECT_SPEED;

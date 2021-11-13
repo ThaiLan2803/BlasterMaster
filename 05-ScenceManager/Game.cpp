@@ -14,11 +14,11 @@ CGame * CGame::__instance = NULL;
 	- hInst: Application instance handle
 	- hWnd: Application window handle
 */
-void CGame::Init(HWND hWnd)
+void CGame::Init(HWND hWnd, int width, int height)
 {
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-	this->hWnd = hWnd;									
+	this->hWnd = hWnd;		
 
 	D3DPRESENT_PARAMETERS d3dpp;
 
@@ -62,6 +62,7 @@ void CGame::Init(HWND hWnd)
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
 	OutputDebugString(L"[INFO] InitGame done;\n");
+	camera = new Camera(width, height, 0, DirectX::XMFLOAT3(1.0f, 1.0f, 0));
 }
 
 /*
@@ -69,7 +70,11 @@ void CGame::Init(HWND hWnd)
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
-	D3DXVECTOR3 p(x, y, 0);
+	if (camera)
+	{
+		camera->SetTransform(this->GetDirect3DDevice());
+	}
+	D3DXVECTOR3 p(x-camera->GetPosition().x, y- camera->GetPosition().y, 0);
 	RECT r; 
 	r.left = left;
 	r.top = top;
@@ -400,3 +405,10 @@ void CGame::SwitchScene(int scene_id)
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();	
 }
+
+void CGame::SetCamPos(CTank *main) {
+	if (camera)
+		camera->Follow(main);
+	camera->Update();
+}
+

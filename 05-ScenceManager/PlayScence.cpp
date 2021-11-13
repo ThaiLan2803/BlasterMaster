@@ -129,19 +129,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
-//	case OBJECT_TYPE_BRICK:
-//		obj = new CBrick(atof(tokens[4].c_str()), atof(tokens[5].c_str()));
-//		break;
-	case OBJECT_TYPE_LAN:
-		if (lan != NULL)
-		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
-			return;
-		} 
-		obj = new CLan();
-
-		DebugOut(L"[INFO] Player object created!\n");
+	case OBJECT_TYPE_BRICK:
+		obj = new CBrick(atof(tokens[4].c_str()), atof(tokens[5].c_str()));
 		break;
+//	case OBJECT_TYPE_LAN:
+//		if (lan != NULL)
+//		{
+//			DebugOut(L"[ERROR] MARIO object was created before!\n");
+//			return;
+//		} 
+//		obj = new CLan();
+//
+//		DebugOut(L"[INFO] Player object created!\n");
+//		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -232,8 +232,8 @@ void CPlayScene::Update(DWORD dt)
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
-
-//	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(player);
+	
 }
 
 void CPlayScene::Render()
