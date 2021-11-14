@@ -37,9 +37,12 @@ void Camera::Update()
 	}
 
 	this->Matrix = D3DXMATRIX(
-		scale.x * cos(corner), scale.x * sin(corner), 0, 0, -scale.y * sin(corner), scale.y * cos(corner), 0, 0, 0, 0, scale.z, 0,
-		-cam_x * scale.x * cos(corner) + cam_y * scale.y * sin(corner), -cam_x * scale.y * sin(corner) - cam_y * scale.y * cos(corner), 0, 1
+		scale.x * cos(corner), scale.x * sin(corner), 0, 0,
+		-scale.y * sin(corner), scale.y * cos(corner), 0, 0, 
+		0, 0, scale.z, 0,
+		-cam_x * scale.x * cos(corner) + cam_y * scale.y * sin(corner), -cam_x * scale.x * sin(corner) - cam_y * scale.y * cos(corner), 0, 1
 	);
+
 }
 
 void Camera::Follow(CTank* following)
