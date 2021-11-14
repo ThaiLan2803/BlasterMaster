@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <assert.h>
 #include "Utils.h"
-
+#include "Quadtree.h"
 #include "Tank.h"
 #include "Game.h"
 
@@ -160,3 +160,7 @@ void CTank::Reset()
 	SetSpeed(0, 0);
 }
 
+Rect CTank::GetBoundingBox()
+{
+	return Rect(Point(x, y + 6), TANK_BBOX_WIDTH - 1, TANK_BBOX_HEIGHT - 1);
+}
