@@ -412,3 +412,8 @@ void CGame::SetCamPos(CTank *main) {
 	camera->Update();
 }
 
+void CGame::SetCamPos(CChassis *main) {
+	if (camera)
+		camera->Follow(main);
+	camera->Update();
+}

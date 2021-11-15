@@ -1,6 +1,10 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Rect.h"
+#include "debug.h"
+#include "Sung.h"
+#include "BanhXe.h"
+#include "BottomCircle.h"
 #define TANK_WALKING_SPEED		0.15f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
@@ -25,6 +29,11 @@
 #define TANK_BBOX_WIDTH  24
 #define TANK_BBOX_HEIGHT 18
 
+#define TOP_BORDER  0
+#define LEFT_BORDER  0
+#define BOTTOM_BORDER  SCREEN_HEIGHT - TANK_BBOX_HEIGHT
+#define RIGHT_BORDER  SCREEN_WIDTH - TANK_BBOX_WIDTH
+
 #define TANK_UNTOUCHABLE_TIME 5000
 
 
@@ -36,8 +45,13 @@ class CTank : public CGameObject
 
 	float start_x;			// initial position of TANK at scene
 	float start_y;
+protected:
+	Wheel * WLeft, *WRight;
+	Gun* Gun;
+	BottomCircle* bc;
+	~CTank();
 public:
-	CTank(float x = 0.0f, float y = 0.0f);
+//	CTank(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
