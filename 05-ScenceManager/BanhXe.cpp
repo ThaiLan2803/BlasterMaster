@@ -20,20 +20,16 @@ void BanhXe::Render()
 void BanhXe::NewRender(float x, float y)
 {
 	int ani = -1;
-	if (vx == 0)
-	{
-		if (nx > 0) ani = 0;
-		else ani = 1;
-	}
-	else if (vx > 0)
-		ani = 2;
-	else ani =3;
+	if (nx > 0)
+		ani = BANHXE_ANI_WALKING_RIGHT;
+	else
+		ani = BANHXE_ANI_WALKING_LEFT;
 
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	//if (animation_set)
-		animation_set->at(0)->Render(x, y, 255);
+		animation_set->at(ani)->Render(x, y, 255);
 	//else
 		DebugOut(L"Render banhxe");
 }

@@ -135,11 +135,14 @@ void CTank::SetState(int state)
 	case TANK_STATE_WALKING_RIGHT:
 		vx = TANK_WALKING_SPEED;
 		nx = 1;
+		WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
+		WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
 		break;
 	case TANK_STATE_WALKING_LEFT:
 		vx = -TANK_WALKING_SPEED;
 		nx = -1;
-		Gun->SetState(SUNG_ANI_IDLE_LEFT);
+		WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
+		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
 		vy = -TANK_WALKING_SPEED;

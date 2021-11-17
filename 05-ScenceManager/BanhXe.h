@@ -1,10 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
-#define BANHXE_ANI_IDLE_RIGHT		2
-#define BANHXE_ANI_IDLE_LEFT			3
-#define BANHXE_ANI_WALKING_RIGHT		4
-#define BANHXE_ANI_WALKING_LEFT		5
+#define BANHXE_ANI_WALKING_RIGHT	0
+#define BANHXE_ANI_WALKING_LEFT		1
 
 #define BANHXE_WALKING_SPEED		0.1f
 
