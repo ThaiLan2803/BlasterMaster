@@ -112,6 +112,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
+	
 	CAnimationSets * animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject *obj = NULL;
@@ -132,6 +133,21 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK:
 		obj = new CBrick(atof(tokens[4].c_str()), atof(tokens[5].c_str()));
 		break;
+	case OBJECT_TYPE_BANHXE:
+		if (bx != NULL)
+		{
+			DebugOut(L"[ERROR] Banh xe object was created before!\n");
+			return;
+		}
+		obj = new BanhXe();
+		bx = (BanhXe*)obj;
+		player->SetBanhXe(bx);
+		//DebugOut(L"Create Object type: %d\n", object_type);
+		break;
+	case OBJECT_TYPE_GUN:
+		obj = new Sung();
+		//DebugOut(L"Create Object type: %d\n", object_type);
+		break;
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)
 //		{
@@ -151,7 +167,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetPosition(x, y);
 
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
+	DebugOut(L"Obj: %d , Ani_set_id: %d", object_type, ani_set_id);
 	obj->SetAnimationSet(ani_set);
 	objects.push_back(obj);
 }

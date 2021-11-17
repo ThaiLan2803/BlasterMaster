@@ -4,9 +4,8 @@
 #include "Quadtree.h"
 #include "Tank.h"
 #include "Game.h"
-#include "debug.h"
 
-/*CTank::CTank(float x, float y) : CGameObject()
+CTank::CTank(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
@@ -15,14 +14,8 @@
 	start_y = y;
 	this->x = x;
 	this->y = y;
-}*/
-CTank::CTank() :CGameObject()
-{
-	WLeft = new Wheel();
-	WRight = new Wheel();
-	this->Gun = new Gun();
-	bc = new BottomCircle();
-
+	//WLeft = new BanhXe();
+	//WLeft->LoadResources();
 }
 
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -48,12 +41,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	x += vx * dt;
-	y += vy * dt;
-	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
-	if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
-	if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;
-	if (vy > 0 && y > BOTTOM_BORDER) y = BOTTOM_BORDER;
+
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -77,13 +65,13 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-//		if (nx != 0) vx = 0;
-//		if (ny != 0) vy = 0;*/
+		//		if (nx != 0) vx = 0;
+		//		if (ny != 0) vy = 0;*/
 
-//		if (vx > 0 && x > 275 && nx == 1) { x = 275; }
-//		if (vx < 0 && x < 0 && nx == -1) { x = 0; }
-//		if (vy > 0 && y > 180 && ny == 1) { y = 180; }
-//		if (vy < 0 && y < 4 && ny == -1) { y = 4; }
+		if (vx > 0 && x > 275 && nx == 1) { x = 275; }
+		if (vx < 0 && x < 0 && nx == -1) { x = 0; }
+		if (vy > 0 && y > 180 && ny == 1) { y = 180; }
+		if (vy < 0 && y < 4 && ny == -1) { y = 4; }
 
 		//
 		// Collision logic with other objects
@@ -91,7 +79,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-		
+
 		}
 	}
 
@@ -101,19 +89,25 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CTank::Render()
 {
+	int ani = -1;
+	if (vx == 0)
+	{
+		if (nx > 0) ani = TANK_ANI_IDLE_RIGHT;
+		else ani = TANK_ANI_IDLE_LEFT;
+	}
+	else if (vx > 0)
+		ani = TANK_ANI_WALKING_RIGHT;
+	else ani = TANK_ANI_WALKING_LEFT;
 
-	int ani;
+
 	int alpha = 255;
-	if (nx>0) ani = TANK_ANI_IDLE_RIGHT;
-	else ani = TANK_ANI_IDLE_LEFT;
-	
 	if (untouchable) alpha = 128;
+
 	animation_set->at(ani)->Render(x, y, alpha);
-	WLeft->Render(x - 10, y + 10, 255);
-	WRight->Render(x + 10, y + 10, 255);
-	bc->Render(x, y + 5, 255);
-	Gun->Render(x + 100, y - 100, 255);
-//	RenderBoundingBox();
+	WLeft->NewRender(x, y+10);
+	WRight->NewRender(x+20, y + 10);
+	RenderBoundingBox();
+	DebugOut(L"State: %d", ani);
 }
 
 void CTank::SetState(int state)
@@ -138,20 +132,20 @@ void CTank::SetState(int state)
 		vy = TANK_WALKING_SPEED;
 		ny = 1;
 		break;
-//	case TANK_STATE_WALKING_DOWN:
-//		vy = TANK_WALKING_SPEED;
-//		ny = 1;
-//		break;
-//	case TANK_STATE_JUMP:
-//		vy = TANK_JUMP_SPEED_Y;
-//		break;
+		//	case TANK_STATE_WALKING_DOWN:
+		//		vy = TANK_WALKING_SPEED;
+		//		ny = 1;
+		//		break;
+		//	case TANK_STATE_JUMP:
+		//		vy = TANK_JUMP_SPEED_Y;
+		//		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
-//		vy = 0;
+		//		vy = 0;
 		break;
-//	case TANK_STATE_DIE:
-//		vy = -TANK_DIE_DEFLECT_SPEED;
-//		break;
+		//	case TANK_STATE_DIE:
+		//		vy = -TANK_DIE_DEFLECT_SPEED;
+		//		break;
 	}
 }
 
@@ -174,11 +168,7 @@ Rect CTank::GetBoundingBox()
 {
 	return Rect(Point(x, y + 6), TANK_BBOX_WIDTH - 1, TANK_BBOX_HEIGHT - 1);
 }
-
-CTank::~CTank()
+void CTank::SetBanhXe(BanhXe* bx)
 {
-	delete WLeft;
-	delete WRight;
-	delete bc;
-	delete Gun;
+	WLeft = WRight = bx;
 }

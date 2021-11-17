@@ -45,7 +45,7 @@ wstring ToWSTR(string st)
 }
 
 /*
-	Convert char* string to wchar_t* string.
+Convert char* string to wchar_t* string.
 */
 LPCWSTR ToLPCWSTR(string st)
 {

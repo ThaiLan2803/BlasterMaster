@@ -6,7 +6,7 @@
 
 #include "Sprites.h"
 #include "Animations.h"
-
+#include "Rect.h"
 
 using namespace std;
 
@@ -67,7 +67,18 @@ public:
 	LPCOLLISIONEVENT e;
 
 public: 
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+	void SetPosition(float x, float y)
+	{
+
+		try
+		{
+			this->x = x, this->y = y;
+		}
+		catch (exception e)
+		{
+
+		}
+	}
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
@@ -95,7 +106,7 @@ public:
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
+	virtual void SetState(int state) { this->state = state; };
 	virtual Rect GetBoundingBox() = 0;
 
 	~CGameObject();

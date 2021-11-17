@@ -6,7 +6,7 @@
 #include "Brick.h"
 #include "Tank.h"
 #include "Lan.h"
-
+#include "BanhXe.h"
 
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -19,6 +19,8 @@
 #define OBJECT_TYPE_TANK	0
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_LAN		2
+#define OBJECT_TYPE_BANHXE	3
+#define OBJECT_TYPE_GUN		4
 
 #define MAX_SCENE_LINE 1024
 
@@ -27,6 +29,7 @@ class CPlayScene: public CScene
 protected: 
 	CTank *player;					// A play scene has to have player, right? 
 	CLan *lan;
+	BanhXe *bx;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);

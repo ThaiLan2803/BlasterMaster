@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "Rect.h"
-#include "debug.h"
 #include "Sung.h"
 #include "BanhXe.h"
 #include "BottomCircle.h"
@@ -46,12 +45,12 @@ class CTank : public CGameObject
 	float start_x;			// initial position of TANK at scene
 	float start_y;
 protected:
-	Wheel * WLeft, *WRight;
-	Gun* Gun;
+	BanhXe * WLeft, *WRight;
+	Sung* Gun;
 	BottomCircle* bc;
 	~CTank();
 public:
-//	CTank(float x = 0.0f, float y = 0.0f);
+	CTank(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
@@ -63,4 +62,5 @@ public:
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual Rect GetBoundingBox();
+	void SetBanhXe(BanhXe* bx);
 };
