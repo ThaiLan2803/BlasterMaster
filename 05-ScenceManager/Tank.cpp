@@ -92,12 +92,27 @@ void CTank::Render()
 	int ani = -1;
 	if (vx == 0)
 	{
-		if (nx > 0) ani = TANK_ANI_IDLE_RIGHT;
-		else ani = TANK_ANI_IDLE_LEFT;
+		if (nx > 0)
+		{
+			ani = TANK_ANI_IDLE_RIGHT;
+			Gun->NewRender(x + 17, y);
+		}
+		else
+		{
+			ani = TANK_ANI_IDLE_LEFT;
+			Gun->NewRender(x, y);
+		}
 	}
 	else if (vx > 0)
+	{
 		ani = TANK_ANI_WALKING_RIGHT;
-	else ani = TANK_ANI_WALKING_LEFT;
+		Gun->NewRender(x + 17, y);
+	}
+	else
+	{
+		ani = TANK_ANI_WALKING_LEFT;
+		Gun->NewRender(x, y);
+	}
 
 
 	int alpha = 255;
@@ -106,7 +121,7 @@ void CTank::Render()
 	animation_set->at(ani)->Render(x, y, alpha);
 	WLeft->NewRender(x, y+10);
 	WRight->NewRender(x+17, y + 10);
-	Gun->NewRender(x + 17, y);
+
 	RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
@@ -124,6 +139,7 @@ void CTank::SetState(int state)
 	case TANK_STATE_WALKING_LEFT:
 		vx = -TANK_WALKING_SPEED;
 		nx = -1;
+		Gun->SetState(SUNG_ANI_IDLE_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
 		vy = -TANK_WALKING_SPEED;
