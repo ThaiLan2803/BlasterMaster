@@ -105,7 +105,8 @@ void CTank::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 	WLeft->NewRender(x, y+10);
-	WRight->NewRender(x+20, y + 10);
+	WRight->NewRender(x+17, y + 10);
+	Gun->NewRender(x + 17, y);
 	RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
@@ -171,4 +172,8 @@ Rect CTank::GetBoundingBox()
 void CTank::SetBanhXe(BanhXe* bx)
 {
 	WLeft = WRight = bx;
+}
+void CTank::SetSung(Sung* s)
+{
+	 Gun = s;
 }

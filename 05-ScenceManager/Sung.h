@@ -5,12 +5,13 @@
 #define SUNG_ANI_IDLE_LEFT		1
 
 #define SUNG_STATE_RIGHT		0
-#define SUNG_STATE_LEFT			100
+#define SUNG_STATE_LEFT			1
 
 #define SUNG_WALKING_SPEED		0.15f
 
 class Sung : public CGameObject
 {
+	int untouchable;
 public:
 	void LoadResources();
 	void Update(DWORD dt);

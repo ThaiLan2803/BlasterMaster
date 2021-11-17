@@ -19,7 +19,7 @@ class BanhXe : public CGameObject
 	int untouchable;
 	int w, h;
 public:
-	void LoadResources();
+
 	void Update(DWORD dt);
 	void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

@@ -18,6 +18,7 @@ void CPlayScene::_ParseSection_TEXTURES(string line)
 {
 	vector<string> tokens = split(line);
 
+	DebugOut(L"ID tex: %d, size: %d", atoi(tokens[0].c_str()), tokens.size());
 	if (tokens.size() < 5) return; // skip invalid lines
 
 	int texID = atoi(tokens[0].c_str());
@@ -146,6 +147,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GUN:
 		obj = new Sung();
+		s = (Sung*)obj;
+		player->SetSung(s);
 		//DebugOut(L"Create Object type: %d\n", object_type);
 		break;
 //	case OBJECT_TYPE_LAN:

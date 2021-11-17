@@ -1,7 +1,7 @@
 #include "Sung.h"
 #include "Textures.h"
 #include "Rect.h"
-
+#include "Utils.h"
 
 #define ID_TEX_SUNG_RIGHT			30
 #define ID_TEX_SUNG_LEFT 			31
@@ -13,11 +13,23 @@ void Sung::Update(DWORD dt)
 
 void Sung::NewRender(float x, float y)
 {
-	//int ani;
-	//if (nx > 0) ani = SUNG_ANI_IDLE_RIGHT;
-	//else ani = SUNG_ANI_IDLE_LEFT;
-	//animation_set->at(0)->Render(x, y);
-	//DebugOut(L"Render sung");
+	int ani = -1;
+	if (vx == 0)
+	{
+		if (nx > 0) ani = 0;
+		else ani = 1;
+	}
+	else if (vx > 0)
+		ani = SUNG_ANI_IDLE_RIGHT;
+	else ani = SUNG_ANI_IDLE_LEFT;
+
+
+	int alpha = 255;
+	if (untouchable) alpha = 128;
+	//if (animation_set)
+	animation_set->at(0)->Render(x, y, 255);
+	//else
+	DebugOut(L"Render sung");
 	
 }
 void Sung::Render()

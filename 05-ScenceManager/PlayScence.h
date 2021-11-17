@@ -7,6 +7,7 @@
 #include "Tank.h"
 #include "Lan.h"
 #include "BanhXe.h"
+#include "Sung.h"
 
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -30,6 +31,7 @@ protected:
 	CTank *player;					// A play scene has to have player, right? 
 	CLan *lan;
 	BanhXe *bx;
+	Sung *s;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
