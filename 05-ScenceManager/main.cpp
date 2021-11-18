@@ -22,7 +22,7 @@
 #include "Lan.h"
 #include "Brick.h"
 #include "PlayScence.h"
-#include "Quadtree.h"
+
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
@@ -34,7 +34,7 @@
 #define MAX_FRAME_RATE 120
 
 CGame *game;
-Quadtree* quadtree;
+
 
 
 
@@ -60,18 +60,7 @@ void Update(DWORD dt)
 	CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
-/*
-	Render a frame 
-*/
-Quadtree* CreateQuadTree(vector<LPGAMEOBJECT> list, Point p)
-{
-	// Init base game region for detecting collision
-	Quadtree* quadtree = new Quadtree(1, new Rect(p - Point(5, 5) * 16, p + Point(5, 5) * 16));
-	for (auto i = list.begin(); i != list.end(); i++)
-		quadtree->Insert(*i);
 
-	return quadtree;
-}
 void Render()
 {
 	LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();

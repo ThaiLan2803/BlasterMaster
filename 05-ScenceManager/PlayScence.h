@@ -8,7 +8,7 @@
 #include "Lan.h"
 #include "BanhXe.h"
 #include "Sung.h"
-
+#include "Quadtree.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
@@ -24,6 +24,12 @@
 #define OBJECT_TYPE_GUN		4
 
 #define MAX_SCENE_LINE 1024
+
+#define SCREEN_WIDTH 512
+#define SCREEN_HEIGHT 512
+
+#define BRICK_WIDTH 32
+#define BRICK_HEIGHT 32
 
 class CPlayScene: public CScene
 {
@@ -51,6 +57,9 @@ public:
 
 	CTank * GetPlayer() { return player; }
 	//friend class CPlayScenceKeyHandler;
+	Quadtree* CreateQuadtree(vector<LPGAMEOBJECT> list, Point p);
+	void UpdateActObj(Point p);
+	void UpdateObj(CGameObject* obj, DWORD dt);
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler
