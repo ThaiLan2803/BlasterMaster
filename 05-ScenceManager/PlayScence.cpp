@@ -59,13 +59,7 @@ void CPlayScene::UpdateObj(CGameObject* obj, DWORD dt) {
 
 	quadtree->Retrieve(_coObj, obj);
 
-	//if (obj->type != g_star)
 	_coObj->push_back(player);
-	//_coObj->push_back(cannon);
-	//coObj->push_back(boom);
-	//_coObj->push_back(star);
-	/*Map::GetInstance()->updateMap(cx, cy, tf, br);
-	Map::GetInstance()->updateMapObject(_coObj);*/
 
 	obj->Update(dt, _coObj);
 
@@ -305,14 +299,15 @@ void CPlayScene::Update(DWORD dt)
 	UpdateActObj(Point(cx, cy));
 	quadtree = CreateQuadtree(actObj, Point(cx, cy));
 
-	quadtree->Retrieve(coObj, player);
-
+	
 	player->GetPosition(cx, cy);
 	coObj->push_back(player);
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObj->push_back(objects[i]);
 	}
+
+	quadtree->Retrieve(coObj, player);
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -335,8 +330,8 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+	for (int i = 0; i < coObj->size(); i++)
+		coObj->at(i)->Render();
 }
 
 void CPlayScene::Unload()

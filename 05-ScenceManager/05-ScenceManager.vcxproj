@@ -153,6 +153,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Lan.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Rect.h" />
