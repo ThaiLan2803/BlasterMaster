@@ -9,6 +9,8 @@
 void Sung::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+	x += SUNG_WALKING_SPEED * dt;
+	y += SUNG_WALKING_SPEED * dt;
 }
 
 void Sung::NewRender(float x, float y)
@@ -34,7 +36,7 @@ void Sung::NewRender(float x, float y)
 }
 void Sung::Render()
 {
-
+	//animation_set->at(0)->Render(x, y, 255);
 }
 
 void Sung::SetState(int state)
