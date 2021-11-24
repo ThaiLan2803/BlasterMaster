@@ -183,6 +183,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
+	case OBJECT_TYPE_BACKGROUND:
+		obj = new CBackground();
+		break;
 	case OBJECT_TYPE_TANK:
 		if (player!=NULL) 
 		{
@@ -195,7 +198,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case OBJECT_TYPE_BRICK:
-		obj = new CBrick(atof(tokens[4].c_str()), atof(tokens[5].c_str()));
+		obj = new CBrick();
+		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_BANHXE:
 		if (bx != NULL)
@@ -224,6 +228,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 //
 //		DebugOut(L"[INFO] Player object created!\n");
 //		break;
+
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -302,7 +307,7 @@ void CPlayScene::Update(DWORD dt)
 	
 	player->GetPosition(cx, cy);
 	coObj->push_back(player);
-	for (size_t i = 1; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObj->push_back(objects[i]);
 	}
@@ -359,6 +364,11 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		tank->Reset();
 		break;
 	}
+}
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
+	tank->SetState(TANK_STATE_IDLE);
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states)

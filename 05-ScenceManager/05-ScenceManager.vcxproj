@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="BanhXe.cpp" />
     <ClCompile Include="BottomCircle.cpp" />
     <ClCompile Include="Brick.cpp" />
@@ -132,7 +133,6 @@
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Jason.cpp" />
     <ClCompile Include="Lan.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="BanhXe.h" />
     <ClInclude Include="BottomCircle.h" />
     <ClInclude Include="Brick.h" />
@@ -156,7 +157,6 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="Jason.h" />
     <ClInclude Include="Lan.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Rect.h" />

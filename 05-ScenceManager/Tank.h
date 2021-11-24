@@ -4,7 +4,7 @@
 #include "Sung.h"
 #include "BanhXe.h"
 #include "BottomCircle.h"
-#define TANK_WALKING_SPEED		0.15f 
+#define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
 #define TANK_GRAVITY			0.002f
@@ -25,7 +25,7 @@
 #define TANK_ANI_WALKING_UP				4
 #define TANK_ANI_WALKING_DOWN			5
 
-#define TANK_BBOX_WIDTH  24
+#define TANK_BBOX_WIDTH  20
 #define TANK_BBOX_HEIGHT 18
 
 #define TOP_BORDER  0

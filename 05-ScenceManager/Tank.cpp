@@ -24,7 +24,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += TANK_GRAVITY;
+//	vy += TANK_GRAVITY;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -161,7 +161,7 @@ void CTank::SetState(int state)
 		//		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
-		//		vy = 0;
+		vy = 0;
 		break;
 		//	case TANK_STATE_DIE:
 		//		vy = -TANK_DIE_DEFLECT_SPEED;

@@ -8,6 +8,7 @@
 #include "Lan.h"
 #include "BanhXe.h"
 #include "Sung.h"
+#include "Background.h"
 #include "Quadtree.h"
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -22,6 +23,7 @@
 #define OBJECT_TYPE_LAN		2
 #define OBJECT_TYPE_BANHXE	3
 #define OBJECT_TYPE_GUN		4
+#define OBJECT_TYPE_BACKGROUND		5
 
 #define MAX_SCENE_LINE 1024
 
@@ -38,6 +40,7 @@ protected:
 	CLan *lan;
 	BanhXe *bx;
 	Sung *s;
+
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
@@ -67,7 +70,7 @@ class CPlayScenceKeyHandler : public CScenceKeyHandler
 public: 
 	virtual void KeyState(BYTE *states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene *s) :CScenceKeyHandler(s) {};
 };
 
