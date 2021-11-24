@@ -18,8 +18,8 @@
 #define TANK_STATE_WALKING_UP			4
 #define TANK_STATE_WALKING_DOWN			5
 
-#define TANK_ANI_IDLE_RIGHT				0
-#define TANK_ANI_IDLE_LEFT				1
+#define TANK_ANI_IDLE_RIGHT				1
+#define TANK_ANI_IDLE_LEFT				0
 #define TANK_ANI_WALKING_RIGHT			2
 #define TANK_ANI_WALKING_LEFT			3
 #define TANK_ANI_WALKING_UP				4
@@ -29,9 +29,9 @@
 #define TANK_BBOX_HEIGHT 18
 
 #define TOP_BORDER  0
-#define LEFT_BORDER  0
-#define BOTTOM_BORDER  SCREEN_HEIGHT - TANK_BBOX_HEIGHT
-#define RIGHT_BORDER  SCREEN_WIDTH - TANK_BBOX_WIDTH
+#define LEFT_BORDER  15
+#define BOTTOM_BORDER  520 - TANK_BBOX_HEIGHT
+#define RIGHT_BORDER  1232 - TANK_BBOX_WIDTH
 
 #define TANK_UNTOUCHABLE_TIME 5000
 
@@ -64,4 +64,5 @@ public:
 	virtual Rect GetBoundingBox();
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);
+	void SetBtc(BottomCircle* btc);
 };

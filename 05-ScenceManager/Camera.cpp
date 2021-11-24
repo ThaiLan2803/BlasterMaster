@@ -29,8 +29,8 @@ void Camera::SetTransform(LPDIRECT3DDEVICE9 gDevice) const
 
 void Camera::Update()
 {
-	float cam_x = this->w / 2;
-	float cam_y = this->h / 2;
+	float cam_x = 0;
+		float cam_y = 0;
 	if (this->following)
 	{
 		this->following->GetPosition(cam_x, cam_y);

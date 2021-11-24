@@ -1,44 +1,32 @@
 #include "BottomCircle.h"
 #include "Textures.h"
-#include "Rect.h"
 
 #define ID_TEX_BOTTOMCIRCLE		20
 
 void BottomCircle::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+	x += vx * dt;
+	y += vy * dt;
 }
 
 void BottomCircle::Render()
 {
-	//animation_set->at(0)->Render(x, y);
 }
 
 void BottomCircle::NewRender(float a, float b)
 {
-	animation_set->at(0)->Render(a, b);
+	animation_set->at(0)->Render(a, b, 255);
 }
 
-void BottomCircle::SetState(int state)
-{
-	CGameObject::SetState(state);
-}
 void BottomCircle::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	/*left = x;
-	top = y;
-	right = x + TANK_BBOX_WIDTH;
-	bottom = y + TANK_BBOX_HEIGHT;*/
+	left = x;
+	right = y;
 }
 
 
 Rect BottomCircle::GetBoundingBox()
 {
-	return Rect(Point(x, y + 6), 0, 0);
-	//return CGameObject::GetBoundingBox();
-}
-
-void BottomCircle::LoadResources()
-{
-
+	return Rect(Point(x, y + 6), BTC_WIDTH - 1, BTC_HEIGHT - 1);
 }

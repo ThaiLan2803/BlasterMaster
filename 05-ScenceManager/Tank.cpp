@@ -25,7 +25,10 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Simple fall down
 //	vy += TANK_GRAVITY;
-
+	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
+	if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
+	if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;
+	if (vy > 0 && y > BOTTOM_BORDER) y = BOTTOM_BORDER;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -68,10 +71,10 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//		if (nx != 0) vx = 0;
 		//		if (ny != 0) vy = 0;*/
 
-		if (vx > 0 && x > 275 && nx == 1) { x = 275; }
+		/*if (vx > 0 && x > 275 && nx == 1) { x = 275; }
 		if (vx < 0 && x < 0 && nx == -1) { x = 0; }
 		if (vy > 0 && y > 180 && ny == 1) { y = 180; }
-		if (vy < 0 && y < 4 && ny == -1) { y = 4; }
+		if (vy < 0 && y < 4 && ny == -1) { y = 4; }*/
 
 		//
 		// Collision logic with other objects
@@ -90,7 +93,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani = -1;
-	if (vx == 0)
+	/*if (vx == 0)
 	{
 		if (nx > 0)
 		{
@@ -112,8 +115,18 @@ void CTank::Render()
 	{
 		ani = TANK_ANI_WALKING_LEFT;
 		Gun->NewRender(x, y);
+	}*/
+	if (nx > 0)
+	{
+		ani = TANK_ANI_IDLE_RIGHT;
+		Gun->NewRender(x + 15, y);
 	}
-
+	else
+		if (nx < 0)
+		{
+			ani = TANK_ANI_IDLE_LEFT;
+			Gun->NewRender(x - 8, y);
+		}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -121,8 +134,8 @@ void CTank::Render()
 	animation_set->at(ani)->Render(x, y, alpha);
 	WLeft->NewRender(x, y+10);
 	WRight->NewRender(x+17, y + 10);
-
-	RenderBoundingBox();
+	bc->NewRender(x + 9, y + 8);
+	//RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
 
@@ -195,4 +208,8 @@ void CTank::SetBanhXe(BanhXe* bx)
 void CTank::SetSung(Sung* s)
 {
 	 Gun = s;
+}
+void CTank::SetBtc(BottomCircle* btc)
+{
+	bc = btc;
 }

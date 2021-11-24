@@ -171,8 +171,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int object_type = atoi(tokens[0].c_str());
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
-	float x1 = atof(tokens[1].c_str());
-	float y1 = atof(tokens[2].c_str());
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
@@ -216,7 +214,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Sung();
 		s = (Sung*)obj;
 		player->SetSung(s);
-		//DebugOut(L"Create Object type: %d\n", object_type);
+		break;
+	case OBJECT_TYPE_BTC:
+		obj = new BottomCircle();
+		bc = (BottomCircle*)obj;
+		player->SetBtc((BottomCircle*)obj);
+		DebugOut(L"[INFO] connect object created!\n"); 
 		break;
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)

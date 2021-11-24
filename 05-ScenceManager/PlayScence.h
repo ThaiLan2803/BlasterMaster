@@ -8,6 +8,7 @@
 #include "Lan.h"
 #include "BanhXe.h"
 #include "Sung.h"
+#include "BottomCircle.h"
 #include "Background.h"
 #include "Quadtree.h"
 
@@ -24,11 +25,12 @@
 #define OBJECT_TYPE_BANHXE	3
 #define OBJECT_TYPE_GUN		4
 #define OBJECT_TYPE_BACKGROUND		5
+#define OBJECT_TYPE_BTC	6
 
 #define MAX_SCENE_LINE 1024
 
 #define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 512
+#define SCREEN_HEIGHT 514
 
 #define BRICK_WIDTH 32
 #define BRICK_HEIGHT 32
@@ -40,6 +42,7 @@ protected:
 	CLan *lan;
 	BanhXe *bx;
 	Sung *s;
+	BottomCircle *bc;
 
 	vector<LPGAMEOBJECT> objects;
 
