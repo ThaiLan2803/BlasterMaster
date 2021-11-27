@@ -1,8 +1,10 @@
 #include "Brick.h"
 #include "Rect.h"
+#include "Utils.h"
 
 void CBrick::Render()
 {
+
 	animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }

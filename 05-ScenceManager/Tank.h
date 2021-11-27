@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Rect.h"
 #include "Sung.h"
@@ -59,7 +59,18 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();
+	void SetPosition(float x, float y)
+	{
 
+		try
+		{
+			this->x = x, this->y = y; this->yWorld = 496 - y - 40; //40 là chiều cao con xe
+		}
+		catch (exception e)
+		{
+
+		}
+	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual Rect GetBoundingBox();
 	void SetBanhXe(BanhXe* bx);

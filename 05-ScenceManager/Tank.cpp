@@ -10,10 +10,11 @@ CTank::CTank(float x, float y) : CGameObject()
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
 
-	start_x = x;
-	start_y = y;
+//	start_x = x;
+//	start_y = 496-y;
 	this->x = x;
-	this->y = y;
+	this->y =y;
+	this->yWorld = 496 - int(y);
 	//WLeft = new BanhXe();
 	//WLeft->LoadResources();
 }
@@ -22,8 +23,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
-	// Simple fall down
+	x += vx * dt;
+	this->y += vy * dt;
+	this->yWorld = 496 - y - 40;
+	
+	//Simple fall down
 //	vy += TANK_GRAVITY;
 	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
 	if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
@@ -56,7 +60,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
-
+		
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
@@ -66,7 +70,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		this->y += min_ty * dy + ny * 0.4f;
 
 		//		if (nx != 0) vx = 0;
 		//		if (ny != 0) vy = 0;*/
@@ -93,48 +97,29 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani = -1;
-	/*if (vx == 0)
-	{
-		if (nx > 0)
-		{
-			ani = TANK_ANI_IDLE_RIGHT;
-			Gun->NewRender(x + 17, y);
-		}
-		else
-		{
-			ani = TANK_ANI_IDLE_LEFT;
-			Gun->NewRender(x, y);
-		}
-	}
-	else if (vx > 0)
-	{
-		ani = TANK_ANI_WALKING_RIGHT;
-		Gun->NewRender(x + 17, y);
-	}
-	else
-	{
-		ani = TANK_ANI_WALKING_LEFT;
-		Gun->NewRender(x, y);
-	}*/
+	
+	float xRender, yRender;
+	GetPosition(xRender, yRender);
+	DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
 	if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
-		Gun->NewRender(x + 15, y);
+		Gun->NewRender(xRender + 15, yRender);
 	}
 	else
 		if (nx < 0)
 		{
 			ani = TANK_ANI_IDLE_LEFT;
-			Gun->NewRender(x - 8, y);
+			Gun->NewRender(xRender - 8, yRender);
 		}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
-	WLeft->NewRender(x, y+10);
-	WRight->NewRender(x+17, y + 10);
-	bc->NewRender(x + 9, y + 8);
+	animation_set->at(ani)->Render(xRender, yRender, alpha);
+	WLeft->NewRender(xRender, yRender+10);
+	WRight->NewRender(xRender+17, yRender + 10);
+	bc->NewRender(xRender + 9, yRender + 8);
 	//RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
@@ -158,12 +143,10 @@ void CTank::SetState(int state)
 		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
-		vy = -TANK_WALKING_SPEED;
-		ny = -1;
+		vy = TANK_WALKING_SPEED;
 		break;
 	case TANK_STATE_WALKING_DOWN:
-		vy = TANK_WALKING_SPEED;
-		ny = 1;
+		vy = -TANK_WALKING_SPEED;
 		break;
 		//	case TANK_STATE_WALKING_DOWN:
 		//		vy = TANK_WALKING_SPEED;
@@ -186,14 +169,16 @@ void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
 	top = y;
-	right = x + TANK_BBOX_WIDTH;
-	bottom = y + TANK_BBOX_HEIGHT;
+//	right = x + TANK_BBOX_WIDTH;
+//	bottom = y + TANK_BBOX_HEIGHT;
+	right = x + 8;
+	bottom = y + 8;
 }
 
 void CTank::Reset()
 {
 	SetState(TANK_STATE_IDLE);
-	SetPosition(start_x, start_y);
+	SetPosition(start_x, 496-start_y);
 	SetSpeed(0, 0);
 }
 

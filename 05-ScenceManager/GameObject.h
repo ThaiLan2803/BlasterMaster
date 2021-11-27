@@ -47,7 +47,7 @@ public:
 
 	float x; 
 	float y;
-
+	float yWorld;
 
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
@@ -67,12 +67,12 @@ public:
 	LPCOLLISIONEVENT e;
 
 public: 
-	void SetPosition(float x, float y)
+	virtual void SetPosition(float x, float y)
 	{
 
 		try
 		{
-			this->x = x, this->y = y;
+			this->x = x, this->y = y; this->yWorld = 496 - y;
 		}
 		catch (exception e)
 		{
@@ -80,7 +80,7 @@ public:
 		}
 	}
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
+	void GetPosition(float &x, float &y) { x = this->x; y = this->yWorld; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }

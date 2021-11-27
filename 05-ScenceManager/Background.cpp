@@ -8,7 +8,7 @@ CBackground::CBackground()
 
 void CBackground::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, yWorld);
 	RenderBoundingBox();
 }
 
