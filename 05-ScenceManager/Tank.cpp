@@ -105,21 +105,25 @@ void CTank::Render()
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
 		Gun->NewRender(xRender + 15, yRender);
+		WLeft->NewRender(xRender, yRender + 10);
+		WRight->NewRender(xRender + 17, yRender + 10);
+		bc->NewRender(xRender + 9, yRender + 8);
 	}
 	else
 		if (nx < 0)
 		{
 			ani = TANK_ANI_IDLE_LEFT;
 			Gun->NewRender(xRender - 8, yRender);
+			WLeft->NewRender(xRender- 8, yRender + 10);
+			WRight->NewRender(xRender + 9, yRender + 10);
+			bc->NewRender(xRender, yRender + 8);
 		}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 	animation_set->at(ani)->Render(xRender, yRender, alpha);
-	WLeft->NewRender(xRender, yRender+10);
-	WRight->NewRender(xRender+17, yRender + 10);
-	bc->NewRender(xRender + 9, yRender + 8);
+	
 	//RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
