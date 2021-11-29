@@ -10,23 +10,19 @@ CTank::CTank(float x, float y) : CGameObject()
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
 
-//	start_x = x;
-//	start_y = 496-y;
+	start_x = x;
+	start_y = y;
 	this->x = x;
-	this->y =y;
-	this->yWorld = 496 - int(y);
-	//WLeft = new BanhXe();
-	//WLeft->LoadResources();
+	this->yWorld = 496 - float(y);
+	
 }
 
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	x += vx * dt;
 	this->y += vy * dt;
-	this->yWorld = 496 - y - 40;
-	
+	this->yWorld = 496 - y - TANK_BBOX_HEIGHT;
 	//Simple fall down
 //	vy += TANK_GRAVITY;
 	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
@@ -54,9 +50,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		x += dx;
 		y += dy;
+	
+	
 	}
 	else
 	{
+	
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
@@ -67,22 +66,14 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
-
+		
 		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-		this->y += min_ty * dy + ny * 0.4f;
+	//	x += min_tx * dx + nx * 0.4f;
+	//	y += min_ty * dy + ny * 0.4f;
+	
 
-		//		if (nx != 0) vx = 0;
-		//		if (ny != 0) vy = 0;*/
-
-		/*if (vx > 0 && x > 275 && nx == 1) { x = 275; }
-		if (vx < 0 && x < 0 && nx == -1) { x = 0; }
-		if (vy > 0 && y > 180 && ny == 1) { y = 180; }
-		if (vy < 0 && y < 4 && ny == -1) { y = 4; }*/
-
-		//
 		// Collision logic with other objects
-		//
+		
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -100,7 +91,7 @@ void CTank::Render()
 	
 	float xRender, yRender;
 	GetPosition(xRender, yRender);
-	DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
+//	DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
 	if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;

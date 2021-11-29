@@ -379,7 +379,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 	CGame *game = CGame::GetInstance();
 	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
 
-	// disable control key when Mario die 
+ 
 	if (tank->GetState() == TANK_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
 		tank->SetState(TANK_STATE_WALKING_RIGHT);

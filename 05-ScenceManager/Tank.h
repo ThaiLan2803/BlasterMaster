@@ -26,7 +26,7 @@
 #define TANK_ANI_WALKING_DOWN			5
 
 #define TANK_BBOX_WIDTH  20
-#define TANK_BBOX_HEIGHT 18
+#define TANK_BBOX_HEIGHT 40
 
 #define TOP_BORDER  0
 #define LEFT_BORDER  15
@@ -64,7 +64,7 @@ public:
 
 		try
 		{
-			this->x = x, this->y = y; this->yWorld = 496 - y - 40; //40 là chiều cao con xe
+			this->x = x, this->y = y; this->yWorld = 496 - y - TANK_BBOX_HEIGHT; 
 		}
 		catch (exception e)
 		{
