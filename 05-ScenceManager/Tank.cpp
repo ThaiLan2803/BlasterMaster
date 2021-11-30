@@ -20,9 +20,9 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	x += vx * dt;
+	/*x += vx * dt;
 	this->y += vy * dt;
-	this->yWorld = 496 - y - TANK_BBOX_HEIGHT;
+	this->yWorld = 496 - y - TANK_BBOX_HEIGHT;*/
 	//Simple fall down
 //	vy += TANK_GRAVITY;
 	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
@@ -50,7 +50,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		x += dx;
 		y += dy;
-	
+		this->yWorld = 496 - y - TANK_BBOX_HEIGHT;
 	
 	}
 	else
@@ -68,9 +68,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//	x += nx*abs(rdx); 
 		
 		// block every object first!
-	//	x += min_tx * dx + nx * 0.4f;
-	//	y += min_ty * dy + ny * 0.4f;
-	
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+		yWorld = 496 - y;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
 
 		// Collision logic with other objects
 		
@@ -115,7 +118,7 @@ void CTank::Render()
 
 	animation_set->at(ani)->Render(xRender, yRender, alpha);
 	
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	DebugOut(L"State: %d", ani);
 }
 
@@ -164,16 +167,15 @@ void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
 	top = y;
-//	right = x + TANK_BBOX_WIDTH;
-//	bottom = y + TANK_BBOX_HEIGHT;
-	right = x + 8;
-	bottom = y + 8;
+	right = x + TANK_BBOX_WIDTH;
+	bottom = yWorld + TANK_BBOX_HEIGHT;
+	
 }
 
 void CTank::Reset()
 {
 	SetState(TANK_STATE_IDLE);
-	SetPosition(start_x, 496-start_y);
+	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
 
