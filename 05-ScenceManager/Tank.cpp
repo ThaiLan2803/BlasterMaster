@@ -50,7 +50,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		x += dx;
 		y += dy;
-		this->yWorld = 496 - y - TANK_BBOX_HEIGHT;
+		yWorld = 496 - y - TANK_BBOX_HEIGHT;
 	
 	}
 	else
@@ -166,7 +166,7 @@ void CTank::SetState(int state)
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
-	top = y;
+	top = yWorld;
 	right = x + TANK_BBOX_WIDTH;
 	bottom = yWorld + TANK_BBOX_HEIGHT;
 	
@@ -178,11 +178,11 @@ void CTank::Reset()
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
-
-Rect CTank::GetBoundingBox()
-{
-	return Rect(Point(x, y + 6), TANK_BBOX_WIDTH - 1, TANK_BBOX_HEIGHT - 1);
-}
+//
+//Rect CTank::GetBoundingBox()
+//{
+//	return Rect(Point(x, y + 6), TANK_BBOX_WIDTH - 1, TANK_BBOX_HEIGHT - 1);
+//}
 void CTank::SetBanhXe(BanhXe* bx)
 {
 	WLeft = WRight = bx;

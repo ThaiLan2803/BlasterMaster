@@ -60,12 +60,12 @@ void Sung::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	bottom = y + TANK_BBOX_HEIGHT;*/
 }
 
-
-Rect Sung::GetBoundingBox()
-{
-	return Rect(Point(x, y + 6), 0,0);
-	//return CGameObject::GetBoundingBox();
-}
+//
+//Rect Sung::GetBoundingBox()
+//{
+//	return Rect(Point(x, y + 6), 0,0);
+//	//return CGameObject::GetBoundingBox();
+//}
 
 void Sung::LoadResources()
 {

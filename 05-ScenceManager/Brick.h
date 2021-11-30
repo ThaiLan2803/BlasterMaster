@@ -8,5 +8,5 @@ public:
 //	void SetPosition(float x, float y) { this->x = x, this->y = 496 - y; }
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
-	virtual Rect GetBoundingBox();
+//	virtual Rect GetBoundingBox();
 };

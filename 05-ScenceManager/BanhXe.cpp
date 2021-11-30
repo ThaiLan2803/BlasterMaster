@@ -76,9 +76,9 @@ void BanhXe::GetBoundingBox(float &l, float &t, float &r, float &b)
 //	bottom = y + TANK_BBOX_HEIGHT;*/
 //}
 
-Rect BanhXe::GetBoundingBox()
-{
-	return Rect(Point(x, y + 6), 0, 0 - 1);
-	//return new Rect();
-}
+//Rect BanhXe::GetBoundingBox()
+//{
+//	return Rect(Point(x, y + 6), 0, 0 - 1);
+//	//return new Rect();
+//}
 

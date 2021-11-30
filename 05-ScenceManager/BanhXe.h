@@ -21,7 +21,7 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual Rect GetBoundingBox();
+//	virtual Rect GetBoundingBox();
 	void SetState(int state);
 	void NewRender(float x, float y);
 };

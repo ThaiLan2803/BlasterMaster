@@ -72,7 +72,7 @@ public:
 		}
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual Rect GetBoundingBox();
+//	virtual Rect GetBoundingBox();
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);
 	void SetBtc(BottomCircle* btc);
