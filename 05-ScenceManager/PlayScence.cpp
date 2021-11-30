@@ -243,7 +243,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 	DebugOut(L"Obj: %d , Ani_set_id: %d", object_type, ani_set_id);
 	obj->SetAnimationSet(ani_set);
-	objects.push_back(obj);
+	switch (object_type)
+	{
+	case OBJECT_TYPE_GUN:
+		break;
+	case OBJECT_TYPE_BTC:
+	case OBJECT_TYPE_BANHXE:
+	default:
+		objects.push_back(obj);
+		return;
+	}
+
 }
 
 void CPlayScene::Load()
@@ -330,8 +340,8 @@ void CPlayScene::Update(DWORD dt)
 	player->GetPosition(cx, cy);
 
 	CGame *game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
+	/*cx -= game->GetScreenWidth() / 2;
+	cy -= game->GetScreenHeight() / 2;*/
 	CGame::GetInstance()->SetCamPos(player);
 	
 }

@@ -64,7 +64,7 @@ public:
 
 		try
 		{
-			this->x = x, this->y = y; this->yWorld = 496 - y - TANK_BBOX_HEIGHT; 
+			this->x = x, this->y = y; this->yWorld = 496 - y; 
 		}
 		catch (exception e)
 		{
