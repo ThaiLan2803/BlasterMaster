@@ -56,12 +56,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else
 	{
 	
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny1;
 		float rdx = 0;
 		float rdy = 0;
 		
 		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny1, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
 		//if (rdx != 0 && rdx!=dx)
@@ -69,11 +69,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-		yWorld = 496 - y;
+		y += min_ty * dy + ny1 * 0.4f;
+		
 
 		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (ny1 != 0) vy = 0;
 
 		// Collision logic with other objects
 		
@@ -141,9 +141,11 @@ void CTank::SetState(int state)
 		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
+		bool IsCollide = false;
 		vy = TANK_WALKING_SPEED;
 		break;
 	case TANK_STATE_WALKING_DOWN:
+		if (!IsCollide)
 		vy = -TANK_WALKING_SPEED;
 		break;
 		//	case TANK_STATE_WALKING_DOWN:
