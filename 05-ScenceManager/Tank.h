@@ -25,8 +25,8 @@
 #define TANK_ANI_WALKING_UP				4
 #define TANK_ANI_WALKING_DOWN			5
 
-#define TANK_BBOX_WIDTH  20
-#define TANK_BBOX_HEIGHT 40
+#define TANK_BBOX_WIDTH  25
+#define TANK_BBOX_HEIGHT 20
 
 #define TOP_BORDER  0
 #define LEFT_BORDER  15

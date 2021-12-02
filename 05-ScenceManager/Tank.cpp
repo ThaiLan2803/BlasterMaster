@@ -25,10 +25,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	this->yWorld = 496 - y - TANK_BBOX_HEIGHT;*/
 	//Simple fall down
 //	vy += TANK_GRAVITY;
-	if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
-	if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
-	if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;
-	if (vy > 0 && y > BOTTOM_BORDER) y = BOTTOM_BORDER;
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -50,7 +47,8 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		x += dx;
 		y += dy;
-		yWorld = 496 - y - TANK_BBOX_HEIGHT;
+		yWorld = 496 - y;
+		IsCollide = false;
 	
 	}
 	else
@@ -74,7 +72,10 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0) vx = 0;
 		if (ny1 != 0) vy = 0;
-
+		if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
+		if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
+		if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;
+		if (vy > 0 && y > BOTTOM_BORDER) y = BOTTOM_BORDER;
 		// Collision logic with other objects
 		
 		for (UINT i = 0; i < coEventsResult.size(); i++)

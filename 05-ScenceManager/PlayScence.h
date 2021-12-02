@@ -11,7 +11,13 @@
 #include "BottomCircle.h"
 #include "Background.h"
 #include "Quadtree.h"
-
+#include "Enemy1.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
+#include "Enemy4.h"
+#include "Enemy5.h"
+#include "Enemy6.h"
+#include "Enemy7.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -26,7 +32,13 @@
 #define OBJECT_TYPE_GUN		4
 #define OBJECT_TYPE_BACKGROUND		5
 #define OBJECT_TYPE_BTC	6
-
+#define OBJECT_TYPE_ENEMY1	7
+#define OBJECT_TYPE_ENEMY2	8
+#define OBJECT_TYPE_ENEMY3	9
+#define OBJECT_TYPE_ENEMY4	10
+#define OBJECT_TYPE_ENEMY5	11
+#define OBJECT_TYPE_ENEMY6	12
+#define OBJECT_TYPE_ENEMY7	13
 #define MAX_SCENE_LINE 1024
 
 #define SCREEN_WIDTH 320

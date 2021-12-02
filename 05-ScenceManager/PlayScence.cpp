@@ -221,6 +221,34 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player->SetBtc((BottomCircle*)obj);
 		DebugOut(L"[INFO] connect object created!\n"); 
 		break;
+	case OBJECT_TYPE_ENEMY1:
+		obj = new Enemy1();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY2:
+		obj = new Enemy3();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY3:
+		obj = new Enemy3();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY4:
+		obj = new Enemy4();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY5:
+		obj = new Enemy5();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY6:
+		obj = new Enemy6();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
+	case OBJECT_TYPE_ENEMY7:
+		obj = new Enemy7();
+		DebugOut(L"[INFO] Brick object created!\n");
+		break;
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)
 //		{
