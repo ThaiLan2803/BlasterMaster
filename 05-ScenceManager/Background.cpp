@@ -21,5 +21,5 @@ void CBackground::GetBoundingBox(float &l, float &t, float &r, float &b)
 }
 Rect CBackground::GetBoundingBox()
 {
-	return Rect(Point(0, 0 + 6), 0, 0 - 1);
+	return Rect(Point(0, 0), 0, 0 - 1);
 }
