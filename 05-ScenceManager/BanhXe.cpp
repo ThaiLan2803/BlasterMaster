@@ -31,7 +31,7 @@ void BanhXe::NewRender(float x, float y)
 	//if (animation_set)
 		animation_set->at(ani)->Render(x, y, 255);
 	//else
-		DebugOut(L"Render banhxe");
+
 }
 
 void BanhXe::SetState(int state)
@@ -68,17 +68,3 @@ void BanhXe::GetBoundingBox(float &l, float &t, float &r, float &b)
 	r = x + this->w;
 	b = y + this->h;
 }
-//void BanhXe::GetBoundingBox(float &left, float &top, float &right, float &bottom)
-//{
-//	/*left = x;
-//	top = y;
-//	right = x + TANK_BBOX_WIDTH;
-//	bottom = y + TANK_BBOX_HEIGHT;*/
-//}
-
-//Rect BanhXe::GetBoundingBox()
-//{
-//	return Rect(Point(x, y + 6), 0, 0 - 1);
-//	//return new Rect();
-//}
-

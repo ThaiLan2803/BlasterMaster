@@ -44,7 +44,7 @@ class CTank : public CGameObject
 
 	float start_x;			// initial position of TANK at scene
 	float start_y;
-	bool IsCollide = false;
+	//bool IsCollide = false;
 protected:
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;

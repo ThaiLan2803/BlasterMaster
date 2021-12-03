@@ -124,12 +124,12 @@ void CGameObject::RenderBoundingBox()
 	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
+	rect.left = 7;
 	rect.top = 0;
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
-
-	CGame::GetInstance()->Draw(x, yWorld, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+//	DebugOut(L"Bounding box y: %d \n", int(yWorld));
+	CGame::GetInstance()->Draw(x,yWorld, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
 

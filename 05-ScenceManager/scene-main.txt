@@ -4587,7 +4587,7 @@
 #background
 5	0	496	4
 #tank
-0	0	40	0
+0	200	200	0
 #lan
 2	0	2	1
 #banhxe

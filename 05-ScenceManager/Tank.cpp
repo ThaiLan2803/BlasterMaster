@@ -13,7 +13,7 @@ CTank::CTank(float x, float y) : CGameObject()
 	start_x = x;
 	start_y = y;
 	this->x = x;
-	this->yWorld = 496 - float(y);
+	//this->yWorld = 496 - float(y);
 	
 }
 
@@ -48,7 +48,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += dx;
 		y += dy;
 		yWorld = 496 - y;
-		IsCollide = false;
+		//IsCollide = false;
 	
 	}
 	else
@@ -95,7 +95,7 @@ void CTank::Render()
 	
 	float xRender, yRender;
 	GetPosition(xRender, yRender);
-//	DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
+	//DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
 	if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
@@ -118,9 +118,8 @@ void CTank::Render()
 	if (untouchable) alpha = 128;
 
 	animation_set->at(ani)->Render(xRender, yRender, alpha);
-	
+//	DebugOut(L"Tank y: %d \n",int(yWorld));
 	RenderBoundingBox();
-	DebugOut(L"State: %d", ani);
 }
 
 void CTank::SetState(int state)
@@ -142,11 +141,11 @@ void CTank::SetState(int state)
 		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
-		bool IsCollide = false;
+		//bool IsCollide = false;
 		vy = TANK_WALKING_SPEED;
 		break;
 	case TANK_STATE_WALKING_DOWN:
-		if (!IsCollide)
+		//if (!IsCollide)
 		vy = -TANK_WALKING_SPEED;
 		break;
 		//	case TANK_STATE_WALKING_DOWN:

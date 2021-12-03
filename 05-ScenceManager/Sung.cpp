@@ -28,9 +28,7 @@ void Sung::NewRender(float x, float y)
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animation_set->at(ani)->Render(x, y, 255);
-	DebugOut(L"Render sung");
-	
+	animation_set->at(ani)->Render(x, y, 255);	
 }
 void Sung::Render()
 {

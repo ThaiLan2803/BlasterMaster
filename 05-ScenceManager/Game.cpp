@@ -70,6 +70,7 @@ void CGame::Init(HWND hWnd, int width, int height)
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
+//	DebugOut(L"Cam y: %d \n", y);
 	if (camera)
 	{
 		camera->SetTransform(this->GetDirect3DDevice());
