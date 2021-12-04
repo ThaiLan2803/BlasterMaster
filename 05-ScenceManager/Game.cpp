@@ -75,6 +75,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	{
 		camera->SetTransform(this->GetDirect3DDevice());
 	}
+	camera->FlipY(y);
 	D3DXVECTOR3 p(x-camera->GetPosition().x, y- camera->GetPosition().y, 0);
 	RECT r; 
 	r.left = left;
@@ -407,14 +408,10 @@ void CGame::SwitchScene(int scene_id)
 	s->Load();	
 }
 
-void CGame::SetCamPos(CTank *main) {
+void CGame::SetCamPos(CTank *tank) {
 	if (camera)
-		camera->Follow(main);
+		camera->Follow(tank);
 	camera->Update();
 }
 
-//void CGame::SetCamPos(CChassis *main) {
-//	if (camera)
-//		camera->Follow(main);
-//	camera->Update();
-//}
+

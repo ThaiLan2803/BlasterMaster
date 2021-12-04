@@ -47,7 +47,7 @@ public:
 
 	float x; 
 	float y;
-	float yWorld;
+	
 
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
@@ -72,7 +72,7 @@ public:
 
 		try
 		{
-			this->x = x, this->y = y; this->yWorld = 496 - y;
+			this->x = x, this->y = y; this->y = 496 - y;
 		}
 		catch (exception e)
 		{
@@ -80,7 +80,7 @@ public:
 		}
 	}
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->yWorld; }
+	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }

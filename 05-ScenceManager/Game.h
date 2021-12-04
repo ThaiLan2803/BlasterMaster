@@ -93,7 +93,7 @@ public:
 	int GetBackBufferHeight() { return backBufferHeight; }
 
 	static CGame * GetInstance();
-	void SetCamPos(CTank* main);
+	void SetCamPos(CTank* tank);
 	//void SetCamPos(CChassis* main);
 	~CGame();
 };

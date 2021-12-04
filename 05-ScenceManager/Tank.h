@@ -7,7 +7,7 @@
 #define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
-#define TANK_GRAVITY			0.002f
+#define TANK_GRAVITY			0.01f
 #define TANK_DIE_DEFLECT_SPEED	0.5f
 
 #define TANK_STATE_IDLE					0
@@ -65,7 +65,7 @@ public:
 
 		try
 		{
-			this->x = x, this->y = y; this->yWorld = 496 - y; 
+			this->x = x, this->y = y; this->y = y; 
 		}
 		catch (exception e)
 		{
