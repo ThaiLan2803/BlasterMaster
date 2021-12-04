@@ -35,7 +35,7 @@ void Camera::Update()
 	{
 		this->following->GetPosition(cam_x, cam_y);
 	}
-	FlipY(cam_y);
+	cam_y = 496 - cam_y;
 	this->Matrix = D3DXMATRIX(
 		scale.x * cos(corner), scale.x * sin(corner), 0, 0,
 		-scale.y * sin(corner), scale.y * cos(corner), 0, 0, 

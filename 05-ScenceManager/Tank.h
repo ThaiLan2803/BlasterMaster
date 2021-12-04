@@ -7,7 +7,7 @@
 #define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
-#define TANK_GRAVITY			0.01f
+#define TANK_GRAVITY			-0.01f
 #define TANK_DIE_DEFLECT_SPEED	0.5f
 
 #define TANK_STATE_IDLE					0
@@ -17,6 +17,7 @@
 #define TANK_STATE_DIE					-1
 #define TANK_STATE_WALKING_UP			4
 #define TANK_STATE_WALKING_DOWN			5
+#define TANK_STATE_STOP					6
 
 #define TANK_ANI_IDLE_RIGHT				1
 #define TANK_ANI_IDLE_LEFT				0

@@ -72,7 +72,7 @@ public:
 
 		try
 		{
-			this->x = x, this->y = y; this->y = 496 - y;
+			this->x = x, this->y = y; 
 		}
 		catch (exception e)
 		{

@@ -10,8 +10,8 @@ CTank::CTank(float x, float y) : CGameObject()
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
 
-	start_x = x;
-	start_y = y;
+	//start_x = x;
+	//start_y = y;
 	this->x = x;
 	this->y = y;
 	//this->yWorld = 496 - float(y);
@@ -101,18 +101,18 @@ void CTank::Render()
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
 		Gun->NewRender(x + 15, y);
-		WLeft->NewRender(x, y+ 10);
-		WRight->NewRender(x + 17, y + 10);
-		bc->NewRender(x + 9, y + 8);
+		WLeft->NewRender(x, y- 10);
+		WRight->NewRender(x + 17, y - 10);
+		bc->NewRender(x + 9, y - 8);
 	}
 	else
 		if (nx < 0)
 		{
 			ani = TANK_ANI_IDLE_LEFT;
 			Gun->NewRender(x - 8, y);
-			WLeft->NewRender(x- 8, y + 10);
-			WRight->NewRender(x + 9, y + 10);
-			bc->NewRender(x, y + 8);
+			WLeft->NewRender(x- 8, y - 10);
+			WRight->NewRender(x + 9, y - 10);
+			bc->NewRender(x, y - 8);
 		}
 
 	int alpha = 255;
@@ -149,29 +149,32 @@ void CTank::SetState(int state)
 		//if (!IsCollide)
 		vy = -TANK_WALKING_SPEED;
 		break;
-		//	case TANK_STATE_WALKING_DOWN:
-		//		vy = TANK_WALKING_SPEED;
-		//		ny = 1;
-		//		break;
-		//	case TANK_STATE_JUMP:
-		//		vy = TANK_JUMP_SPEED_Y;
-		//		break;
+	/*case TANK_STATE_JUMP:
+		vy = TANK_JUMP_SPEED_Y;
+		break;*/
 	case TANK_STATE_IDLE:
 		vx = 0;
 		vy = 0;
+		if (WLeft && WRight)
+		{
+			WLeft->SetState(BANHXE_STATE_IDLE);
+			WRight->SetState(BANHXE_STATE_IDLE);
+		}
 		break;
-		//	case TANK_STATE_DIE:
-		//		vy = -TANK_DIE_DEFLECT_SPEED;
-		//		break;
+	case TANK_STATE_STOP:
+		vy = vx = 0;
+		WLeft->SetState(BANHXE_STATE_IDLE);
+		WRight->SetState(BANHXE_STATE_IDLE);
+		break;
 	}
 }
 
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
-	top = y;
+	top = y - 11;
 	right = x + TANK_BBOX_WIDTH;
-	bottom = y + TANK_BBOX_HEIGHT;
+	bottom = y + TANK_BBOX_HEIGHT -11;
 	
 }
 

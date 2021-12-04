@@ -19,17 +19,15 @@ void BanhXe::Render()
 
 void BanhXe::NewRender(float x, float y)
 {
-	int ani = -1;
-	if (nx > 0)
-		ani = BANHXE_ANI_WALKING_RIGHT;
+	int ani;
+	if (vx == 0) ani = BANHXE_STATE_IDLE;
 	else
-		ani = BANHXE_ANI_WALKING_LEFT;
-
-
-	int alpha = 255;
-	if (untouchable) alpha = 128;
+		if (vx > 0)
+			ani = BANHXE_ANI_WALKING_RIGHT;
+		else
+			ani = BANHXE_ANI_WALKING_LEFT;
 	//if (animation_set)
-		animation_set->at(ani)->Render(x, y, 255);
+		animation_set->at(ani)->Render(x, y);
 	//else
 
 }
@@ -47,11 +45,11 @@ void BanhXe::SetState(int state)
 		vx = -BANHXE_WALKING_SPEED;
 		nx = -1;
 		break;
-	case BANHXE_STATE_JUMP:
+	case BANHXE_STATE_UP:
 		vy = -BANHXE_WALKING_SPEED;
 
 	case BANHXE_STATE_IDLE:
-		vx = 0;
+		vx = 0, vy =0;
 		break;
 
 	case BANHXE_STATE_DOWN:
@@ -65,6 +63,6 @@ void BanhXe::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;
 	t = y;
-	r = x + this->w;
-	b = y + this->h;
+	/*r = x + this->w;
+	b = y + this->h;*/
 }

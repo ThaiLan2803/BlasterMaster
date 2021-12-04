@@ -200,11 +200,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_BANHXE:
-		if (bx != NULL)
+		/*if (bx != NULL)
 		{
 			DebugOut(L"[ERROR] Banh xe object was created before!\n");
 			return;
-		}
+		}*/
 		obj = new BanhXe();
 		bx = (BanhXe*)obj;
 		player->SetBanhXe(bx);
@@ -409,7 +409,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
 	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
-	tank->SetState(TANK_STATE_IDLE);
+	tank->SetState(TANK_STATE_STOP);
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states)
