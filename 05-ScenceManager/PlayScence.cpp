@@ -427,8 +427,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(TANK_STATE_WALKING_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
 		tank->SetState(TANK_STATE_WALKING_DOWN);
-//	else if (game->IsKeyDown(DIK_SPACE))
-//		tank->SetState(TANK_STATE_JUMP);
+	else if (game->IsKeyDown(DIK_SPACE))
+		tank->SetState(TANK_STATE_JUMP);
 	else
 		tank->SetState(TANK_STATE_IDLE);
 }

@@ -21,9 +21,7 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	/*x += vx * dt;
-	this->y += vy * dt;
-	this->yWorld = 496 - y - TANK_BBOX_HEIGHT;*/
+	
 	//Simple fall down
 	vy = TANK_GRAVITY*dt;
 
@@ -49,7 +47,6 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += dx;
 		y += dy;
 	
-//		IsCollide = false;
 	
 	}
 	else
@@ -63,8 +60,8 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny1, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
+		if (rdx != 0 && rdx!=dx)
+		x += nx*abs(rdx); 
 		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
@@ -149,9 +146,9 @@ void CTank::SetState(int state)
 		//if (!IsCollide)
 		vy = -TANK_WALKING_SPEED;
 		break;
-	/*case TANK_STATE_JUMP:
+	case TANK_STATE_JUMP:
 		vy = TANK_JUMP_SPEED_Y;
-		break;*/
+		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
 		vy = 0;
