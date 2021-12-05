@@ -129,6 +129,7 @@
     <ClCompile Include="BanhXe.cpp" />
     <ClCompile Include="BottomCircle.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Enemy1.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="BanhXe.h" />
     <ClInclude Include="BottomCircle.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Enemy1.h" />
