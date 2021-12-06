@@ -18,6 +18,7 @@
 #include "Enemy5.h"
 #include "Enemy6.h"
 #include "Enemy7.h"
+#include "Bullet.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -39,6 +40,7 @@
 #define OBJECT_TYPE_ENEMY5	11
 #define OBJECT_TYPE_ENEMY6	12
 #define OBJECT_TYPE_ENEMY7	13
+#define OBJECT_TYPE_BULLET	14
 #define MAX_SCENE_LINE 1024
 
 #define SCREEN_WIDTH 320
@@ -46,6 +48,8 @@
 
 #define BRICK_WIDTH 32
 #define BRICK_HEIGHT 32
+
+#define BULLET_DISTANCE	10
 
 class CPlayScene: public CScene
 {
@@ -57,7 +61,7 @@ protected:
 	BottomCircle *bc;
 
 	vector<LPGAMEOBJECT> objects;
-
+	vector<LPGAMEOBJECT> bullets;
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -74,6 +78,8 @@ public:
 	virtual void Unload();
 
 	CTank * GetPlayer() { return player; }
+	vector<LPGAMEOBJECT> GetBullets() { return bullets; };
+	Bullet* CreateBullet();
 	//friend class CPlayScenceKeyHandler;
 	Quadtree* CreateQuadtree(vector<LPGAMEOBJECT> list, Point p);
 	void UpdateActObj(Point p);

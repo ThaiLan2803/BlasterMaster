@@ -6,7 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Quadtree.h"
-
+#include "Bullet.h"
 
 vector<vector<int>> MapTile;
 vector<vector<vector<int>>> MapObj;
@@ -18,7 +18,7 @@ int lx, ly;
 int Stage;
 Point tf, br;
 Quadtree* quadtree;
-
+Bullet* bullet;
 Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> list, Point p)
 {
 	// Init base game region for detecting collision
@@ -249,6 +249,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Enemy7();
 		DebugOut(L"[INFO] Brick object created!\n");
 		break;
+	case OBJECT_TYPE_BULLET:
+		obj = new Bullet();
+		break;
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)
 //		{
@@ -275,13 +278,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_GUN:
 		break;
-	case OBJECT_TYPE_BTC:
-	case OBJECT_TYPE_BANHXE:
+	case OBJECT_TYPE_BTC: break;
+	case OBJECT_TYPE_BANHXE: break;
+	case OBJECT_TYPE_BULLET:
+		bullets.push_back(obj);
+		bullet = (Bullet*)obj;
+		break;
 	default:
 		objects.push_back(obj);
 		return;
 	}
 
+}
+Bullet* CPlayScene::CreateBullet()
+{
+	Bullet *bullet = new Bullet();
+	return bullet;
 }
 
 void CPlayScene::Load()
@@ -365,13 +377,20 @@ void CPlayScene::Update(DWORD dt)
 
 	// Update camera to follow mario
 	player->Update(dt, coObj);
+	if (bullets.size()>0)
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets[i]->Update(dt, coObj);
+		};
 	player->GetPosition(cx, cy);
 
 	CGame *game = CGame::GetInstance();
 	/*cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;*/
 	CGame::GetInstance()->SetCamPos(player);
-	
+	if (bullets.size()>0)
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets[i]->Render();
+		};
 }
 
 void CPlayScene::Render()
@@ -416,7 +435,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
 	CGame *game = CGame::GetInstance();
 	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
-
+	vector<LPGAMEOBJECT> bullets = ((CPlayScene*)scence)->GetBullets();
  
 	if (tank->GetState() == TANK_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
