@@ -4,6 +4,8 @@
 #include "Sung.h"
 #include "BanhXe.h"
 #include "BottomCircle.h"
+#include "Enemy2.h"
+
 #define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f

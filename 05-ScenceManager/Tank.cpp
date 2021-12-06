@@ -9,13 +9,11 @@ CTank::CTank(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
-
 	//start_x = x;
 	//start_y = y;
 	this->x = x;
 	this->y = y;
-	//this->yWorld = 496 - float(y);
-	
+	//this->yWorld = 496 - float(y);	
 }
 
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -24,7 +22,6 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	//Simple fall down
 	vy = TANK_GRAVITY*dt;
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -79,7 +76,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
+			if (dynamic_cast<Enemy2*>(e->obj))
+			{
+				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
+				e2->SetState(ENEMY2_ANI_DIE);
+			}
 		}
 	}
 

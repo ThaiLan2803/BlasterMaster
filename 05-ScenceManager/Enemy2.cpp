@@ -53,7 +53,5 @@ void Enemy2::SetState(int state)
 		vx = 0;
 		vy = 0;
 		break;
-	case ENEMY2_STATE_WALKING:
-		vx = -ENEMY2_WALKING_SPEED;
 	}
 }
