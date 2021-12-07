@@ -49,12 +49,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else
 	{
 	
-		float min_tx, min_ty, nx = 0, ny1;
+		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 		
 		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny1, rdx, rdy);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
 		if (rdx != 0 && rdx!=dx)
@@ -62,11 +62,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny1 * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
 //		IsCollide = true;
 
 		if (nx != 0) vx = 0;
-		if (ny1 != 0) vy = 0;
+		if (ny != 0) vy = 0;
 		/*if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
 		if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
 		if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;

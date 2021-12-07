@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Game.h"
-
+#include "Brick.h"
 #define BULLET_HEIGHT	8
 #define BULLET_WIDTH	20
 

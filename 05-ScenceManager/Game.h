@@ -94,7 +94,7 @@ public:
 
 	static CGame * GetInstance();
 	void SetCamPos(CTank* tank);
-	//void SetCamPos(CChassis* main);
+	void GetCamPos(float& x, float& y);
 	~CGame();
 };
 

@@ -448,6 +448,16 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(TANK_STATE_WALKING_DOWN);
 	else if (game->IsKeyDown(DIK_SPACE))
 		tank->SetState(TANK_STATE_JUMP);
+	else if (game->IsKeyDown(DIK_A))
+	{
+		float bulletX, bulletY;
+		tank->GetPosition(bulletX, bulletY);
+		Bullet *b = new Bullet();
+		b->SetAnimationSet(bullet->animation_set);
+		b->SetPosition(bulletX, bulletY);
+		bullets.push_back(b);
+//		DebugOut(L"Size: %d", (int)bullets.size());
+	}
 	else
 		tank->SetState(TANK_STATE_IDLE);
 }
