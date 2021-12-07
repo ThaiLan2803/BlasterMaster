@@ -16,7 +16,8 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	
+	for (int i = 0; i < bullets.size(); i++)
+		bullets[i]->Update(dt, coObjects);
 	//Simple fall down
 	vy = TANK_GRAVITY*dt;
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -113,6 +114,8 @@ void CTank::Render()
 	if (untouchable) alpha = 128;
 
 	animation_set->at(ani)->Render(x, y, alpha);
+	for (int i = 0; i < bullets.size(); i++)
+		bullets[i]->Render();
 	RenderBoundingBox();
 }
 
@@ -152,6 +155,9 @@ void CTank::SetState(int state)
 			WRight->SetState(BANHXE_STATE_IDLE);
 		}
 		break;
+	case TANK_STATE_BULLET:
+		this->Shoot();
+		break;
 	case TANK_STATE_STOP:
 		vy = vx = 0;
 		WLeft->SetState(BANHXE_STATE_IDLE);
@@ -175,11 +181,6 @@ void CTank::Reset()
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
-//
-//Rect CTank::GetBoundingBox()
-//{
-//	return Rect(Point(x, y + 6), TANK_BBOX_WIDTH - 1, TANK_BBOX_HEIGHT - 1);
-//}
 void CTank::SetBanhXe(BanhXe* bx)
 {
 	WLeft = WRight = bx;
@@ -191,4 +192,16 @@ void CTank::SetSung(Sung* s)
 void CTank::SetBtc(BottomCircle* btc)
 {
 	bc = btc;
+}
+void CTank::addBullet(Bullet* bulletF)
+{
+	bullet = bulletF;
+}
+void CTank::Shoot()
+{
+	Bullet* newBullet = new Bullet(nx);
+	newBullet->SetAnimationSet(bullet->animation_set);
+	newBullet->SetPosition(x, y);
+	bullets.push_back(newBullet);
+	this->SetState(TANK_STATE_IDLE);
 }

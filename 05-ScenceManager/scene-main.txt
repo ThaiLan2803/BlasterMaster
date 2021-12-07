@@ -1,5 +1,5 @@
 [TEXTURES]
-0	textures\tank.png	255	255	255
+0	textures\tank.png	0	0	0
 1	textures\carright.png	255	255	255
 2	textures\carleft.png	255	255	255
 3	textures\map1.png	0	0	0

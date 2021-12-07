@@ -8,6 +8,7 @@
 #include "Enemy3.h"
 #include "Enemy4.h"
 #include "Enemy5.h"
+#include "Bullet.h"
 #define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
@@ -22,6 +23,7 @@
 #define TANK_STATE_WALKING_UP			4
 #define TANK_STATE_WALKING_DOWN			5
 #define TANK_STATE_STOP					6
+#define TANK_STATE_BULLET				7
 
 #define TANK_ANI_IDLE_RIGHT				1
 #define TANK_ANI_IDLE_LEFT				0
@@ -49,11 +51,12 @@ class CTank : public CGameObject
 
 	float start_x;			// initial position of TANK at scene
 	float start_y;
-	//bool IsCollide = false;
+	vector<LPGAMEOBJECT> bullets;
 protected:
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;
 	BottomCircle* bc;
+	Bullet* bullet;
 	~CTank();
 public:
 	CTank(float x = 0.0f, float y = 0.0f);
@@ -78,7 +81,8 @@ public:
 		}
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-//	virtual Rect GetBoundingBox();
+	void addBullet(Bullet* bulletF);
+	void Shoot();
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);
 	void SetBtc(BottomCircle* btc);

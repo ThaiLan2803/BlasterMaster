@@ -8,7 +8,7 @@
 class Bullet : public CGameObject
 {
 public:
-	virtual Bullet* clone() const { return new Bullet(*this); }
+	Bullet(int nx);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
