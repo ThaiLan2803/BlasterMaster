@@ -11,6 +11,5 @@ public:
 	void NewRender(float x, float y);
 	void SetState(int state) { this->state = state; }
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual Rect GetBoundingBox();
-};
+	};
 

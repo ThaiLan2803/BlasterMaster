@@ -26,7 +26,3 @@ void BottomCircle::GetBoundingBox(float &left, float &top, float &right, float &
 }
 
 
-Rect BottomCircle::GetBoundingBox()
-{
-	return Rect(Point(x, y + 6), BTC_WIDTH - 1, BTC_HEIGHT - 1);
-}

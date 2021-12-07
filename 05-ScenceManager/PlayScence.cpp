@@ -122,12 +122,11 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 
 	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
 
-	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
 	LPANIMATION ani = new CAnimation();
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (int i = 1; i < tokens.size(); i += 2)	
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i+1].c_str());
@@ -163,8 +162,6 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
-
-	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
 	if (tokens.size() < 3) return; // skip invalid lines - an object set must have at least id, x, y
 
@@ -208,7 +205,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new BanhXe();
 		bx = (BanhXe*)obj;
 		player->SetBanhXe(bx);
-		//DebugOut(L"Create Object type: %d\n", object_type);
 		break;
 	case OBJECT_TYPE_GUN:
 		obj = new Sung();
@@ -223,31 +219,24 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY1:
 		obj = new Enemy1();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_ENEMY2:
-		obj = new Enemy3();
-		DebugOut(L"[INFO] Brick object created!\n");
+		obj = new Enemy2();
 		break;
 	case OBJECT_TYPE_ENEMY3:
 		obj = new Enemy3();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_ENEMY4:
 		obj = new Enemy4();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_ENEMY5:
 		obj = new Enemy5();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_ENEMY6:
 		obj = new Enemy6();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_ENEMY7:
 		obj = new Enemy7();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet();
@@ -264,7 +253,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 //		break;
 
 	default:
-		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
 	}
 
@@ -272,7 +260,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetPosition(x, y);
 
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-	DebugOut(L"Obj: %d , Ani_set_id: %d", object_type, ani_set_id);
+//	DebugOut(L"Obj: %d , Ani_set_id: %d", object_type, ani_set_id);
 	obj->SetAnimationSet(ani_set);
 	switch (object_type)
 	{
@@ -456,7 +444,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		b->SetAnimationSet(bullet->animation_set);
 		b->SetPosition(bulletX, bulletY);
 		bullets.push_back(b);
-//		DebugOut(L"Size: %d", (int)bullets.size());
 	}
 	else
 		tank->SetState(TANK_STATE_IDLE);

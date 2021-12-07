@@ -1,4 +1,5 @@
 #include "Enemy2.h"
+#include "Utils.h"
 Enemy2::Enemy2()
 {
 	SetState(ENEMY2_STATE_WALKING);
@@ -16,10 +17,6 @@ void Enemy2::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
 	x += dx;
 	y += dy;
 
@@ -34,13 +31,12 @@ void Enemy2::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy2::Render()
 {
+	DebugOut(L"Enemy 2 \n");
 	int ani = ENEMY2_ANI_WALKING;
-	if (state == ENEMY2_STATE_DIE) {
-		ani = ENEMY2_ANI_DIE;
-	}
-
-	animation_set->at(ani)->Render(x, y);
-
+	if (state != ENEMY2_STATE_DIE)
+		animation_set->at(ani)->Render(x, y);
+	else
+		return;
 	//RenderBoundingBox();
 }
 
@@ -49,7 +45,11 @@ void Enemy2::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
+	case ENEMY2_STATE_WALKING:
+		vx = 0.01f;
+		break;
 	case ENEMY2_STATE_DIE:
+		DebugOut(L"Set state die Enemy 2 \n");
 		vx = 0;
 		vy = 0;
 		break;

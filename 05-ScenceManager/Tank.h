@@ -5,7 +5,9 @@
 #include "BanhXe.h"
 #include "BottomCircle.h"
 #include "Enemy2.h"
-
+#include "Enemy3.h"
+#include "Enemy4.h"
+#include "Enemy5.h"
 #define TANK_WALKING_SPEED		0.1f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
@@ -28,7 +30,7 @@
 #define TANK_ANI_WALKING_UP				4
 #define TANK_ANI_WALKING_DOWN			5
 
-#define TANK_BBOX_WIDTH  30
+#define TANK_BBOX_WIDTH  20
 #define TANK_BBOX_HEIGHT 20
 
 #define TOP_BORDER  0

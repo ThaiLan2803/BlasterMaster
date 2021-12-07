@@ -13,11 +13,6 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;
 	t = y;
-	r = x + BRICK_BBOX_WIDTH;
-	b = y + BRICK_BBOX_HEIGHT;
+	r = x + BRICK_BBOX_WIDTH + 8;
+	b = y + BRICK_BBOX_HEIGHT-8;
 }
-//Rect CBrick::GetBoundingBox()
-//{
-//	return Rect(Point(x, yWorld + 6), BRICK_BBOX_WIDTH - 1, BRICK_BBOX_HEIGHT - 1);
-//	//return new Rect();
-//}

@@ -9,11 +9,8 @@ CTank::CTank(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(TANK_STATE_IDLE);
-	//start_x = x;
-	//start_y = y;
 	this->x = x;
 	this->y = y;
-	//this->yWorld = 496 - float(y);	
 }
 
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -78,9 +75,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Enemy2*>(e->obj))
 			{
+				DebugOut(L"Collide with 2");
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
-				e2->SetState(ENEMY2_ANI_DIE);
+				e2->SetState(ENEMY2_STATE_DIE);
 			}
+			
 		}
 	}
 
@@ -92,9 +91,6 @@ void CTank::Render()
 {
 	int ani = -1;
 	
-//	float xRender, yRender;
-//	GetPosition(xRender, yRender);
-	//DebugOut(L"Tank render x: %d, y: %d \n", int(xRender), int(y));
 	if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
@@ -117,7 +113,6 @@ void CTank::Render()
 	if (untouchable) alpha = 128;
 
 	animation_set->at(ani)->Render(x, y, alpha);
-//	DebugOut(L"Tank y: %d \n",int(yWorld));
 	RenderBoundingBox();
 }
 
@@ -140,11 +135,9 @@ void CTank::SetState(int state)
 		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
-		//bool IsCollide = false;
 		vy = TANK_WALKING_SPEED;
 		break;
 	case TANK_STATE_WALKING_DOWN:
-		//if (!IsCollide)
 		vy = -TANK_WALKING_SPEED;
 		break;
 	case TANK_STATE_JUMP:
@@ -169,7 +162,7 @@ void CTank::SetState(int state)
 
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
+	left = x + 5;
 	top = y - 11;
 	right = x + TANK_BBOX_WIDTH;
 	bottom = y + TANK_BBOX_HEIGHT -11;
