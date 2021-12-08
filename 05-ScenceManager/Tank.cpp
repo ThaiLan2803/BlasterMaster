@@ -55,8 +55,8 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		if (rdx != 0 && rdx!=dx)
-		x += nx*abs(rdx); 
+		/*if (rdx != 0 && rdx!=dx)
+		x += nx*abs(rdx); */
 		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
@@ -76,7 +76,6 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Enemy2*>(e->obj))
 			{
-				DebugOut(L"Collide with 2");
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
 				e2->SetState(ENEMY2_STATE_DIE);
 			}
@@ -95,25 +94,28 @@ void CTank::Render()
 	if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
-		Gun->NewRender(x + 15, y);
-		WLeft->NewRender(x, y- 10);
+		Gun->NewRender(x + 14, y);
+		/*WLeft->NewRender(x, y- 10);
 		WRight->NewRender(x + 17, y - 10);
-		bc->NewRender(x + 9, y - 8);
+		bc->NewRender(x + 9, y - 8);*/
 	}
 	else
 		if (nx < 0)
 		{
 			ani = TANK_ANI_IDLE_LEFT;
-			Gun->NewRender(x - 8, y);
-			WLeft->NewRender(x- 8, y - 10);
+			Gun->NewRender(x - 7, y);
+			/*WLeft->NewRender(x- 8, y - 10);
 			WRight->NewRender(x + 9, y - 10);
-			bc->NewRender(x, y - 8);
+			bc->NewRender(x, y - 8);*/
 		}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 	animation_set->at(ani)->Render(x, y, alpha);
+	WLeft->NewRender(x - 5, y - 12);
+	WRight->NewRender(x + 10, y - 12);
+	bc->NewRender(x+3, y - 8);
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
 	RenderBoundingBox();
@@ -130,12 +132,14 @@ void CTank::SetState(int state)
 		nx = 1;
 		WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
 		WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
+		bullet->SetState(DAN_ANI_RIGHT);
 		break;
 	case TANK_STATE_WALKING_LEFT:
 		vx = -TANK_WALKING_SPEED;
 		nx = -1;
 		WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
 		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
+		bullet->SetState(DAN_ANI_LEFT);
 		break;
 	case TANK_STATE_WALKING_UP:
 		vy = TANK_WALKING_SPEED;
@@ -168,7 +172,7 @@ void CTank::SetState(int state)
 
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x + 5;
+	left = x;
 	top = y - 11;
 	right = x + TANK_BBOX_WIDTH;
 	bottom = y + TANK_BBOX_HEIGHT -11;

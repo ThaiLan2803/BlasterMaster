@@ -359,10 +359,7 @@ void CPlayScene::Update(DWORD dt)
 
 	// Update camera to follow mario
 	player->Update(dt, coObj);
-	if (bullets.size()>0)
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets[i]->Update(dt, coObj);
-		};
+	
 	player->GetPosition(cx, cy);
 
 	CGame *game = CGame::GetInstance();

@@ -1,10 +1,11 @@
 #pragma once
 #include "GameObject.h"
-#include "Game.h"
-#include "Brick.h"
+
 #define BULLET_HEIGHT	8
 #define BULLET_WIDTH	20
 
+#define DAN_ANI_LEFT	0
+#define DAN_ANI_RIGHT	1
 class Bullet : public CGameObject
 {
 public:

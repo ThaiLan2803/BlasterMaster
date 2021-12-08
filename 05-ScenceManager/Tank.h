@@ -9,11 +9,11 @@
 #include "Enemy4.h"
 #include "Enemy5.h"
 #include "Bullet.h"
-#define TANK_WALKING_SPEED		0.1f 
+#define TANK_WALKING_SPEED		0.15f 
 //0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
 #define TANK_GRAVITY			-0.01f
-#define TANK_DIE_DEFLECT_SPEED	0.5f
+//#define TANK_DIE_DEFLECT_SPEED	0.5f
 
 #define TANK_STATE_IDLE					0
 #define TANK_STATE_WALKING_RIGHT		1
@@ -32,7 +32,7 @@
 #define TANK_ANI_WALKING_UP				4
 #define TANK_ANI_WALKING_DOWN			5
 
-#define TANK_BBOX_WIDTH  20
+#define TANK_BBOX_WIDTH  24
 #define TANK_BBOX_HEIGHT 20
 
 #define TOP_BORDER  0

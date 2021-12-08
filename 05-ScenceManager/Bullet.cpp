@@ -6,7 +6,13 @@ Bullet::Bullet(int nx)
 }
 void Bullet::Render()
 {
-	animation_set->at(0)->Render(x, y);
+		int ani;
+			if (vx > 0)
+				ani = DAN_ANI_RIGHT;
+			else
+				ani = DAN_ANI_LEFT;
+		//if (animation_set)
+	animation_set->at(ani)->Render(x, y);
 	RenderBoundingBox();
 }
 
