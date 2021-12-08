@@ -17,6 +17,9 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	for (int i = 0; i < bullets.size(); i++)
+		if (bullets[i]->GetState() == BULLET_STATE_DIE)
+			bullets.erase(bullets.begin() + i);
+	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Update(dt, coObjects);
 	//Simple fall down
 	vy = TANK_GRAVITY*dt;
@@ -30,7 +33,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > TANK_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > TANK_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -160,6 +163,7 @@ void CTank::SetState(int state)
 		}
 		break;
 	case TANK_STATE_BULLET:
+		create_bullet_count = TANK_AMOUNT_BULLET;
 		this->Shoot();
 		break;
 	case TANK_STATE_STOP:
@@ -203,9 +207,12 @@ void CTank::addBullet(Bullet* bulletF)
 }
 void CTank::Shoot()
 {
+	int bullet_first = bullets.size();
 	Bullet* newBullet = new Bullet(nx);
 	newBullet->SetAnimationSet(bullet->animation_set);
 	newBullet->SetPosition(x, y);
 	bullets.push_back(newBullet);
-	this->SetState(TANK_STATE_IDLE);
+	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
+		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
+	//DebugOut(L"Size: %d \n", (int)bullets.size());
 }

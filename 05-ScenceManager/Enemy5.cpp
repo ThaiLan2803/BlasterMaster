@@ -35,11 +35,11 @@ void Enemy5::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Enemy5::Render()
 {
 	int ani = ENEMY5_ANI_WALKING;
-	if (state == ENEMY5_STATE_DIE) {
-		ani = ENEMY5_ANI_DIE;
+	if (state != ENEMY5_STATE_DIE) {
+		animation_set->at(ani)->Render(x, y);
 	}
 
-	animation_set->at(ani)->Render(x, y);
+	
 
 	//RenderBoundingBox();
 }

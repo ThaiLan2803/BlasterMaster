@@ -388,18 +388,13 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
-//	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
-	/*switch (KeyCode)
+	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		tank->SetState(TANK_STATE_JUMP);
+	case DIK_A:
+		CTank* tank = ((CPlayScene*)scence)->GetPlayer();
+		tank->Shoot();
 		break;
-	case DIK_A: 
-		tank->Reset();
-		break;
-	}*/
+	}
 }
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {

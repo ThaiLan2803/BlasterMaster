@@ -41,14 +41,14 @@
 #define RIGHT_BORDER  1232 - TANK_BBOX_WIDTH
 
 #define TANK_UNTOUCHABLE_TIME 5000
-
+#define TANK_AMOUNT_BULLET	1
 
 class CTank : public CGameObject
 {
 //	int level;
 	int untouchable;
 	DWORD untouchable_start;
-
+	int create_bullet_count;
 	float start_x;			// initial position of TANK at scene
 	float start_y;
 	vector<LPGAMEOBJECT> bullets;
@@ -65,7 +65,7 @@ public:
 
 	void SetState(int state);
 //	void SetLevel(int l) { level = l; }
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void Reset();
 	void SetPosition(float x, float y)
