@@ -117,7 +117,7 @@ void CTank::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 	WLeft->NewRender(x - 5, y - 12);
-	WRight->NewRender(x + 10, y - 12);
+	WRight->NewRender(x + 11, y - 12);
 	bc->NewRender(x+3, y - 8);
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
@@ -201,9 +201,9 @@ void CTank::SetBtc(BottomCircle* btc)
 {
 	bc = btc;
 }
-void CTank::addBullet(Bullet* bulletF)
+void CTank::SetBullet(Bullet* bl)
 {
-	bullet = bulletF;
+	bullet = bl;
 }
 void CTank::Shoot()
 {
@@ -214,5 +214,5 @@ void CTank::Shoot()
 	bullets.push_back(newBullet);
 	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
 		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
-	//DebugOut(L"Size: %d \n", (int)bullets.size());
+
 }

@@ -34,7 +34,6 @@ void Enemy2::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy2::Render()
 {
-	DebugOut(L"Enemy 2 \n");
 	int ani = ENEMY2_ANI_WALKING;
 	if (state != ENEMY2_STATE_DIE)
 		animation_set->at(ani)->Render(x, y);
@@ -49,10 +48,9 @@ void Enemy2::SetState(int state)
 	switch (state)
 	{
 	case ENEMY2_STATE_WALKING:
-		vx = 0.01f;
+		vx = ENEMY2_WALKING_SPEED;
 		break;
 	case ENEMY2_STATE_DIE:
-		DebugOut(L"Set state die Enemy 2 \n");
 		vx = 0;
 		vy = 0;
 		break;

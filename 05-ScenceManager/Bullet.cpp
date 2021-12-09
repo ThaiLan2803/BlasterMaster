@@ -11,7 +11,7 @@
 #include "Brick.h"
 Bullet::Bullet(int nx)
 {
-	vx = 0.9*nx;
+	vx = BULLET_SPEED*nx;
 }
 void Bullet::Render()
 {

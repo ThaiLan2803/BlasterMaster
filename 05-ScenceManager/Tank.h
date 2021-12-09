@@ -81,7 +81,7 @@ public:
 		}
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void addBullet(Bullet* bulletF);
+	void SetBullet(Bullet* bl);
 	void Shoot();
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);

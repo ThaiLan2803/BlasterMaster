@@ -240,7 +240,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet(0);
-		player->addBullet((Bullet*)obj);
+		player->SetBullet((Bullet*)obj);
 		break;
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)

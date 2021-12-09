@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 #define ENEMY1_BBOX_WIDTH 16
-#define ENEMY1_BBOX_HEIGHT 15
+#define ENEMY1_BBOX_HEIGHT 20
 
 #define ENEMY1_STATE_IDLE 200
 #define ENEMY1_STATE_DIE 100
