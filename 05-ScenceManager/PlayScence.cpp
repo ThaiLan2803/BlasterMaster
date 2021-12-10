@@ -239,7 +239,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Enemy7();
 		break;
 	case OBJECT_TYPE_BULLET:
-		obj = new Bullet(0);
+		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);
 		break;
 //	case OBJECT_TYPE_LAN:
@@ -388,11 +388,14 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
+	CTank* tank = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_A:
-		CTank* tank = ((CPlayScene*)scence)->GetPlayer();
 		tank->Shoot();
+		break;
+	case DIK_SPACE:
+		tank->SetState(TANK_STATE_JUMP);
 		break;
 	}
 }
@@ -413,11 +416,11 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 	else if (game->IsKeyDown(DIK_LEFT))
 		tank->SetState(TANK_STATE_WALKING_LEFT);
 	else if (game->IsKeyDown(DIK_UP))
-		tank->SetState(TANK_STATE_WALKING_UP);
+		tank->SetState(TANK_STATE_DAN_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
 		tank->SetState(TANK_STATE_WALKING_DOWN);
-	else if (game->IsKeyDown(DIK_SPACE))
-		tank->SetState(TANK_STATE_JUMP);
+	//else if (game->IsKeyDown(DIK_SPACE))
+	//	tank->SetState(TANK_STATE_JUMP);
 	else if (game->IsKeyDown(DIK_A))
 		tank->SetState(TANK_STATE_BULLET);
 	else

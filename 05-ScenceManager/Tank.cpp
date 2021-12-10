@@ -171,6 +171,9 @@ void CTank::SetState(int state)
 		WLeft->SetState(BANHXE_STATE_IDLE);
 		WRight->SetState(BANHXE_STATE_IDLE);
 		break;
+	case TANK_STATE_DAN_UP:
+		bl_ny = 1;
+		this->Gun->SetState(SUNG_ANI_IDLE_UP);
 	}
 }
 
@@ -207,12 +210,22 @@ void CTank::SetBullet(Bullet* bl)
 }
 void CTank::Shoot()
 {
-	int bullet_first = bullets.size();
-	Bullet* newBullet = new Bullet(nx);
-	newBullet->SetAnimationSet(bullet->animation_set);
-	newBullet->SetPosition(x, y);
-	bullets.push_back(newBullet);
-	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
-		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
+	for (int i = 0; i < TANK_AMOUNT_BULLET; i++)
+	{
+		Bullet* newBullet = new Bullet(nx, bl_ny);
+		newBullet->SetAnimationSet(bullet->animation_set);
+		if (bullets.size() == 0)
+			if (nx > 0)
+				newBullet->SetPosition(x + 10, y);
+			else
+				newBullet->SetPosition(x - 10, y);
+		else
+		{
+			float a, b;
+			bullets[bullets.size() - 1]->GetPosition(a, b);
+			newBullet->SetPosition(a - 10, y);
+		}
+		bullets.push_back(newBullet);
+	}
 
 }

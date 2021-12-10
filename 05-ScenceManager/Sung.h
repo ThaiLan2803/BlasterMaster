@@ -3,9 +3,11 @@
 
 #define SUNG_ANI_IDLE_RIGHT		0
 #define SUNG_ANI_IDLE_LEFT		1
+#define	SUNG_ANI_IDLE_UP		2
 
 #define SUNG_STATE_RIGHT		0
 #define SUNG_STATE_LEFT			1
+#define SUNG_STATE_UP			2
 
 #define SUNG_WALKING_SPEED		0.15f
 

@@ -59,6 +59,7 @@ public:
 	int nx;	 
 	int ny;
 
+
 	int state;
 
 	DWORD dt; 

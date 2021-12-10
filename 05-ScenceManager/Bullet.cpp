@@ -9,9 +9,10 @@
 #include "Enemy6.h"
 #include "Enemy7.h"
 #include "Brick.h"
-Bullet::Bullet(int nx)
+Bullet::Bullet(int nx, int bl_ny)
 {
-	vx = BULLET_SPEED*nx;
+	vx = BULLET_SPEED * nx;
+	vy = BULLET_SPEED * bl_ny;
 }
 void Bullet::Render()
 {
