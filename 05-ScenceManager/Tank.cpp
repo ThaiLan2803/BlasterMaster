@@ -93,8 +93,20 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani = -1;
-	
-	if (nx > 0)
+	if (state == TANK_STATE_DAN_UP)
+	{
+		if (nx > 0)
+		{
+			ani = TANK_ANI_DAN_UP_LEFT;
+			Gun->NewRender(x, y + 5);
+		}
+		else
+		{
+			ani = TANK_ANI_DAN_UP_RIGHT;
+			Gun->NewRender(x, y + 5);
+		}
+	}
+	else if (nx > 0)
 	{
 		ani = TANK_ANI_IDLE_RIGHT;
 		Gun->NewRender(x + 14, y);
@@ -102,20 +114,20 @@ void CTank::Render()
 		WRight->NewRender(x + 17, y - 10);
 		bc->NewRender(x + 9, y - 8);*/
 	}
-	else
-		if (nx < 0)
-		{
-			ani = TANK_ANI_IDLE_LEFT;
-			Gun->NewRender(x - 7, y);
-			/*WLeft->NewRender(x- 8, y - 10);
-			WRight->NewRender(x + 9, y - 10);
-			bc->NewRender(x, y - 8);*/
-		}
+	else if (nx < 0)
+	{
+		ani = TANK_ANI_IDLE_LEFT;
+		Gun->NewRender(x - 7, y);
+		/*WLeft->NewRender(x- 8, y - 10);
+		WRight->NewRender(x + 9, y - 10);
+		bc->NewRender(x, y - 8);*/
+	}
+
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+	animation_set->at(2)->Render(x, y, alpha);
 	WLeft->NewRender(x - 5, y - 12);
 	WRight->NewRender(x + 11, y - 12);
 	bc->NewRender(x+3, y - 8);
