@@ -43,6 +43,8 @@
 #define OBJECT_TYPE_BULLET	14
 #define MAX_SCENE_LINE 1024
 
+#define OBJECT_TYPE_PORTAL	100
+
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 240
 
@@ -79,7 +81,7 @@ public:
 
 	CTank * GetPlayer() { return player; }
 	
-	Quadtree* CreateQuadtree(vector<LPGAMEOBJECT> list, Point p);
+	Quadtree* CreateQuadtree(vector<LPGAMEOBJECT> list);
 	void UpdateActObj(Point p);
 	void UpdateObj(CGameObject* obj, DWORD dt);
 };

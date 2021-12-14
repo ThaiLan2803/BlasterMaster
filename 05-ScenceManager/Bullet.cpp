@@ -9,19 +9,20 @@
 #include "Enemy6.h"
 #include "Enemy7.h"
 #include "Brick.h"
-Bullet::Bullet(int nx, int bl_ny)
+Bullet::Bullet(int nx)
 {
 	vx = BULLET_SPEED * nx;
-	vy = BULLET_SPEED * bl_ny;
+	type = 21;
+	//vy = BULLET_SPEED * bl_ny;
 }
 void Bullet::Render()
 {
-		int ani;
+	/*	int ani;
 			if (vx > 0)
 				ani = DAN_ANI_RIGHT;
 			else
-				ani = DAN_ANI_LEFT;
-	animation_set->at(ani)->Render(x, y);
+				ani = DAN_ANI_LEFT;*/
+	animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }
 

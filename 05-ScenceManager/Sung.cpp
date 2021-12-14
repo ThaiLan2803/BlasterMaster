@@ -21,7 +21,7 @@ void Sung::NewRender(float x, float y)
 	else ani = SUNG_ANI_IDLE_LEFT;
 	if (state == SUNG_STATE_UP)
 		ani = SUNG_ANI_IDLE_UP;
-	animation_set->at(ani)->Render(x, y, 255);	
+	animation_set->at(ani)->Render(x, y);	
 }
 void Sung::Render()
 {

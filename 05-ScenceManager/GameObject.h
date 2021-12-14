@@ -61,6 +61,7 @@ public:
 
 
 	int state;
+	int type;
 
 	DWORD dt; 
 

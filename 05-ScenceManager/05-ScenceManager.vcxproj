@@ -142,6 +142,7 @@
     <ClCompile Include="Jason.cpp" />
     <ClCompile Include="Lan.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Sung.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Jason.h" />
     <ClInclude Include="Lan.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Sung.h" />
@@ -188,8 +190,8 @@
     <ClInclude Include="Textures.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="mario-sample.txt" />
-    <Text Include="scene-main.txt" />
+    <Text Include="sample.txt" />
+    <Text Include="scene2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

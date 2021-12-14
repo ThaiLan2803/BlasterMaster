@@ -7,7 +7,7 @@
 
 CTank::CTank(float x, float y) : CGameObject()
 {
-	untouchable = 0;
+	type = 0;
 	SetState(TANK_STATE_IDLE);
 	this->x = x;
 	this->y = y;
@@ -82,7 +82,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
 				e2->SetState(ENEMY2_STATE_DIE);
 			}
-			
+			if (dynamic_cast<CPortal*>(e->obj))
+			{
+				DebugOut(L"Okie \n");
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
 		}
 	}
 
@@ -92,7 +97,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CTank::Render()
 {
-	int ani = -1;
+	int ani;
 	if (state == TANK_STATE_DAN_UP)
 	{
 		if (nx > 0)
@@ -222,22 +227,13 @@ void CTank::SetBullet(Bullet* bl)
 }
 void CTank::Shoot()
 {
-	for (int i = 0; i < TANK_AMOUNT_BULLET; i++)
-	{
-		Bullet* newBullet = new Bullet(nx, bl_ny);
-		newBullet->SetAnimationSet(bullet->animation_set);
-		if (bullets.size() == 0)
-			if (nx > 0)
-				newBullet->SetPosition(x + 10, y);
-			else
-				newBullet->SetPosition(x - 10, y);
-		else
-		{
-			float a, b;
-			bullets[bullets.size() - 1]->GetPosition(a, b);
-			newBullet->SetPosition(a - 10, y);
-		}
-		bullets.push_back(newBullet);
-	}
+	int bullet_first = bullets.size();
+	Bullet* newBullet = new Bullet(nx);
+	newBullet->SetAnimationSet(bullet->animation_set);
+	newBullet->SetPosition(x, y);
+	bullets.push_back(newBullet);
+	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
+		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
+	DebugOut(L"Size: %d \n", (int)bullets.size());
 
 }

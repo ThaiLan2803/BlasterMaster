@@ -105,6 +105,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -197,12 +200,15 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="scene-main.txt">
+    <Text Include="sample.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="mario-sample.txt">
+    <Text Include="scene2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

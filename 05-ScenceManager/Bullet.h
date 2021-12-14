@@ -16,7 +16,7 @@ class Bullet : public CGameObject
 	int untouchable;
 	DWORD untouchable_start;
 public:
-	Bullet(int nx, int bl_ny);
+	Bullet(int nx);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

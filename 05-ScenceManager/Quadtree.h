@@ -18,10 +18,9 @@ private:
 	bool IsContain(LPGAMEOBJECT entity);
 	void Split();
 public:
-	Quadtree() { m_level = 0; m_region = new Rect(); m_objects_list = NULL; m_nodes = NULL; };
+	Quadtree();
 	Quadtree(int level, Rect* region);
-	~Quadtree() {};
-
+	int count() { return m_objects_list->size(); }
 	void Clear();
 	void Insert(LPGAMEOBJECT entity);
 	void Retrieve(vector<LPGAMEOBJECT>* return_objects_list, LPGAMEOBJECT entity);

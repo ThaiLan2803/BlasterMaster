@@ -7,7 +7,7 @@
 #include "Sprites.h"
 #include "Quadtree.h"
 #include "Bullet.h"
-
+#include "Portal.h"
 vector<vector<int>> MapTile;
 vector<vector<vector<int>>> MapObj;
 vector<LPGAMEOBJECT> objects, screenObj, actObj, moveObj;
@@ -19,13 +19,13 @@ int Stage;
 Point tf, br;
 Quadtree* quadtree;
 Bullet* bullet;
-Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> list, Point p)
+Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> entity_list)
 {
-	// Init base game region for detecting collision
-	Quadtree* quadtree = new Quadtree(1, new Rect(p - Point(5, 5) * 16, p + Point(5, 5) * 16));
-	for (auto i = list.begin(); i != list.end(); i++)
+	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 1300, 1300));
+	for (auto i = entity_list.begin(); i != entity_list.end(); i++)
+	{
 		quadtree->Insert(*i);
-
+	}
 	return quadtree;
 }
 void CPlayScene::UpdateActObj(Point p) {
@@ -43,28 +43,28 @@ void CPlayScene::UpdateActObj(Point p) {
 	}
 	//actObj.push_back(&trigg);
 }
-void CPlayScene::UpdateObj(CGameObject* obj, DWORD dt) {
-	vector<LPGAMEOBJECT>* _coObj = new vector<LPGAMEOBJECT>();
-
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	float x, y;
-
-	obj->GetPosition(x, y);
-
-	UpdateActObj(Point(x, y));
-
-	quadtree = CreateQuadtree(actObj, Point(x, y));
-
-	quadtree->Retrieve(_coObj, obj);
-
-	_coObj->push_back(player);
-
-	obj->Update(dt, _coObj);
-
-	quadtree->~Quadtree();
-}
+//void CPlayScene::UpdateObj(CGameObject* obj, DWORD dt) {
+//	vector<LPGAMEOBJECT>* _coObj = new vector<LPGAMEOBJECT>();
+//
+//	float cx, cy;
+//	player->GetPosition(cx, cy);
+//
+//	float x, y;
+//
+//	obj->GetPosition(x, y);
+//
+//	UpdateActObj(Point(x, y));
+//
+//	quadtree = CreateQuadtree(actObj, Point(x, y));
+//
+//	quadtree->Retrieve(_coObj, obj);
+//
+//	_coObj->push_back(player);
+//
+//	obj->Update(dt, _coObj);
+//
+//	quadtree->~Quadtree();
+//}
 
 using namespace std;
 
@@ -239,9 +239,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Enemy7();
 		break;
 	case OBJECT_TYPE_BULLET:
-		obj = new Bullet(0,0);
+		obj = new Bullet(0);
 		player->SetBullet((Bullet*)obj);
 		break;
+	case OBJECT_TYPE_PORTAL:
+	{
+		float r = atof(tokens[4].c_str());
+		float b = atof(tokens[5].c_str());
+		int scene_id = atoi(tokens[6].c_str());
+		obj = new CPortal(x, y, r, b, scene_id);
+	}
 //	case OBJECT_TYPE_LAN:
 //		if (lan != NULL)
 //		{
@@ -337,7 +344,7 @@ void CPlayScene::Update(DWORD dt)
 	player->GetPosition(cx, cy);
 
 	UpdateActObj(Point(cx, cy));
-	quadtree = CreateQuadtree(actObj, Point(cx, cy));
+	quadtree = CreateQuadtree(actObj);
 
 	
 	player->GetPosition(cx, cy);

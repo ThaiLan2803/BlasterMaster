@@ -35,14 +35,20 @@ void Enemy4::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Enemy4::Render()
 {
 	int ani = ENEMY4_ANI_WALKING;
-	if (state != ENEMY4_STATE_DIE) {
-		animation_set->at(ani)->Render(x, y);
+	switch (state)
+	{
+	case ENEMY4_STATE_ITEM:
+		ani = ENEMY4_ANI_ITEM;
+		break;
+	case ENEMY4_STATE_DIE:
+		ani = -1;
+		break;
 	}
-	else
-		return;
-	
+	if (state == ENEMY4_STATE_DIE)
+	{
 
-	//RenderBoundingBox();
+	}
+	else animation_set->at(ani)->Render(x, y);
 }
 
 void Enemy4::SetState(int state)
