@@ -3,7 +3,6 @@
 Enemy2::Enemy2()
 {
 	SetState(ENEMY2_STATE_WALKING);
-	type = 6;
 }
 
 void Enemy2::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -36,7 +35,7 @@ void Enemy2::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Enemy2::Render()
 {
 	int ani = ENEMY2_ANI_WALKING;
-	if (state != ENEMY2_STATE_DIE)
+	if (this->GetState() != ENEMY2_STATE_DIE)
 		animation_set->at(ani)->Render(x, y);
 	else
 		return;
@@ -48,9 +47,6 @@ void Enemy2::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY2_STATE_WALKING:
-		vx = ENEMY2_WALKING_SPEED;
-		break;
 	case ENEMY2_STATE_DIE:
 		vx = 0;
 		vy = 0;

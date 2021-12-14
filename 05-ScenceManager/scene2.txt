@@ -1,4 +1,5 @@
-﻿[TEXTURES]
+﻿# id	file_path	transparent_color_r	g	b
+[TEXTURES]
 1	textures\tankright.png	255	255	255
 2	textures\tankleft.png	255	255	255
 4	textures\map2.png	0	0	0
@@ -4601,16 +4602,16 @@
 1	1088	40	301104
 1	1096	40	301105
 1	1104	40	301106
-#background
-5	-8	496	4
 #tank
-0	200	180	0
+0	1100	100	0
 #lan
 2	0	2	1
 #banhxe
 3	0	120	2
  #gun
 4	0	116	3	
+#bg
+5	-8	496	4
 #btc
 6	8	116	5
 #enemy1
@@ -4630,7 +4631,6 @@
 #bullet
 14	0	0	7
 #portal
-100	1175	100	300	1239	164	2
-
+15	1175	116	300	1239	180	1
 
 

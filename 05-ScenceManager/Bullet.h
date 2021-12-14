@@ -1,8 +1,10 @@
 #pragma once
 #include "GameObject.h"
 
-#define BULLET_HEIGHT	8
-#define BULLET_WIDTH	20
+#define DAN_HEIGHT_H	10
+#define DAN_WIDTH_H		24
+#define DAN_HEIGHT_UP	24
+#define DAN_WIDTH_UP	10
 
 #define BULLET_SPEED 0.9f
 
@@ -11,12 +13,15 @@
 
 #define DAN_ANI_LEFT	0
 #define DAN_ANI_RIGHT	1
+
+#define OBJECT_TYPE_BULLET	14
 class Bullet : public CGameObject
 {
 	int untouchable;
 	DWORD untouchable_start;
+	int nx, bl_ny;
 public:
-	Bullet(int nx);
+	Bullet(int nx, int ny);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

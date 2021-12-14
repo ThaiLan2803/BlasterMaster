@@ -7,7 +7,6 @@
 
 CTank::CTank(float x, float y) : CGameObject()
 {
-	type = 0;
 	SetState(TANK_STATE_IDLE);
 	this->x = x;
 	this->y = y;
@@ -82,15 +81,15 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
 				e2->SetState(ENEMY2_STATE_DIE);
 			}
-			if (dynamic_cast<CPortal*>(e->obj))
+			else if (dynamic_cast<CPortal*>(e->obj))
 			{
-				DebugOut(L"Okie \n");
+				DebugOut(L"P colli");
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
+
 		}
 	}
-
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 };
@@ -98,44 +97,46 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani;
-	if (state == TANK_STATE_DAN_UP)
+	if (nx > 0)
 	{
-		if (nx > 0)
+		ani = TANK_ANI_IDLE_RIGHT;
+		if (bl_ny == 0)
 		{
-			ani = TANK_ANI_DAN_UP_LEFT;
-			Gun->NewRender(x, y + 5);
+			Gun->NewRender(x + 15, y);
+			Gun->SetState(SUNG_STATE_RIGHT);
 		}
 		else
 		{
-			ani = TANK_ANI_DAN_UP_RIGHT;
-			Gun->NewRender(x, y + 5);
+			Gun->SetState(SUNG_STATE_UP);
+			Gun->NewRender(x, y + 10);
 		}
 	}
-	else if (nx > 0)
-	{
-		ani = TANK_ANI_IDLE_RIGHT;
-		Gun->NewRender(x + 14, y);
-		/*WLeft->NewRender(x, y- 10);
-		WRight->NewRender(x + 17, y - 10);
-		bc->NewRender(x + 9, y - 8);*/
-	}
-	else if (nx < 0)
-	{
-		ani = TANK_ANI_IDLE_LEFT;
-		Gun->NewRender(x - 7, y);
-		/*WLeft->NewRender(x- 8, y - 10);
-		WRight->NewRender(x + 9, y - 10);
-		bc->NewRender(x, y - 8);*/
-	}
+	else
+		if (nx < 0)
+		{
+			ani = TANK_ANI_IDLE_LEFT;
+			if (bl_ny == 0)
+			{
+				Gun->NewRender(x - 8, y);
+				Gun->SetState(SUNG_STATE_RIGHT);
+			}
+			else
+			{
+				Gun->SetState(SUNG_STATE_UP);
+				Gun->NewRender(x, y + 10);
+			}
+		}
 
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-
-	animation_set->at(2)->Render(x, y, alpha);
+	/*WLeft->NewRender(x, y- 10);
+	WRight->NewRender(x + 17, y - 10);
+	bc->NewRender(x + 9, y - 8);*/
+	animation_set->at(ani)->Render(x, y, alpha);
 	WLeft->NewRender(x - 5, y - 12);
 	WRight->NewRender(x + 11, y - 12);
-	bc->NewRender(x+3, y - 8);
+	bc->NewRender(x + 3, y - 8);
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
 	RenderBoundingBox();
@@ -172,7 +173,7 @@ void CTank::SetState(int state)
 		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
-		vy = 0;
+		bl_ny = 0;
 		if (WLeft && WRight)
 		{
 			WLeft->SetState(BANHXE_STATE_IDLE);
@@ -180,7 +181,7 @@ void CTank::SetState(int state)
 		}
 		break;
 	case TANK_STATE_BULLET:
-		create_bullet_count = TANK_AMOUNT_BULLET;
+		createBl_count = TANK_AMOUNT_BULLET;
 		this->Shoot();
 		break;
 	case TANK_STATE_STOP:
@@ -190,13 +191,12 @@ void CTank::SetState(int state)
 		break;
 	case TANK_STATE_DAN_UP:
 		bl_ny = 1;
-		this->Gun->SetState(SUNG_ANI_IDLE_UP);
 	}
 }
 
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
+	left = x - 6;
 	top = y - 11;
 	right = x + TANK_BBOX_WIDTH;
 	bottom = y + TANK_BBOX_HEIGHT -11;
@@ -228,12 +228,12 @@ void CTank::SetBullet(Bullet* bl)
 void CTank::Shoot()
 {
 	int bullet_first = bullets.size();
-	Bullet* newBullet = new Bullet(nx);
+	Bullet* newBullet = new Bullet(nx, bl_ny);
 	newBullet->SetAnimationSet(bullet->animation_set);
 	newBullet->SetPosition(x, y);
 	bullets.push_back(newBullet);
 	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
 		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
-	DebugOut(L"Size: %d \n", (int)bullets.size());
+	//DebugOut(L"Size: %d \n", (int)bullets.size());
 
 }

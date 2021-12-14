@@ -11,10 +11,8 @@
 #include "Bullet.h"
 #include "Portal.h"
 #define TANK_WALKING_SPEED		0.15f 
-//0.1f
 #define TANK_JUMP_SPEED_Y		0.5f
-#define TANK_GRAVITY			-0.01f
-//#define TANK_DIE_DEFLECT_SPEED	0.5f
+#define TANK_GRAVITY			-0.02f
 
 #define TANK_STATE_IDLE					0
 #define TANK_STATE_WALKING_RIGHT		1
@@ -52,8 +50,8 @@ class CTank : public CGameObject
 //	int level;
 	int untouchable;
 	DWORD untouchable_start;
-	int create_bullet_count;
-	int bl_ny;
+	int createBl_count;
+	int bl_ny = 0;
 	float start_x;			// initial position of TANK at scene
 	float start_y;
 	vector<LPGAMEOBJECT> bullets;

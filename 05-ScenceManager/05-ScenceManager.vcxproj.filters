@@ -211,5 +211,8 @@
     <Text Include="scene2.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="scene1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

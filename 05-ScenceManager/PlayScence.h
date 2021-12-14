@@ -6,6 +6,7 @@
 #include "Brick.h"
 #include "Tank.h"
 #include "Lan.h"
+#include "Background.h"
 #include "BanhXe.h"
 #include "Sung.h"
 #include "BottomCircle.h"
@@ -41,9 +42,9 @@
 #define OBJECT_TYPE_ENEMY6	12
 #define OBJECT_TYPE_ENEMY7	13
 #define OBJECT_TYPE_BULLET	14
+#define OBJECT_TYPE_PORTAL	15
 #define MAX_SCENE_LINE 1024
 
-#define OBJECT_TYPE_PORTAL	100
 
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 240
@@ -58,10 +59,15 @@ class CPlayScene: public CScene
 protected: 
 	CTank *player;					// A play scene has to have player, right? 
 	CLan *lan;
+	CBackground* bg;
 	BanhXe *bx;
 	Sung *s;
 	BottomCircle *bc;
-
+	int lx, ly;
+	int Stage;
+	int tank_previous_state = 0;
+	Quadtree* quadtree;
+	Bullet* bullet;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);

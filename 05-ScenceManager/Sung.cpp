@@ -25,7 +25,7 @@ void Sung::NewRender(float x, float y)
 }
 void Sung::Render()
 {
-	//animation_set->at(0)->Render(x, y, 255);
+	animation_set->at(0)->Render(x, y, 255);
 }
 
 void Sung::SetState(int state)
@@ -41,24 +41,12 @@ void Sung::SetState(int state)
 		break;
 	}
 
-
 }
 void Sung::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	/*left = x;
+	left = x;
 	top = y;
-	right = x + TANK_BBOX_WIDTH;
-	bottom = y + TANK_BBOX_HEIGHT;*/
+	right = x + BBOX_WIDTH;
+	bottom = y + BBOX_HEIGHT;
 }
 
-//
-//Rect Sung::GetBoundingBox()
-//{
-//	return Rect(Point(x, y + 6), 0,0);
-//	//return CGameObject::GetBoundingBox();
-//}
-
-void Sung::LoadResources()
-{
-
-}

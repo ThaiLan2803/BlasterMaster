@@ -9,20 +9,21 @@
 #include "Enemy6.h"
 #include "Enemy7.h"
 #include "Brick.h"
-Bullet::Bullet(int nx)
+Bullet::Bullet(int nx, int ny)
 {
-	vx = BULLET_SPEED * nx;
-	type = 21;
-	//vy = BULLET_SPEED * bl_ny;
+	this->bl_ny = ny;
+	this->nx = nx; 
+	if (bl_ny != 0)
+		vy = BULLET_SPEED * bl_ny;
+	else
+		vx = nx * BULLET_SPEED;
 }
 void Bullet::Render()
 {
-	/*	int ani;
-			if (vx > 0)
-				ani = DAN_ANI_RIGHT;
-			else
-				ani = DAN_ANI_LEFT;*/
-	animation_set->at(0)->Render(x, y);
+	if (bl_ny != 0)
+		animation_set->at(1)->Render(x, y + 20);
+	else
+		animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }
 
@@ -30,8 +31,16 @@ void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = x + BULLET_WIDTH;
-	b = y + BULLET_HEIGHT;
+	if (bl_ny != 0)
+	{
+		r = x + DAN_WIDTH_UP;
+		b = y + DAN_HEIGHT_UP;
+	}
+	else
+	{
+		r = x + DAN_WIDTH_H;
+		b = y + DAN_HEIGHT_H;
+	}
 }
 
 void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -94,44 +103,37 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<Enemy1*>(e->obj))
 			{
 				Enemy1* e1 = dynamic_cast<Enemy1*>(e->obj);
-				e1->SetState(ENEMY1_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
+				e1->SetState(ENEMY1_STATE_ITEM);
 			}
 			if (dynamic_cast<Enemy2*>(e->obj))
 			{
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
 				e2->SetState(ENEMY2_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
 			}
 			if (dynamic_cast<Enemy3*>(e->obj))
 			{
 				Enemy3* e3 = dynamic_cast<Enemy3*>(e->obj);
 				e3->SetState(ENEMY3_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
 			}
 			if (dynamic_cast<Enemy4*>(e->obj))
 			{
 				Enemy4* e4 = dynamic_cast<Enemy4*>(e->obj);
 				e4->SetState(ENEMY4_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
 			}
 			if (dynamic_cast<Enemy5*>(e->obj))
 			{
 				Enemy5* e5 = dynamic_cast<Enemy5*>(e->obj);
 				e5->SetState(ENEMY5_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
 			}
 			if (dynamic_cast<Enemy6*>(e->obj))
 			{
  				Enemy6* e6 = dynamic_cast<Enemy6*>(e->obj);
  				e6->SetState(ENEMY6_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
 			}
 			if (dynamic_cast<Enemy7*>(e->obj))
 			{
 				Enemy7* e7 = dynamic_cast<Enemy7*>(e->obj);
-				e7->SetState(ENEMY3_STATE_DIE);
-				this->SetState(BULLET_STATE_DIE);
+				e7->SetState(ENEMY7_STATE_DIE);
 			}
 
 		}
@@ -139,7 +141,6 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	//y += 0.1;
 }
 void Bullet::SetState(int state)
 {

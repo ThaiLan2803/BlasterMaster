@@ -61,7 +61,7 @@ public:
 
 
 	int state;
-	int type;
+	bool isEnable = true;
 
 	DWORD dt; 
 
@@ -81,6 +81,8 @@ public:
 
 		}
 	}
+	bool IsEnable() { return isEnable; }
+	void Disable() { isEnable = false; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }

@@ -8,65 +8,26 @@
 #include "Quadtree.h"
 #include "Bullet.h"
 #include "Portal.h"
+using namespace std;
 vector<vector<int>> MapTile;
 vector<vector<vector<int>>> MapObj;
 vector<LPGAMEOBJECT> objects, screenObj, actObj, moveObj;
 vector<LPGAMEOBJECT>* coObj = new vector<LPGAMEOBJECT>();
 
 LPDIRECT3DTEXTURE9 texMap1;
-int lx, ly;
-int Stage;
-Point tf, br;
-Quadtree* quadtree;
-Bullet* bullet;
+
 Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> entity_list)
 {
+	int count = 0;
 	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 1300, 1300));
 	for (auto i = entity_list.begin(); i != entity_list.end(); i++)
 	{
+		count++;
 		quadtree->Insert(*i);
 	}
 	return quadtree;
 }
-void CPlayScene::UpdateActObj(Point p) {
-	float cx = p.x, cy = p.y;
-	int stx = int(cx / BRICK_HEIGHT) - 5, sty = int(cy / BRICK_WIDTH) - 5;
-	if (stx < 0) stx = 0;
-	if (sty < 0) sty = 0;
-	actObj.clear();
-	for (int y = sty; y < sty + 5 + SCREEN_HEIGHT / BRICK_HEIGHT && y < MapTile.size(); y++) {
-		for (int x = stx; x < stx + 5 + SCREEN_WIDTH / BRICK_WIDTH && x < MapTile[y].size(); x++) {
-			for (int i = 0; i < MapObj[y][x].size(); i++)
-				if (MapObj[y][x][i] != -1)
-					actObj.push_back(objects.at(MapObj[y][x][i]));
-		}
-	}
-	//actObj.push_back(&trigg);
-}
-//void CPlayScene::UpdateObj(CGameObject* obj, DWORD dt) {
-//	vector<LPGAMEOBJECT>* _coObj = new vector<LPGAMEOBJECT>();
-//
-//	float cx, cy;
-//	player->GetPosition(cx, cy);
-//
-//	float x, y;
-//
-//	obj->GetPosition(x, y);
-//
-//	UpdateActObj(Point(x, y));
-//
-//	quadtree = CreateQuadtree(actObj, Point(x, y));
-//
-//	quadtree->Retrieve(_coObj, obj);
-//
-//	_coObj->push_back(player);
-//
-//	obj->Update(dt, _coObj);
-//
-//	quadtree->~Quadtree();
-//}
 
-using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
@@ -180,28 +141,23 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_BACKGROUND:
 		obj = new CBackground();
+		bg = (CBackground*)obj;
 		break;
 	case OBJECT_TYPE_TANK:
 		if (player!=NULL) 
 		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
+			DebugOut(L"[ERROR] TANK object was created before!\n");
 			return;
 		}
 		obj = new CTank(x,y); 
 		player = (CTank*)obj;  
-
-		DebugOut(L"[INFO] Player object created!\n");
+		if (tank_previous_state != 0)
+			player->SetState(tank_previous_state);
 		break;
 	case OBJECT_TYPE_BRICK:
 		obj = new CBrick();
-		DebugOut(L"[INFO] Brick object created!\n");
 		break;
 	case OBJECT_TYPE_BANHXE:
-		/*if (bx != NULL)
-		{
-			DebugOut(L"[ERROR] Banh xe object was created before!\n");
-			return;
-		}*/
 		obj = new BanhXe();
 		bx = (BanhXe*)obj;
 		player->SetBanhXe(bx);
@@ -215,7 +171,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new BottomCircle();
 		bc = (BottomCircle*)obj;
 		player->SetBtc((BottomCircle*)obj);
-		DebugOut(L"[INFO] connect object created!\n"); 
 		break;
 	case OBJECT_TYPE_ENEMY1:
 		obj = new Enemy1();
@@ -239,7 +194,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Enemy7();
 		break;
 	case OBJECT_TYPE_BULLET:
-		obj = new Bullet(0);
+		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);
 		break;
 	case OBJECT_TYPE_PORTAL:
@@ -247,18 +202,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float r = atof(tokens[4].c_str());
 		float b = atof(tokens[5].c_str());
 		int scene_id = atoi(tokens[6].c_str());
+		Stage = scene_id;
 		obj = new CPortal(x, y, r, b, scene_id);
+		break;
 	}
-//	case OBJECT_TYPE_LAN:
-//		if (lan != NULL)
-//		{
-//			DebugOut(L"[ERROR] MARIO object was created before!\n");
-//			return;
-//		} 
-//		obj = new CLan();
-//
-//		DebugOut(L"[INFO] Player object created!\n");
-//		break;
 
 	default:
 		return;
@@ -272,13 +219,20 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetAnimationSet(ani_set);
 	switch (object_type)
 	{
+	case OBJECT_TYPE_TANK:
+		break;
 	case OBJECT_TYPE_GUN:
 		break;
-	case OBJECT_TYPE_BTC: break;
-	case OBJECT_TYPE_BANHXE: break;
+	case OBJECT_TYPE_BTC: 
+		break;
+	case OBJECT_TYPE_BANHXE: 
+		break;
 	case OBJECT_TYPE_BULLET:
 		break;
+	case OBJECT_TYPE_BACKGROUND:
+		break;
 	default:
+		DebugOut(L"Type: %d \n", object_type);
 		objects.push_back(obj);
 		return;
 	}
@@ -341,68 +295,65 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	float cx, cy;
 	coObj->clear();
-	player->GetPosition(cx, cy);
-
-	UpdateActObj(Point(cx, cy));
-	quadtree = CreateQuadtree(actObj);
-
-	
-	player->GetPosition(cx, cy);
-	coObj->push_back(player);
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		coObj->push_back(objects[i]);
-	}
-
+	quadtree = CreateQuadtree(objects);
 	quadtree->Retrieve(coObj, player);
-
-	for (size_t i = 0; i < objects.size(); i++)
+	vector<LPGAMEOBJECT> coObjects;
+	for (size_t i = 0; i < coObj->size(); i++)
 	{
-		objects[i]->Update(dt, coObj);
+		if (coObj->at(i)->IsEnable())
+			coObj->at(i)->Update(dt, coObj);
+		else
+			coObj->erase(coObj->begin() + i);
 	}
-
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
-
-	// Update camera to follow mario
 	player->Update(dt, coObj);
-	
-	player->GetPosition(cx, cy);
 
-	CGame *game = CGame::GetInstance();
-	/*cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;*/
+	//for (size_t i = 0; i < objects.size(); i++)
+	//{
+	//	coObjects.push_back(objects[i]);
+	//}
+
+	//for (size_t i = 0; i < objects.size(); i++)
+	//{
+	//	objects[i]->Update(dt, &coObjects);
+	//}
+	//player->Update(dt, &coObjects);
 	CGame::GetInstance()->SetCamPos(player);
 	
 }
 
 void CPlayScene::Render()
 {
+	if (bg)
+		bg->Render();
 	for (int i = 0; i < coObj->size(); i++)
-		coObj->at(i)->Render();
+		if (coObj->at(i)->IsEnable())
+			coObj->at(i)->Render();
+		else
+			coObj->erase(coObj->begin() + i);
+	player->Render();
 }
 
 void CPlayScene::Unload()
 {
+	if (player != NULL)
+		tank_previous_state = player->GetState();
 	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
+		objects[i]->Disable();
 
 	objects.clear();
 	player = NULL;
 
-	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
+	DebugOut(L"[INFO] Scene %s loaded! \n", sceneFilePath);
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	CTank* tank = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_A:
+		CTank* tank = ((CPlayScene*)scence)->GetPlayer();
 		tank->Shoot();
-		break;
-	case DIK_SPACE:
-		tank->SetState(TANK_STATE_JUMP);
 		break;
 	}
 }
@@ -426,10 +377,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(TANK_STATE_DAN_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
 		tank->SetState(TANK_STATE_WALKING_DOWN);
-	//else if (game->IsKeyDown(DIK_SPACE))
-	//	tank->SetState(TANK_STATE_JUMP);
-	else if (game->IsKeyDown(DIK_A))
-		tank->SetState(TANK_STATE_BULLET);
+	else if (game->IsKeyDown(DIK_SPACE))
+		tank->SetState(TANK_STATE_JUMP);
 	else
 		tank->SetState(TANK_STATE_IDLE);
 }

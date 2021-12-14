@@ -5,7 +5,7 @@
 #include "Tank.h"
 
 #define MAX_LEVEL                25
-#define MAX_OBJECT_IN_REGION     4
+#define MAX_OBJECT_IN_REGION     1000
 
 class Quadtree
 {
