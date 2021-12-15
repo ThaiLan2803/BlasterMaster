@@ -15,6 +15,7 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
+	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
 	for (int i = 0; i < bullets.size(); i++)
 		if (bullets[i]->GetState() == BULLET_STATE_DIE)
 			bullets.erase(bullets.begin() + i);
@@ -151,16 +152,22 @@ void CTank::SetState(int state)
 	case TANK_STATE_WALKING_RIGHT:
 		vx = TANK_WALKING_SPEED;
 		nx = 1;
-		WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
-		WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
-		bullet->SetState(DAN_ANI_RIGHT);
+		if (WLeft != NULL && WRight != NULL && Gun != NULL)
+		{
+			WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
+			WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
+			bullet->SetState(DAN_ANI_RIGHT);
+		}
 		break;
 	case TANK_STATE_WALKING_LEFT:
 		vx = -TANK_WALKING_SPEED;
 		nx = -1;
-		WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
-		WRight->SetState(BANHXE_STATE_WALKING_LEFT);
-		bullet->SetState(DAN_ANI_LEFT);
+		if (WLeft != NULL && WRight != NULL && Gun != NULL)
+		{
+			WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
+			WRight->SetState(BANHXE_STATE_WALKING_LEFT);
+			bullet->SetState(DAN_ANI_LEFT);
+		}
 		break;
 	case TANK_STATE_WALKING_UP:
 		vy = TANK_WALKING_SPEED;
@@ -230,7 +237,10 @@ void CTank::Shoot()
 	int bullet_first = bullets.size();
 	Bullet* newBullet = new Bullet(nx, bl_ny);
 	newBullet->SetAnimationSet(bullet->animation_set);
-	newBullet->SetPosition(x, y);
+	if(TANK_ANI_IDLE_RIGHT == true)
+		newBullet->SetPosition(x + 5, y);
+	else
+		newBullet->SetPosition(x - 15, y);
 	bullets.push_back(newBullet);
 	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
 		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());

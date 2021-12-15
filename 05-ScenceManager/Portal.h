@@ -2,6 +2,8 @@
 
 #include "GameObject.h"
 
+#define BOX_W 40
+#define BOX_H 40
 class CPortal : public CGameObject
 {
 	int scene_id;	

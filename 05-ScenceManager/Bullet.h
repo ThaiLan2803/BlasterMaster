@@ -13,6 +13,7 @@
 
 #define DAN_ANI_LEFT	0
 #define DAN_ANI_RIGHT	1
+#define	DAN_ANI_UP		2
 
 #define OBJECT_TYPE_BULLET	14
 class Bullet : public CGameObject

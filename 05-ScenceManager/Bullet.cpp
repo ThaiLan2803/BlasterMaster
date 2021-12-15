@@ -20,11 +20,27 @@ Bullet::Bullet(int nx, int ny)
 }
 void Bullet::Render()
 {
+	int ani;
 	if (bl_ny != 0)
-		animation_set->at(1)->Render(x, y + 20);
-	else
-		animation_set->at(0)->Render(x, y);
-	RenderBoundingBox();
+	{
+		ani = DAN_ANI_UP;
+		animation_set->at(ani)->Render(x, y+20);
+	}
+	else if (vx != 0)
+	{
+		if (vx > 0)
+		{
+			ani = DAN_ANI_RIGHT;
+			animation_set->at(ani)->Render(x + 5, y);
+		}
+		else
+		{
+			ani = DAN_ANI_LEFT;
+			animation_set->at(ani)->Render(x - 15, y);
+		}
+	}
+
+	//RenderBoundingBox();
 }
 
 void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
