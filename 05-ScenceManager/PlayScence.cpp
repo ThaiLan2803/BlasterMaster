@@ -13,7 +13,7 @@ vector<vector<int>> MapTile;
 vector<vector<vector<int>>> MapObj;
 vector<LPGAMEOBJECT> objects, screenObj, actObj, moveObj;
 vector<LPGAMEOBJECT>* coObj = new vector<LPGAMEOBJECT>();
-
+vector<LPGAMEOBJECT>*p = new vector<LPGAMEOBJECT>();
 LPDIRECT3DTEXTURE9 texMap1;
 
 Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> entity_list)
@@ -154,8 +154,28 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		if (tank_previous_state != 0)
 			player->SetState(tank_previous_state);
 		break;
+	case OBJECT_TYPE_JASON:
+		if (player != NULL)
+		{
+			return;
+		}
+		obj = new CTank(x, y);
+		player = (CTank*)obj;
+		player->SetJason();
+		if (tank_previous_state != 0)
+			player->SetState(tank_previous_state);
+		break;
 	case OBJECT_TYPE_BRICK:
 		obj = new CBrick();
+		break;
+	case OBJECT_TYPE_BRICK2:
+		obj = new Brick2();
+		break;
+	case OBJECT_TYPE_BRICK3:
+		obj = new Brick3();
+		break;
+	case OBJECT_TYPE_BRICKNOCOLLI:
+		obj = new BrickNoColli();
 		break;
 	case OBJECT_TYPE_BANHXE:
 		obj = new BanhXe();
@@ -239,6 +259,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BANHXE: 
 		break;
 	case OBJECT_TYPE_BULLET:
+		break;
+	case OBJECT_TYPE_BRICKNOCOLLI:
+		p->push_back(obj);
 		break;
 	case OBJECT_TYPE_BACKGROUND:
 		break;

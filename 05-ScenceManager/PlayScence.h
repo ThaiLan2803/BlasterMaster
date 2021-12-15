@@ -4,6 +4,8 @@
 #include "Scence.h"
 #include "GameObject.h"
 #include "Brick.h"
+#include "Brick2.h"
+#include "Brick3.h"
 #include "Tank.h"
 #include "Lan.h"
 #include "Background.h"
@@ -22,6 +24,7 @@
 #include "Enemy8.h"
 #include "Enemy9.h"
 #include "Enemy10.h"
+#include "BrickNoColli.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -31,7 +34,7 @@
 
 #define OBJECT_TYPE_TANK	0
 #define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_LAN		2
+#define OBJECT_TYPE_JASON		2
 #define OBJECT_TYPE_BANHXE	3
 #define OBJECT_TYPE_GUN		4
 #define OBJECT_TYPE_BACKGROUND		5
@@ -48,6 +51,9 @@
 #define OBJECT_TYPE_ENEMY8	16
 #define OBJECT_TYPE_ENEMY9	17
 #define OBJECT_TYPE_ENEMY10	18
+#define	OBJECT_TYPE_BRICK2	1001
+#define	OBJECT_TYPE_BRICK3	1002
+#define	OBJECT_TYPE_BRICKNOCOLLI	1003
 #define MAX_SCENE_LINE 1024
 
 

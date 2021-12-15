@@ -34,6 +34,11 @@
 #define TANK_ANI_DAN_UP_LEFT		6
 #define TANK_ANI_DAN_UP_RIGHT		7
 
+#define JASON_ANI_IDLE		0
+#define JASON_ANI_BACK		1
+#define JASON_BBOX_HEIGHT			20
+#define JASON_BBOX_WIDTH 			25
+
 #define TANK_BBOX_WIDTH  24
 #define TANK_BBOX_HEIGHT 20
 
@@ -47,6 +52,7 @@
 
 class CTank : public CGameObject
 {
+protected:
 //	int level;
 	int untouchable;
 	DWORD untouchable_start;
@@ -54,18 +60,20 @@ class CTank : public CGameObject
 	int bl_ny = 0;
 	float start_x;			// initial position of TANK at scene
 	float start_y;
+	bool isJason = false;
 	vector<LPGAMEOBJECT> bullets;
-protected:
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;
 	BottomCircle* bc;
 	Bullet* bullet;
 	~CTank();
 public:
+
 	CTank(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
-
+	void SetJason() { isJason = true; }
+	bool IsJason() { return isJason; }
 	void SetState(int state);
 //	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
