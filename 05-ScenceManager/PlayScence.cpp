@@ -19,7 +19,7 @@ LPDIRECT3DTEXTURE9 texMap1;
 Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> entity_list)
 {
 	int count = 0;
-	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 1300, 1300));
+	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 1500, 1000));
 	for (auto i = entity_list.begin(); i != entity_list.end(); i++)
 	{
 		count++;
@@ -193,9 +193,20 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_ENEMY7:
 		obj = new Enemy7();
 		break;
+	case OBJECT_TYPE_ENEMY8:
+		obj = new Enemy8();
+		break;
+	case OBJECT_TYPE_ENEMY9:
+		obj = new Enemy9();
+		break;
+	case OBJECT_TYPE_ENEMY10:
+		obj = new Enemy10();
+		break;
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);
+
+		DebugOut(L"Set bulll");
 		break;
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -232,7 +243,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BACKGROUND:
 		break;
 	default:
-		DebugOut(L"Type: %d \n", object_type);
 		objects.push_back(obj);
 		return;
 	}
@@ -291,9 +301,6 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-	float cx, cy;
 	coObj->clear();
 	quadtree = CreateQuadtree(objects);
 	quadtree->Retrieve(coObj, player);
@@ -307,19 +314,8 @@ void CPlayScene::Update(DWORD dt)
 	}
 	if (player == NULL) return; 
 	player->Update(dt, coObj);
-
-	//for (size_t i = 0; i < objects.size(); i++)
-	//{
-	//	coObjects.push_back(objects[i]);
-	//}
-
-	//for (size_t i = 0; i < objects.size(); i++)
-	//{
-	//	objects[i]->Update(dt, &coObjects);
-	//}
-	//player->Update(dt, &coObjects);
 	CGame::GetInstance()->SetCamPos(player);
-	
+	//quadtree->~Quadtree();
 }
 
 void CPlayScene::Render()
@@ -349,13 +345,13 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	/*switch (KeyCode)
+	switch (KeyCode)
 	{
 	case DIK_A:
 		CTank* tank = ((CPlayScene*)scence)->GetPlayer();
 		tank->Shoot();
 		break;
-	}*/
+	}
 }
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
@@ -379,8 +375,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(TANK_STATE_WALKING_DOWN);
 	else if (game->IsKeyDown(DIK_SPACE))
 		tank->SetState(TANK_STATE_JUMP);
-	else if (game->IsKeyDown(DIK_A))
-		tank->SetState(TANK_STATE_BULLET);
 	else
 		tank->SetState(TANK_STATE_IDLE);
 }

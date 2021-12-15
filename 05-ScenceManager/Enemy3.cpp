@@ -16,19 +16,17 @@ void Enemy3::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
 	x += dx;
-	y += dy;
+	y = 350 - 20 * sin(3 * x);
 
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
+	if (x_ == 0)
+		x_ = x;
+	if (vx < 0 && x < x_ - 50) {
+		x = x_ - 50; vx = -vx;
 	}
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
+	if (vx > 0 && x > x_ + 50) {
+		x = x_ + 50; vx = -vx;
 	}
 }
 
@@ -39,9 +37,6 @@ void Enemy3::Render()
 		animation_set->at(ani)->Render(x, y);
 	}
 
-	
-
-	//RenderBoundingBox();
 }
 
 void Enemy3::SetState(int state)

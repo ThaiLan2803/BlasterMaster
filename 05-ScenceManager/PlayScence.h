@@ -19,7 +19,9 @@
 #include "Enemy5.h"
 #include "Enemy6.h"
 #include "Enemy7.h"
-
+#include "Enemy8.h"
+#include "Enemy9.h"
+#include "Enemy10.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -33,7 +35,7 @@
 #define OBJECT_TYPE_BANHXE	3
 #define OBJECT_TYPE_GUN		4
 #define OBJECT_TYPE_BACKGROUND		5
-#define OBJECT_TYPE_BTC	6
+#define OBJECT_TYPE_BTC		6
 #define OBJECT_TYPE_ENEMY1	7
 #define OBJECT_TYPE_ENEMY2	8
 #define OBJECT_TYPE_ENEMY3	9
@@ -43,6 +45,9 @@
 #define OBJECT_TYPE_ENEMY7	13
 #define OBJECT_TYPE_BULLET	14
 #define OBJECT_TYPE_PORTAL	15
+#define OBJECT_TYPE_ENEMY8	16
+#define OBJECT_TYPE_ENEMY9	17
+#define OBJECT_TYPE_ENEMY10	18
 #define MAX_SCENE_LINE 1024
 
 

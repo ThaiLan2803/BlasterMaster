@@ -15,20 +15,16 @@ void Enemy6::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void Enemy6::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
+	if (x_ == 0)
+		x_ = x;
 	x += dx;
-	y += dy;
 
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
+	if (vx < 0 && x < x_ - 70) {
+		x = x_ - 70; vx = -vx;
 	}
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
+	if (vx > 0 && x > x_ + 70) {
+		x = x_ + 70; vx = -vx;
 	}
 }
 

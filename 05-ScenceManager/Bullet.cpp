@@ -8,6 +8,7 @@
 #include "Enemy5.h"
 #include "Enemy6.h"
 #include "Enemy7.h"
+#include "Enemy8.h"
 #include "Brick.h"
 Bullet::Bullet(int nx, int ny)
 {
@@ -39,8 +40,11 @@ void Bullet::Render()
 			animation_set->at(ani)->Render(x - 15, y);
 		}
 	}
-
-	//RenderBoundingBox();
+	/*if (bl_ny != 0)
+			animation_set->at(1)->Render(x - 5, y + 20);
+		else
+			animation_set->at(0)->Render(x + nx * 5, y);
+		RenderBoundingBox();*/
 }
 
 void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -83,6 +87,7 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
+		y += dy;
 	}
 	else
 	{
@@ -105,7 +110,7 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
-
+		this->SetState(BULLET_STATE_DIE);
 		//
 		// Collision logic with other objects
 		//
@@ -151,7 +156,11 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy7* e7 = dynamic_cast<Enemy7*>(e->obj);
 				e7->SetState(ENEMY7_STATE_DIE);
 			}
-
+			if (dynamic_cast<Enemy8*>(e->obj))
+			{
+				Enemy8* e8 = dynamic_cast<Enemy8*>(e->obj);
+				e8->SetState(ENEMY8_STATE_DIE);
+			}
 		}
 	}
 
