@@ -345,18 +345,24 @@ void CPlayScene::Render()
 {
 	if (bg)
 		bg->Render();
+	if (player)
+		player->Render();
+	for (int i = 0; i < p->size(); i++)
+		if (p->at(i)->IsEnable())
+			p->at(i)->Render();
+		else
+			p->erase(p->begin() + i);
 	for (int i = 0; i < coObj->size(); i++)
 		if (coObj->at(i)->IsEnable())
 			coObj->at(i)->Render();
 		else
 			coObj->erase(coObj->begin() + i);
-	player->Render();
 }
 
 void CPlayScene::Unload()
 {
-	if (player != NULL)
-		tank_previous_state = player->GetState();
+	//if (player != NULL)
+	//	tank_previous_state = player->GetState();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Disable();
 
@@ -392,12 +398,16 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(TANK_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		tank->SetState(TANK_STATE_WALKING_LEFT);
-	else if (game->IsKeyDown(DIK_UP))
+	else if (game->IsKeyDown(DIK_W))
 		tank->SetState(TANK_STATE_DAN_UP);
+	else if (game->IsKeyDown(DIK_UP))
+		tank->SetState(JASON_STATE_WALKING_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
-		tank->SetState(TANK_STATE_WALKING_DOWN);
+		tank->SetState(JASON_STATE_WALKING_DOWN);
 	else if (game->IsKeyDown(DIK_SPACE))
 		tank->SetState(TANK_STATE_JUMP);
+	//else if (game->IsKeyDown(DIK_A))
+	//	tank->Shoot();
 	else
 		tank->SetState(TANK_STATE_IDLE);
 }

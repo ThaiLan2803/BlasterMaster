@@ -35,7 +35,8 @@ void Enemy7::Render()
 	if (state != ENEMY7_STATE_DIE) {
 		animation_set->at(ani)->Render(x, y);
 	}
-
+	else
+		return;
 	
 
 	//RenderBoundingBox();

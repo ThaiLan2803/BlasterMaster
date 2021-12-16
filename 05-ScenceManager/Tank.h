@@ -19,8 +19,8 @@
 #define TANK_STATE_WALKING_LEFT			2
 #define TANK_STATE_JUMP					3
 #define TANK_STATE_DIE					-1
-#define TANK_STATE_WALKING_UP			4
-#define TANK_STATE_WALKING_DOWN			5
+#define JASON_STATE_WALKING_UP			4
+#define JASON_STATE_WALKING_DOWN		5
 #define TANK_STATE_STOP					6
 #define TANK_STATE_BULLET				7
 #define TANK_STATE_DAN_UP				8
@@ -36,6 +36,7 @@
 
 #define JASON_ANI_IDLE		0
 #define JASON_ANI_BACK		1
+
 #define JASON_BBOX_HEIGHT			20
 #define JASON_BBOX_WIDTH 			25
 

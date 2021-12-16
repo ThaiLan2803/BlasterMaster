@@ -35,7 +35,8 @@ void Enemy6::Render()
 		animation_set->at(ani)->Render(x, y);
 
 	}
-
+	else
+		return;
 	
 	//RenderBoundingBox();
 }

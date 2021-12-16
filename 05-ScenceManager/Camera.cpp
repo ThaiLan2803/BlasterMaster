@@ -8,6 +8,8 @@ Camera::Camera(int w, int h, float corner, DirectX::XMFLOAT3 scale)
 	this->scale = scale;
 	scene_h.push_back(344);
 	scene_h.push_back(496);
+	scene_h.push_back(304);
+	scene_h.push_back(496);
 	current_scene_h = scene_h.at(3);
 	D3DXMatrixOrthoLH(&orthoMatrix, w, -h, 0.0f, 1.0f);
 	D3DXMatrixIdentity(&iMatrix);

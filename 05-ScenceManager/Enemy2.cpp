@@ -39,7 +39,6 @@ void Enemy2::Render()
 		animation_set->at(ani)->Render(x, y);
 	else
 		return;
-	//RenderBoundingBox();
 }
 
 void Enemy2::SetState(int state)

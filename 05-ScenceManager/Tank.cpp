@@ -65,14 +65,10 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
-//		IsCollide = true;
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
-		/*if (vx > 0 && x > RIGHT_BORDER) x = RIGHT_BORDER;
-		if (vx < 0 && x < LEFT_BORDER) x = LEFT_BORDER;
-		if (vy < 0 && y < TOP_BORDER) y = TOP_BORDER;
-		if (vy > 0 && y > BOTTOM_BORDER) y = BOTTOM_BORDER;*/
+
 		// Collision logic with other objects
 		
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -191,12 +187,26 @@ void CTank::SetState(int state)
 		}
 		
 		break;
-	case TANK_STATE_WALKING_UP:
+	case JASON_STATE_WALKING_UP:
 		vy = TANK_WALKING_SPEED;
+		vx = 0;
+		ny = 1;
+		if (WLeft != NULL && WRight != NULL)
+		{
+			WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
+			WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
+		}
 		break;
-	/*case TANK_STATE_WALKING_DOWN:
+	case JASON_STATE_WALKING_DOWN:
 		vy = -TANK_WALKING_SPEED;
-		break;*/
+		vx = 0;
+		ny = -1;
+		if (WLeft != NULL && WRight != NULL)
+		{
+			WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
+			WRight->SetState(BANHXE_STATE_WALKING_LEFT);
+		}
+		break;
 	case TANK_STATE_JUMP:
 		vy = TANK_JUMP_SPEED_Y;
 		break;
@@ -219,8 +229,11 @@ void CTank::SetState(int state)
 			vx = 0;
 			vy = 0;
 		}
-		WLeft->SetState(BANHXE_STATE_IDLE);
-		WRight->SetState(BANHXE_STATE_IDLE);
+		if (WLeft != NULL && WRight != NULL)
+		{
+			WLeft->SetState(BANHXE_STATE_IDLE);
+			WRight->SetState(BANHXE_STATE_IDLE);
+		}
 		break;
 	case TANK_STATE_DAN_UP:
 		bl_ny = 1;

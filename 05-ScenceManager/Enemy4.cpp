@@ -38,18 +38,18 @@ void Enemy4::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Enemy4::Render()
 {
 	int ani = ENEMY4_ANI_WALKING;
-	switch (state)
+	/*switch (state)
 	{
 	case ENEMY4_STATE_ITEM:
 		ani = ENEMY4_ANI_ITEM;
 		break;
 	case ENEMY4_STATE_DIE:
 		ani = -1;
-		break;
+		break;*/
 	}
 	if (state == ENEMY4_STATE_DIE)
 	{
-
+		ani = ENEMY4_ANI_ITEM;
 	}
 	else animation_set->at(ani)->Render(x, y);
 }

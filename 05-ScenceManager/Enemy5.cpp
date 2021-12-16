@@ -15,11 +15,6 @@ void Enemy5::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void Enemy5::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
 	x += dx;
 	y += dy;
 
@@ -38,7 +33,8 @@ void Enemy5::Render()
 	if (state != ENEMY5_STATE_DIE) {
 		animation_set->at(ani)->Render(x, y);
 	}
-
+	else
+		return;
 	
 
 	//RenderBoundingBox();

@@ -19,6 +19,6 @@ void CPortal::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = x + width - BOX_W;
-	b = y + height - BOX_H;
+	r = x + width;
+	b = y + height;
 }

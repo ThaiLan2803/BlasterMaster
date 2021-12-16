@@ -35,7 +35,7 @@ void Enemy9::Render()
 {
 	int ani = ENEMY9_ANI_WALKING;
 	if (state == ENEMY9_STATE_DIE) {
-		ani = ENEMY9_ANI_DIE;
+		return;
 	}
 
 	animation_set->at(ani)->Render(x, y);

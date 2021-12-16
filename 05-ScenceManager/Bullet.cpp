@@ -9,6 +9,8 @@
 #include "Enemy6.h"
 #include "Enemy7.h"
 #include "Enemy8.h"
+#include "Enemy9.h"
+#include "Enemy10.h"
 #include "Brick.h"
 Bullet::Bullet(int nx, int ny)
 {
@@ -160,6 +162,16 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				Enemy8* e8 = dynamic_cast<Enemy8*>(e->obj);
 				e8->SetState(ENEMY8_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy9*>(e->obj))
+			{
+				Enemy9* e9 = dynamic_cast<Enemy9*>(e->obj);
+				e9->SetState(ENEMY9_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy10*>(e->obj))
+			{
+				Enemy10* e10 = dynamic_cast<Enemy10*>(e->obj);
+				e10->SetState(ENEMY10_STATE_DIE);
 			}
 		}
 	}

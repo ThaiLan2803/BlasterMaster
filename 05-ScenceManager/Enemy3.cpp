@@ -36,6 +36,8 @@ void Enemy3::Render()
 	if (state != ENEMY3_STATE_DIE) {
 		animation_set->at(ani)->Render(x, y);
 	}
+	else
+		return;
 
 }
 
