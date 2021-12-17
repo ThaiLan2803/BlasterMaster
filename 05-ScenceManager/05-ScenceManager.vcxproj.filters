@@ -129,6 +129,12 @@
     <ClCompile Include="Enemy10.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy11.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy12.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -237,6 +243,12 @@
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Enemy10.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy11.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy12.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

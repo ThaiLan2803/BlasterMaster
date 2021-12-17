@@ -81,7 +81,6 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
-				DebugOut(L"P colli");
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
