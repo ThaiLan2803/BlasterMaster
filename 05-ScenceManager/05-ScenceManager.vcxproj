@@ -139,6 +139,7 @@
     <ClCompile Include="Enemy10.cpp" />
     <ClCompile Include="Enemy11.cpp" />
     <ClCompile Include="Enemy12.cpp" />
+    <ClCompile Include="Enemy13.cpp" />
     <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="Enemy3.cpp" />
     <ClCompile Include="Enemy4.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Enemy10.h" />
     <ClInclude Include="Enemy11.h" />
     <ClInclude Include="Enemy12.h" />
+    <ClInclude Include="Enemy13.h" />
     <ClInclude Include="Enemy2.h" />
     <ClInclude Include="Enemy3.h" />
     <ClInclude Include="Enemy4.h" />

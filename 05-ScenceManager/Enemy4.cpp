@@ -46,7 +46,6 @@ void Enemy4::Render()
 	case ENEMY4_STATE_DIE:
 		ani = -1;
 		break;*/
-	}
 	if (state == ENEMY4_STATE_DIE)
 	{
 		ani = ENEMY4_ANI_ITEM;
