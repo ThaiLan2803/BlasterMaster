@@ -10,6 +10,7 @@
 #include "Enemy5.h"
 #include "Bullet.h"
 #include "Portal.h"
+#include "BrickNoColli.h"
 #define TANK_WALKING_SPEED		0.15f 
 #define TANK_JUMP_SPEED_Y		0.5f
 #define TANK_GRAVITY			-0.02f
@@ -29,10 +30,11 @@
 #define TANK_ANI_IDLE_LEFT				0
 #define TANK_ANI_WALKING_RIGHT			2
 #define TANK_ANI_WALKING_LEFT			3
-#define TANK_ANI_WALKING_UP				4
-#define TANK_ANI_WALKING_DOWN			5
+#define JASON_ANI_WALKING_UP				4
+#define JASON_ANI_WALKING_DOWN			5
 #define TANK_ANI_DAN_UP_LEFT		6
 #define TANK_ANI_DAN_UP_RIGHT		7
+
 
 #define JASON_ANI_IDLE		0
 #define JASON_ANI_BACK		1
@@ -62,6 +64,7 @@ protected:
 	float start_x;			// initial position of TANK at scene
 	float start_y;
 	bool isJason = false;
+	int old_ani;
 	vector<LPGAMEOBJECT> bullets;
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;

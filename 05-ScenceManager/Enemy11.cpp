@@ -8,12 +8,12 @@ Enemy11::Enemy11(int nx, int ny)
 	this->nx = nx;
 	if (ny_ != 0)
 		vy = ny_ * 0.1f;
-	else vx = nx * 0.1f;
+	else vx = nx * SPEED;
 }
 void Enemy11::Render()
 {
 
-	animation_set->at(0)->Render(x + nx * 5, y);
+	//animation_set->at(0)->Render(x + nx * 5, y);
 }
 
 
@@ -35,8 +35,6 @@ void Enemy11::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Enemy11::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//dx = dy = 0;
-	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	vector<LPCOLLISIONEVENT> coEvents;

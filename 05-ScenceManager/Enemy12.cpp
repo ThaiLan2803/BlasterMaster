@@ -1,5 +1,7 @@
 #include "Enemy12.h"
 #include "Utils.h"
+#include "Brick2.h"
+#include "BrickNoColli.h"
 Enemy12::Enemy12()
 {
 	state = ENEMY12_STATE_IDLE;
@@ -20,7 +22,17 @@ void Enemy12::GetBoundingBox(float& left, float& top, float& right, float& botto
 void Enemy12::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-
+	x += vx * dt;
+	if (x < 30 && vx < 0)
+	{
+		x = 30;
+		vx = -vx;
+	}
+	if (x > 200 && vx > 0)
+	{
+		x = 200;
+		vx = -vx;
+	}
 }
 
 void Enemy12::Render()

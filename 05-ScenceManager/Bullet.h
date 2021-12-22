@@ -5,6 +5,8 @@
 #define DAN_WIDTH_H		24
 #define DAN_HEIGHT_UP	24
 #define DAN_WIDTH_UP	10
+#define JASON_BULLET_H	18
+#define JASON_BULLET_W	18
 
 #define BULLET_SPEED 0.9f
 
@@ -22,6 +24,7 @@ class Bullet : public CGameObject
 	DWORD untouchable_start;
 	int nx, bl_ny;
 public:
+	bool IsJason = false;
 	Bullet(int nx, int ny);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

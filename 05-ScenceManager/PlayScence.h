@@ -24,9 +24,11 @@
 #include "Enemy8.h"
 #include "Enemy9.h"
 #include "Enemy10.h"
+#include "Enemy11.h"
 #include "Enemy12.h"
 #include "Enemy13.h"
 #include "Enemy14.h"
+#include "Enemy15.h"
 #include "BrickNoColli.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
@@ -57,6 +59,8 @@
 #define OBJECT_TYPE_ENEMY12	19
 #define OBJECT_TYPE_ENEMY13	20
 #define OBJECT_TYPE_ENEMY14	21
+#define OBJECT_TYPE_ENEMY15	22
+#define OBJECT_TYPE_ENEMY11	23
 #define	OBJECT_TYPE_BRICK2	1001
 #define	OBJECT_TYPE_BRICK3	1002
 #define	OBJECT_TYPE_BRICKNOCOLLI	1003

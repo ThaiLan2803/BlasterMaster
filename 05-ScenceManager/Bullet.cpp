@@ -11,7 +11,12 @@
 #include "Enemy8.h"
 #include "Enemy9.h"
 #include "Enemy10.h"
+#include "Enemy12.h"
+#include "Enemy13.h"
+#include "Enemy14.h"
+#include "Enemy15.h"
 #include "Brick.h"
+#include "BrickNoColli.h"
 Bullet::Bullet(int nx, int ny)
 {
 	this->bl_ny = ny;
@@ -23,25 +28,43 @@ Bullet::Bullet(int nx, int ny)
 }
 void Bullet::Render()
 {
-	int ani;
-	if (bl_ny != 0)
+	if (IsJason)
 	{
-		ani = DAN_ANI_UP;
-		animation_set->at(ani)->Render(x, y+20);
-	}
-	else if (vx != 0)
-	{
-		if (vx > 0)
+		if (animation_set->size() == 1)
 		{
-			ani = DAN_ANI_RIGHT;
-			animation_set->at(ani)->Render(x + 5, y);
+			animation_set->at(0)->Render(x + nx * 5, y);
 		}
 		else
 		{
-			ani = DAN_ANI_LEFT;
-			animation_set->at(ani)->Render(x - 15, y);
+			if (bl_ny != 0)
+				animation_set->at(1)->Render(x - 5, y + 20);
+			else
+				animation_set->at(0)->Render(x + nx * 5, y);
 		}
 	}
+	else
+	{
+		int ani;
+		if (bl_ny != 0)
+		{
+			ani = DAN_ANI_UP;
+			animation_set->at(ani)->Render(x, y + 20);
+		}
+		else if (vx != 0)
+		{
+			if (vx > 0)
+			{
+				ani = DAN_ANI_RIGHT;
+				animation_set->at(ani)->Render(x + 5, y);
+			}
+			else
+			{
+				ani = DAN_ANI_LEFT;
+				animation_set->at(ani)->Render(x - 15, y);
+			}
+		}
+	}
+	RenderBoundingBox();
 	/*if (bl_ny != 0)
 			animation_set->at(1)->Render(x - 5, y + 20);
 		else
@@ -53,15 +76,23 @@ void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	if (bl_ny != 0)
+	if (IsJason)
 	{
-		r = x + DAN_WIDTH_UP;
-		b = y + DAN_HEIGHT_UP;
+		r = x + JASON_BULLET_W;
+		b = y + JASON_BULLET_H;
 	}
 	else
 	{
-		r = x + DAN_WIDTH_H;
-		b = y + DAN_HEIGHT_H;
+		if (bl_ny != 0)
+		{
+			r = x + DAN_WIDTH_UP;
+			b = y + DAN_HEIGHT_UP;
+		}
+		else
+		{
+			r = x + DAN_WIDTH_H;
+			b = y + DAN_HEIGHT_H;
+		}
 	}
 }
 
@@ -172,6 +203,26 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				Enemy10* e10 = dynamic_cast<Enemy10*>(e->obj);
 				e10->SetState(ENEMY10_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy14*>(e->obj))
+			{
+				Enemy14* e14 = dynamic_cast<Enemy14*>(e->obj);
+				e14->SetState(ENEMY14_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy12*>(e->obj))
+			{
+				Enemy12* e12 = dynamic_cast<Enemy12*>(e->obj);
+				e12->SetState(ENEMY12_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy13*>(e->obj))
+			{
+				Enemy13* e13 = dynamic_cast<Enemy13*>(e->obj);
+				e13->SetState(ENEMY13_STATE_DIE);
+			}
+			if (dynamic_cast<BrickNoColli*>(e->obj))
+			{
+				x += dx;
+				y += dy;
 			}
 		}
 	}

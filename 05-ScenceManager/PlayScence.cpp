@@ -19,7 +19,7 @@ LPDIRECT3DTEXTURE9 texMap1;
 Quadtree* CPlayScene::CreateQuadtree(vector<LPGAMEOBJECT> entity_list)
 {
 	int count = 0;
-	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 1500, 1000));
+	Quadtree* quadtree = new Quadtree(1, new Rect(0, 0, 2000, 2000));
 	for (auto i = entity_list.begin(); i != entity_list.end(); i++)
 	{
 		count++;
@@ -231,6 +231,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_ENEMY14:
 		obj = new Enemy14();
 		break;
+	case OBJECT_TYPE_ENEMY15:
+		obj = new Enemy15();
+		break;
+	case OBJECT_TYPE_ENEMY11:
+		obj = new Enemy11(0,0);
+		break;
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);
@@ -336,7 +342,7 @@ void CPlayScene::Update(DWORD dt)
 	coObj->clear();
 	quadtree = CreateQuadtree(objects);
 	quadtree->Retrieve(coObj, player);
-	vector<LPGAMEOBJECT> coObjects;
+	coObj->push_back(player);
 	for (size_t i = 0; i < coObj->size(); i++)
 	{
 		if (coObj->at(i)->IsEnable())
@@ -344,6 +350,7 @@ void CPlayScene::Update(DWORD dt)
 		else
 			coObj->erase(coObj->begin() + i);
 	}
+	coObj->pop_back();
 	if (player == NULL) return; 
 	player->Update(dt, coObj);
 	CGame::GetInstance()->SetCamPos(player);
@@ -370,8 +377,7 @@ void CPlayScene::Render()
 
 void CPlayScene::Unload()
 {
-	//if (player != NULL)
-	//	tank_previous_state = player->GetState();
+
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Disable();
 

@@ -26,7 +26,7 @@ void Enemy10::Render()
 	if (state == ENEMY10_STATE_DIE) {
 		return;
 	}
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	animation_set->at(ani)->Render(x, y);
 
 }

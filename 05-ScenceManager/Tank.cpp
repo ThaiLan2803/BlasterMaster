@@ -44,6 +44,8 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
+		if (x < 30 && vx < 0)
+			x = 30;
 		y += dy;
 	
 	
@@ -74,6 +76,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<BrickNoColli*>(e->obj))
+			{
+				x += dx;
+				y += dy;
+			}
 			if (dynamic_cast<Enemy2*>(e->obj))
 			{
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
@@ -94,14 +101,15 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani;
+	if (nx == 0 && ny == 0)
+		ani = JASON_ANI_IDLE;
 	if (nx > 0)
 	{
-		if (vx == 0)
-			ani = JASON_ANI_IDLE;
-		else
-		ani = TANK_ANI_IDLE_RIGHT;
+		ani = TANK_ANI_WALKING_RIGHT;
+		old_ani = ani;
 		if (!IsJason())
 		{
+			ani = TANK_ANI_IDLE_RIGHT;
 			if (bl_ny == 0)
 			{
 				Gun->NewRender(x + 15, y);
@@ -117,14 +125,13 @@ void CTank::Render()
 	else
 		if (nx < 0)
 		{
-			if (vx == 0)
-				ani = JASON_ANI_IDLE;
-			else
-				ani = TANK_ANI_IDLE_LEFT;
+			ani = TANK_ANI_WALKING_LEFT;
+			old_ani = ani;
 			if (!IsJason())
 			{
 				if (bl_ny == 0)
 				{
+					ani = TANK_ANI_IDLE_LEFT;
 					Gun->NewRender(x - 8, y);
 					Gun->SetState(SUNG_STATE_LEFT);
 				}
@@ -135,13 +142,12 @@ void CTank::Render()
 				}
 			}
 		}
-	if (ny > 0)
-		ani = JASON_ANI_BACK;
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	/*WLeft->NewRender(x, y- 10);
-	WRight->NewRender(x + 17, y - 10);
-	bc->NewRender(x + 9, y - 8);*/
+	if (ny > 0)
+		ani = JASON_ANI_BACK;
+	if (ny < 0)
+		ani = JASON_ANI_IDLE;
 	animation_set->at(ani)->Render(x, y, alpha);
 	if (!IsJason())
 	{
@@ -162,9 +168,12 @@ void CTank::SetState(int state)
 	{
 	case TANK_STATE_WALKING_RIGHT:
 		vx = TANK_WALKING_SPEED;
-		if (IsJason())
-			vy = 0;
 		nx = 1;
+		if (IsJason())
+		{
+			vy = 0;
+			ny = 0;
+		}
 		if (WLeft != NULL && WRight != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
@@ -175,9 +184,12 @@ void CTank::SetState(int state)
 		break;
 	case TANK_STATE_WALKING_LEFT:
 		vx = -TANK_WALKING_SPEED;
-		if (IsJason())
-			vy = 0;
 		nx = -1;
+		if (IsJason())
+		{
+			vy = 0;
+			ny = 0;
+		}
 		if (WLeft != NULL && WRight != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
@@ -187,9 +199,13 @@ void CTank::SetState(int state)
 		
 		break;
 	case JASON_STATE_WALKING_UP:
-		vy = TANK_WALKING_SPEED;
-		vx = 0;
-		ny = 1;
+		if (IsJason())
+		{
+			vy = TANK_WALKING_SPEED;
+			vx = 0;
+			nx = 0;
+			ny = 1;
+		}
 		if (WLeft != NULL && WRight != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
@@ -197,9 +213,13 @@ void CTank::SetState(int state)
 		}
 		break;
 	case JASON_STATE_WALKING_DOWN:
-		vy = -TANK_WALKING_SPEED;
-		vx = 0;
-		ny = -1;
+		if (IsJason())
+		{
+			vy = -TANK_WALKING_SPEED;
+			vx = 0;
+			ny = -1;
+			nx = 0;
+		}
 		if (WLeft != NULL && WRight != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
@@ -208,10 +228,11 @@ void CTank::SetState(int state)
 		break;
 	case TANK_STATE_JUMP:
 		vy = TANK_JUMP_SPEED_Y;
+		if (IsJason())
+			ny = 1;
 		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
-		bl_ny = 0;
 		if (WLeft && WRight)
 		{
 			WLeft->SetState(BANHXE_STATE_IDLE);
@@ -223,6 +244,7 @@ void CTank::SetState(int state)
 		this->Shoot();
 		break;
 	case TANK_STATE_STOP:
+		bl_ny = 0;
 		if (IsJason())
 		{
 			vx = 0;
@@ -235,7 +257,10 @@ void CTank::SetState(int state)
 		}
 		break;
 	case TANK_STATE_DAN_UP:
-		bl_ny = 1;
+		if (IsJason())
+			ny = 1;
+		else
+			bl_ny = 1;
 	}
 }
 
@@ -277,17 +302,19 @@ void CTank::SetBtc(BottomCircle* btc)
 void CTank::SetBullet(Bullet* bl)
 {
 	bullet = bl;
-	DebugOut(L"Set bulll");
+	bullet->IsJason = IsJason();
 }
 void CTank::Shoot()
 {
 	int bullet_first = bullets.size();
-	Bullet* newBullet = new Bullet(nx, bl_ny);
+	Bullet* newBullet;
+	if (IsJason())
+		newBullet = new Bullet(nx, ny);
+	else
+		newBullet = new Bullet(nx, bl_ny);
 	newBullet->SetAnimationSet(bullet->animation_set);
 	newBullet->SetPosition(x, y);
 	bullets.push_back(newBullet);
-	if (bullets.size() - bullet_first > TANK_AMOUNT_BULLET)
-		bullets.erase(bullets.begin() + bullets.size() - 1 - TANK_AMOUNT_BULLET, bullets.end());
 	//DebugOut(L"Size: %d \n", (int)bullets.size());
 
 }

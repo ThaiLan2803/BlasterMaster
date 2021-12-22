@@ -9,6 +9,7 @@
 #define	BULLET_STATE_DIE	1
 #define BULLET_UNTOUCHABLE_TIME 			5000
 
+#define SPEED	0.1f;
 
 class Enemy11 : public CGameObject
 {

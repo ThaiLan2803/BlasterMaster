@@ -4,7 +4,6 @@
 
 void Brick3::Render()
 {
-	//animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }
 
