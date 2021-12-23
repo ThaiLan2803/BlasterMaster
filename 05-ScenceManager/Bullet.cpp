@@ -11,6 +11,7 @@
 #include "Enemy8.h"
 #include "Enemy9.h"
 #include "Enemy10.h"
+#include "Enemy11.h"
 #include "Enemy12.h"
 #include "Enemy13.h"
 #include "Enemy14.h"
@@ -28,23 +29,7 @@ Bullet::Bullet(int nx, int ny)
 }
 void Bullet::Render()
 {
-	if (IsJason)
-	{
-		if (animation_set->size() == 1)
-		{
-			animation_set->at(0)->Render(x + nx * 5, y);
-		}
-		else
-		{
-			if (bl_ny != 0)
-				animation_set->at(1)->Render(x - 5, y + 20);
-			else
-				animation_set->at(0)->Render(x + nx * 5, y);
-		}
-	}
-	else
-	{
-		int ani;
+	/*	int ani;
 		if (bl_ny != 0)
 		{
 			ani = DAN_ANI_UP;
@@ -62,14 +47,21 @@ void Bullet::Render()
 				ani = DAN_ANI_LEFT;
 				animation_set->at(ani)->Render(x - 15, y);
 			}
-		}
+		}*/
+
+	if (animation_set->size() == 1)
+	{
+		animation_set->at(0)->Render(x, y);
 	}
-	RenderBoundingBox();
-	/*if (bl_ny != 0)
+	else
+	{
+		if (bl_ny != 0)
 			animation_set->at(1)->Render(x - 5, y + 20);
 		else
-			animation_set->at(0)->Render(x + nx * 5, y);
-		RenderBoundingBox();*/
+			animation_set->at(0)->Render(x, y);
+	}
+	RenderBoundingBox();
+
 }
 
 void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -218,6 +210,11 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				Enemy13* e13 = dynamic_cast<Enemy13*>(e->obj);
 				e13->SetState(ENEMY13_STATE_DIE);
+			}
+			if (dynamic_cast<Enemy15*>(e->obj))
+			{
+				Enemy15* e15 = dynamic_cast<Enemy15*>(e->obj);
+				e15->SetState(ENEMY15_STATE_DIE);
 			}
 			if (dynamic_cast<BrickNoColli*>(e->obj))
 			{

@@ -10,7 +10,7 @@
 
 #define ENEMY14_ANI_ITEM 1
 #define ENEMY14_ANI_IDLE 0
-#define ENEMY14_SPEED 0.01f
+#define ENEMY14_SPEED 0.009f
 #define	DISTANCE 200
 class Enemy14 : public CGameObject
 {

@@ -23,7 +23,11 @@ void Enemy1::Render()
 	if (state == ENEMY1_STATE_ITEM) {
 		ani = ENEMY1_ANI_ITEM;
 	}
-	RenderBoundingBox();
+	if (state == ENEMY1_STATE_DIE)
+	{
+		return;
+	}
+	//RenderBoundingBox();
 	animation_set->at(ani)->Render(x, y);
 }
 

@@ -41,14 +41,15 @@ void Enemy12::Render()
 	int ani = ENEMY12_ANI_IDLE;
 	if (state == ENEMY12_STATE_ITEM) {
 		ani = ENEMY12_ANI_ITEM;
+	
 	}
 	if (state == ENEMY12_STATE_DIE)
 	{
 		return;
 	}
-	RenderBoundingBox();
-	animation_set->at(ani)->Render(x, y);
+	//RenderBoundingBox();
 
+	animation_set->at(ani)->Render(x, y);
 }
 
 void Enemy12::SetState(int state)

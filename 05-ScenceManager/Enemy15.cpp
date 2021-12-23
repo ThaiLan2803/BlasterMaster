@@ -29,13 +29,15 @@ void Enemy15::Render()
 	int ani = ENEMY15_ANI_IDLE;
 	if (state == ENEMY15_STATE_ITEM) {
 		ani = ENEMY15_ANI_ITEM;
+		
 	}
 	if (state == ENEMY15_STATE_DIE)
 	{
 		return;
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 	animation_set->at(ani)->Render(x, y);
+	
 
 }
 

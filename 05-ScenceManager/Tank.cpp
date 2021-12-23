@@ -106,13 +106,13 @@ void CTank::Render()
 	if (nx > 0)
 	{
 		ani = TANK_ANI_WALKING_RIGHT;
-		old_ani = ani;
 		if (!IsJason())
 		{
 			ani = TANK_ANI_IDLE_RIGHT;
 			if (bl_ny == 0)
 			{
-				Gun->NewRender(x + 15, y);
+				ani = TANK_ANI_IDLE_RIGHT;
+				Gun->NewRender(x + 13, y);
 				Gun->SetState(SUNG_STATE_RIGHT);
 			}
 			else
@@ -126,13 +126,13 @@ void CTank::Render()
 		if (nx < 0)
 		{
 			ani = TANK_ANI_WALKING_LEFT;
-			old_ani = ani;
 			if (!IsJason())
 			{
+				ani = TANK_ANI_IDLE_LEFT;
 				if (bl_ny == 0)
 				{
 					ani = TANK_ANI_IDLE_LEFT;
-					Gun->NewRender(x - 8, y);
+					Gun->NewRender(x - 5, y);
 					Gun->SetState(SUNG_STATE_LEFT);
 				}
 				else
@@ -174,11 +174,11 @@ void CTank::SetState(int state)
 			vy = 0;
 			ny = 0;
 		}
-		if (WLeft != NULL && WRight != NULL)
+		if (WLeft != NULL && WRight != NULL && Gun != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_RIGHT);
 			WRight->SetState(BANHXE_STATE_WALKING_RIGHT);
-		
+			//Gun->SetState(SUNG_STATE_RIGHT);
 		}
 		
 		break;
@@ -190,11 +190,11 @@ void CTank::SetState(int state)
 			vy = 0;
 			ny = 0;
 		}
-		if (WLeft != NULL && WRight != NULL)
+		if (WLeft != NULL && WRight != NULL && Gun != NULL)
 		{
 			WLeft->SetState(BANHXE_STATE_WALKING_LEFT);
 			WRight->SetState(BANHXE_STATE_WALKING_LEFT);
-			
+			//Gun->SetState(SUNG_STATE_LEFT);
 		}
 		
 		break;
@@ -228,8 +228,6 @@ void CTank::SetState(int state)
 		break;
 	case TANK_STATE_JUMP:
 		vy = TANK_JUMP_SPEED_Y;
-		if (IsJason())
-			ny = 1;
 		break;
 	case TANK_STATE_IDLE:
 		vx = 0;
@@ -266,16 +264,16 @@ void CTank::SetState(int state)
 
 void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x - 6;
+	left = x;
 	top = y - 11;
 	if (!IsJason())
 	{
-		right = x + TANK_BBOX_WIDTH - 5;
+		right = x + TANK_BBOX_WIDTH - 8;
 		bottom = y + TANK_BBOX_HEIGHT - 11;
 	}
 	else
 	{
-		right = x + JASON_BBOX_WIDTH;
+		right = x + JASON_BBOX_WIDTH-10;
 		bottom = y + JASON_BBOX_HEIGHT - 11;
 	}
 	

@@ -13,7 +13,7 @@
 #include "BrickNoColli.h"
 #define TANK_WALKING_SPEED		0.15f 
 #define TANK_JUMP_SPEED_Y		0.5f
-#define TANK_GRAVITY			-0.02f
+#define TANK_GRAVITY			-0.005f
 
 #define TANK_STATE_IDLE					0
 #define TANK_STATE_WALKING_RIGHT		1

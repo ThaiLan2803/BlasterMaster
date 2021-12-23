@@ -67,9 +67,6 @@
 #define MAX_SCENE_LINE 1024
 
 
-#define SCREEN_WIDTH 400
-#define SCREEN_HEIGHT 240
-
 #define BRICK_WIDTH 32
 #define BRICK_HEIGHT 32
 
