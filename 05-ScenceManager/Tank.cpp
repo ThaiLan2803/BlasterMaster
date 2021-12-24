@@ -112,13 +112,13 @@ void CTank::Render()
 			if (bl_ny == 0)
 			{
 				ani = TANK_ANI_IDLE_RIGHT;
-				Gun->NewRender(x + 13, y);
+				Gun->NewRender(x + 15, y);
 				Gun->SetState(SUNG_STATE_RIGHT);
 			}
 			else
 			{
 				Gun->SetState(SUNG_STATE_UP);
-				Gun->NewRender(x, y + 10);
+				Gun->NewRender(x + 8, y + 9);
 			}
 		}
 	}
@@ -132,13 +132,13 @@ void CTank::Render()
 				if (bl_ny == 0)
 				{
 					ani = TANK_ANI_IDLE_LEFT;
-					Gun->NewRender(x - 5, y);
+					Gun->NewRender(x - 8, y);
 					Gun->SetState(SUNG_STATE_LEFT);
 				}
 				else
 				{
 					Gun->SetState(SUNG_STATE_UP);
-					Gun->NewRender(x, y + 10);
+					Gun->NewRender(x - 2, y + 9);
 				}
 			}
 		}
@@ -153,7 +153,7 @@ void CTank::Render()
 	{
 		WLeft->NewRender(x - 5, y - 12);
 		WRight->NewRender(x + 11, y - 12);
-		bc->NewRender(x + 3, y - 8);
+		bc->NewRender(x + 4, y - 8);
 	}
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();

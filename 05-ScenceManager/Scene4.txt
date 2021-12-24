@@ -3,7 +3,7 @@
 2	textures\tankleft.png	255	255	255
 4	textures\map2.png	0	0	0
 5	textures\enemies.png	255	255	255
-6	textures\jason.png	255	255	255
+6	textures\testjason.png	255	255	255
 7	textures\item.png	255	255	255
 8	textures\map3.png	255	255	255
 9	textures\walldie.png	255	255	255
@@ -205,9 +205,9 @@
 9004	254	158	272	176	11
 9005	304	158	322	176	11
 #BigJasonBack					
-700	62	43	82	74	6
-701	88	42	108	74	6
-702	114	43	134	74	6
+700	210	36	230	67	6
+701	240	36	260	67	6
+702	270	36	290	67	6
 #BigJasonFront					
 703	139	43	159	74	6
 704	164	42	184	74	6
