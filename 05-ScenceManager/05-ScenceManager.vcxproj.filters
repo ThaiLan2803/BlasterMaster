@@ -144,6 +144,9 @@
     <ClCompile Include="Enemy15.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="WallEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -267,6 +270,9 @@
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Enemy15.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="WallEnemy.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,9 @@ using namespace std;
 
 #define BRICK_BBOX_WIDTH			16
 #define BRICK_BBOX_HEIGHT 			16
+#define STATE_DIE	1000
+#define STATE_ITEM	2000
+
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
 
@@ -64,6 +67,7 @@ public:
 
 	int state;
 	bool isEnable = true;
+	int get_hit = 0;
 
 	DWORD dt; 
 
