@@ -1,7 +1,7 @@
 [TEXTURES]
 1	textures\tankright.png	255	255	255
 2	textures\tankleft.png	255	255	255
-4	textures\map2.png	0	0	0
+4	textures\map2.png	255	255	255
 5	textures\enemies.png	255	255	255
 6	textures\testjason.png	255	255	255
 7	textures\item.png	255	255	255
@@ -170,8 +170,6 @@
 2152	144	1472	160	1504	8
 2153	144	1488	160	1520	8
 2154	208	1216	224	1248	8
-
-
 #background
 10001	0	0	496	2016	8
 #Enemy11 (bullet)	
