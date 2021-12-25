@@ -38,6 +38,8 @@
 
 #define JASON_ANI_IDLE		0
 #define JASON_ANI_BACK		1
+#define JASON_ANI_RIGHT		2
+#define JASON_ANI_LEFT		3
 
 #define JASON_BBOX_HEIGHT			20
 #define JASON_BBOX_WIDTH 			25
@@ -64,7 +66,7 @@ protected:
 	float start_x;			// initial position of TANK at scene
 	float start_y;
 	bool isJason = false;
-	int old_ani;
+	int ny_js;
 	vector<LPGAMEOBJECT> bullets;
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;

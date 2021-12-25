@@ -5,6 +5,7 @@
 #include "Tank.h"
 #include "Game.h"
 
+
 CTank::CTank(float x, float y) : CGameObject()
 {
 	SetState(TANK_STATE_IDLE);
@@ -102,14 +103,14 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani;
-	if (nx == 0 && ny == 0)
+	if (nx == 0 && ny_js == 0)
 		ani = JASON_ANI_IDLE;
 	if (nx > 0)
 	{
-		//ani = TANK_ANI_WALKING_RIGHT;
+		ani = TANK_ANI_WALKING_RIGHT;
 		if (!IsJason())
 		{
-			//ani = TANK_ANI_IDLE_RIGHT;
+			ani = TANK_ANI_IDLE_RIGHT;
 			if (bl_ny == 0)
 			{
 				ani = TANK_ANI_IDLE_RIGHT;
@@ -132,13 +133,12 @@ void CTank::Render()
 		
 		}
 	}
-	else
-		if (nx < 0)
+	else if (nx < 0)
 		{
-			//ani = TANK_ANI_WALKING_LEFT;
+			ani = TANK_ANI_WALKING_LEFT;
 			if (!IsJason())
 			{
-				//ani = TANK_ANI_IDLE_LEFT;
+				ani = TANK_ANI_IDLE_LEFT;
 				if (bl_ny == 0)
 				{
 					ani = TANK_ANI_IDLE_LEFT;
@@ -161,20 +161,9 @@ void CTank::Render()
 				
 			}
 		}
-	int alpha = 255;
-	if (untouchable) alpha = 128;
-	if (ny > 0)
-		ani = JASON_ANI_BACK;
-	if (ny < 0)
-		ani = JASON_ANI_IDLE;
-	
-	if (IsJason())
-	{
-		animation_set->at(ani)->Render(x, y, alpha);
-	/*	WLeft->NewRender(x - 5, y - 12);
-		WRight->NewRender(x + 11, y - 12);
-		bc->NewRender(x + 4, y - 8);*/
-	}
+	if (Gun == NULL)
+		animation_set->at(ani)->Render(x, y, 255);
+
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
 	RenderBoundingBox();
