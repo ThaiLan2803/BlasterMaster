@@ -12,6 +12,7 @@ CTank::CTank(float x, float y) : CGameObject()
 	this->y = y;
 }
 
+
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
@@ -105,41 +106,59 @@ void CTank::Render()
 		ani = JASON_ANI_IDLE;
 	if (nx > 0)
 	{
-		ani = TANK_ANI_WALKING_RIGHT;
+		//ani = TANK_ANI_WALKING_RIGHT;
 		if (!IsJason())
 		{
-			ani = TANK_ANI_IDLE_RIGHT;
+			//ani = TANK_ANI_IDLE_RIGHT;
 			if (bl_ny == 0)
 			{
 				ani = TANK_ANI_IDLE_RIGHT;
 				Gun->NewRender(x + 15, y);
 				Gun->SetState(SUNG_STATE_RIGHT);
+				WLeft->NewRender(x - 5, y - 12);
+				WRight->NewRender(x + 11, y - 12);
+				bc->NewRender(x + 4, y - 8);
+				animation_set->at(1)->Render(x, y, 255);
 			}
 			else
 			{
 				Gun->SetState(SUNG_STATE_UP);
-				Gun->NewRender(x + 8, y + 9);
+				Gun->NewRender(x + 8, y + 12);
+				WLeft->NewRender(x + 5, y - 12);
+				WRight->NewRender(x + 15, y - 12);
+				bc->NewRender(x + 11, y - 6);
+				animation_set->at(3)->Render(x, y + 4, 255);
 			}
+		
 		}
 	}
 	else
 		if (nx < 0)
 		{
-			ani = TANK_ANI_WALKING_LEFT;
+			//ani = TANK_ANI_WALKING_LEFT;
 			if (!IsJason())
 			{
-				ani = TANK_ANI_IDLE_LEFT;
+				//ani = TANK_ANI_IDLE_LEFT;
 				if (bl_ny == 0)
 				{
 					ani = TANK_ANI_IDLE_LEFT;
 					Gun->NewRender(x - 8, y);
 					Gun->SetState(SUNG_STATE_LEFT);
+					WLeft->NewRender(x - 5, y - 12);
+					WRight->NewRender(x + 11, y - 12);
+					bc->NewRender(x + 4, y - 8);
+					animation_set->at(0)->Render(x, y, 255);
 				}
 				else
 				{
+					animation_set->at(2)->Render(x, y + 4, 255);
 					Gun->SetState(SUNG_STATE_UP);
-					Gun->NewRender(x - 2, y + 9);
+					Gun->NewRender(x - 2, y + 13);
+					WLeft->NewRender(x - 7, y - 12);
+					WRight->NewRender(x + 3, y - 12);
+					bc->NewRender(x - 1, y - 6);
 				}
+				
 			}
 		}
 	int alpha = 255;
@@ -148,12 +167,13 @@ void CTank::Render()
 		ani = JASON_ANI_BACK;
 	if (ny < 0)
 		ani = JASON_ANI_IDLE;
-	animation_set->at(ani)->Render(x, y, alpha);
-	if (!IsJason())
+	
+	if (IsJason())
 	{
-		WLeft->NewRender(x - 5, y - 12);
+		animation_set->at(ani)->Render(x, y, alpha);
+	/*	WLeft->NewRender(x - 5, y - 12);
 		WRight->NewRender(x + 11, y - 12);
-		bc->NewRender(x + 4, y - 8);
+		bc->NewRender(x + 4, y - 8);*/
 	}
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
@@ -268,7 +288,7 @@ void CTank::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	top = y - 11;
 	if (!IsJason())
 	{
-		right = x + TANK_BBOX_WIDTH - 8;
+		right = x + TANK_BBOX_WIDTH;
 		bottom = y + TANK_BBOX_HEIGHT - 11;
 	}
 	else
