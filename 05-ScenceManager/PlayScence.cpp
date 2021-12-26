@@ -237,6 +237,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_ENEMY11:
 		obj = new Enemy11(0,0);
 		break;
+	case OBJECT_TYPE_WALLENEMY:
+		obj = new WallEnemy();
+		break;
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);

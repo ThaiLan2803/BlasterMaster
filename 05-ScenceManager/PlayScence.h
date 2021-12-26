@@ -29,6 +29,7 @@
 #include "Enemy13.h"
 #include "Enemy14.h"
 #include "Enemy15.h"
+#include "WallEnemy.h"
 #include "BrickNoColli.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
@@ -64,6 +65,7 @@
 #define	OBJECT_TYPE_BRICK2	1001
 #define	OBJECT_TYPE_BRICK3	1002
 #define	OBJECT_TYPE_BRICKNOCOLLI	1003
+#define OBJECT_TYPE_WALLENEMY	555
 #define MAX_SCENE_LINE 1024
 
 

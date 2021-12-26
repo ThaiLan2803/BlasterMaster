@@ -26,8 +26,8 @@
 #define TANK_STATE_BULLET				7
 #define TANK_STATE_DAN_UP				8
 
-#define TANK_ANI_IDLE_RIGHT				1
 #define TANK_ANI_IDLE_LEFT				0
+#define TANK_ANI_IDLE_RIGHT				1
 #define TANK_ANI_WALKING_RIGHT			2
 #define TANK_ANI_WALKING_LEFT			3
 #define JASON_ANI_WALKING_UP				4

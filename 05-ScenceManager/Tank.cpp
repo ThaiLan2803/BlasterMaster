@@ -103,8 +103,7 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani;
-	if (nx == 0 && ny_js == 0)
-		ani = JASON_ANI_IDLE;
+
 	if (nx > 0)
 	{
 		ani = TANK_ANI_WALKING_RIGHT;
@@ -151,6 +150,7 @@ void CTank::Render()
 				}
 				else
 				{
+					ani = TANK_ANI_IDLE_LEFT;
 					animation_set->at(2)->Render(x, y + 4, 255);
 					Gun->SetState(SUNG_STATE_UP);
 					Gun->NewRender(x - 2, y + 13);
@@ -161,9 +161,19 @@ void CTank::Render()
 				
 			}
 		}
-	if (Gun == NULL)
-		animation_set->at(ani)->Render(x, y, 255);
 
+	if (Gun == NULL)
+	{
+			if(ny_js < 0)
+				ani = JASON_ANI_IDLE;
+			if (ny_js > 0)
+				ani = JASON_ANI_BACK;
+			if (nx > 0)
+				ani = JASON_ANI_RIGHT;
+			if (nx < 0)
+				ani = JASON_ANI_LEFT;
+		animation_set->at(ani)->Render(x, y, 255);
+	}
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Render();
 	RenderBoundingBox();
@@ -213,7 +223,7 @@ void CTank::SetState(int state)
 			vy = TANK_WALKING_SPEED;
 			vx = 0;
 			nx = 0;
-			ny = 1;
+			ny_js = 1;
 		}
 		if (WLeft != NULL && WRight != NULL)
 		{
@@ -226,7 +236,7 @@ void CTank::SetState(int state)
 		{
 			vy = -TANK_WALKING_SPEED;
 			vx = 0;
-			ny = -1;
+			ny_js = -1;
 			nx = 0;
 		}
 		if (WLeft != NULL && WRight != NULL)
