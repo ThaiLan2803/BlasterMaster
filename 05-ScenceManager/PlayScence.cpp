@@ -197,6 +197,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY2:
 		obj = new Enemy2();
+		obj->SetState(ENEMY2_STATE_WALKING);
 		break;
 	case OBJECT_TYPE_ENEMY3:
 		obj = new Enemy3();
@@ -227,15 +228,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY13:
 		obj = new Enemy13();
+		dynamic_cast<Enemy13*>(obj)->AddBullet(bl);
 		break;
 	case OBJECT_TYPE_ENEMY14:
 		obj = new Enemy14();
+		dynamic_cast<Enemy14*>(obj)->AddBullet(bl);
 		break;
 	case OBJECT_TYPE_ENEMY15:
 		obj = new Enemy15();
 		break;
 	case OBJECT_TYPE_ENEMY11:
 		obj = new Enemy11(0,0);
+		bl = (Enemy11*)obj;
 		break;
 	case OBJECT_TYPE_WALLENEMY:
 		obj = new WallEnemy();

@@ -68,7 +68,7 @@ public:
 	int state;
 	bool isEnable = true;
 	int get_hit = 0;
-
+	int hit_times;
 	DWORD dt; 
 
 	LPANIMATION_SET animation_set;
@@ -96,6 +96,7 @@ public:
 
 	int GetState() { return this->state; }
 	void Hit() { get_hit++; if (animation_set->size() > 1 && get_hit == animation_set->size() - 1) SetState(STATE_ITEM); if (get_hit == animation_set->size()) SetState(STATE_DIE); };
+	void SetHit() { hit_times = animation_set->size(); }
 	void RenderBoundingBox();
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }

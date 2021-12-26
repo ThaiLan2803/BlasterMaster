@@ -90,8 +90,8 @@ void Enemy14::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy14::FollowPlayer(float a, float b)
 {
-	float t0 = a - x;
-	float t1 = b - y;
+	t0 = a - x;
+	t1 = b - y;
 	x += vx * t0;
 	y += vy * t1;
 }

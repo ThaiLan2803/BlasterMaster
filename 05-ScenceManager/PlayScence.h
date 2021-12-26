@@ -87,7 +87,7 @@ protected:
 	int Stage;
 	int tank_previous_state = 0;
 	Quadtree* quadtree;
-	Bullet* bullet;
+	Enemy11* bl;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
