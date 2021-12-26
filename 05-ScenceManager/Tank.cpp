@@ -332,6 +332,5 @@ void CTank::Shoot()
 	newBullet->SetAnimationSet(bullet->animation_set);
 	newBullet->SetPosition(x, y);
 	bullets.push_back(newBullet);
-	//DebugOut(L"Size: %d \n", (int)bullets.size());
 
 }

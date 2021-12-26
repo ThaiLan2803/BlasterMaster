@@ -17,6 +17,8 @@
 #include "Enemy14.h"
 #include "Enemy15.h"
 #include "Brick.h"
+#include "Brick3.h"
+#include "Brick2.h"
 #include "BrickNoColli.h"
 Bullet::Bullet(int nx, int ny)
 {
@@ -142,11 +144,7 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj))
-			{
-				this->SetState(BULLET_STATE_DIE);
-			}
-			if (dynamic_cast<Enemy1*>(e->obj))
+			/*if (dynamic_cast<Enemy1*>(e->obj))
 			{
 				Enemy1* e1 = dynamic_cast<Enemy1*>(e->obj);
 				e1->SetState(ENEMY1_STATE_ITEM);
@@ -215,11 +213,27 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				Enemy15* e15 = dynamic_cast<Enemy15*>(e->obj);
 				e15->SetState(ENEMY15_STATE_DIE);
-			}
+			}*/
 			if (dynamic_cast<BrickNoColli*>(e->obj))
 			{
 				x += dx;
 				y += dy;
+				this->SetState(BULLET_STATE_DIE);
+			}
+			else if (dynamic_cast<Brick3*>(e->obj))
+			{
+				/*x += 0.01*dt;
+				y += 0.01*dt;*/
+				this->SetState(BULLET_STATE_DIE);
+			}
+			else if (dynamic_cast<Brick2*>(e->obj))
+			{
+				this->SetState(BULLET_STATE_DIE);
+			}
+			else
+			{
+				e->obj->Hit();
+				this->SetState(BULLET_STATE_DIE);
 			}
 		}
 	}

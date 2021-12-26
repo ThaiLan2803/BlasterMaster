@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Enemy11.h"
 #define ENEMY13_BBOX_WIDTH	 22
 #define ENEMY13_BBOX_HEIGHT 18
 
@@ -14,13 +14,16 @@
 class Enemy13 : public CGameObject
 {
 	int untouchable;
+	Enemy11* bullet;
 	DWORD untouchable_start;
 	float vx = ENEMY13_SPEED;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
-
+	vector<LPGAMEOBJECT> bullets;
 public:
 	Enemy13();
+	void AddBullet(Enemy11* bulletF) { bullet = bulletF; };
+	void Shoot();
 	virtual void SetState(int state);
 };

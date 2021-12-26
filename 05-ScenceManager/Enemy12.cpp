@@ -37,18 +37,12 @@ void Enemy12::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy12::Render()
 {
-	//DebugOut(L"State ene: %d \n", state);
-	int ani = ENEMY12_ANI_IDLE;
-	if (state == ENEMY12_STATE_ITEM) {
-		ani = ENEMY12_ANI_ITEM;
-	
-	}
-	if (state == ENEMY12_STATE_DIE)
+	int ani = get_hit;
+	if (state == STATE_DIE)
 	{
 		return;
 	}
-	//RenderBoundingBox();
-
+	/*RenderBoundingBox();*/
 	animation_set->at(ani)->Render(x, y);
 }
 
@@ -57,7 +51,10 @@ void Enemy12::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY12_STATE_DIE:
+	case STATE_DIE:
+		break;
+	case STATE_ITEM:
+		vx = vy = 0;
 		break;
 	}
 }

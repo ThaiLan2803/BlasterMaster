@@ -6,6 +6,8 @@ Enemy1::Enemy1()
 
 void Enemy1::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (state == STATE_DIE)
+		return;
 	left = x;
 	top = y;
 	right = x + ENEMY1_BBOX_WIDTH;
@@ -19,12 +21,8 @@ void Enemy1::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy1::Render()
 {
-	int ani = ENEMY1_ANI_IDLE;
-	if (state == ENEMY1_STATE_ITEM) {
-		ani = ENEMY1_ANI_ITEM;
-	}
-	if (state == ENEMY1_STATE_DIE)
-	{
+	int ani = get_hit;
+	if (state == STATE_DIE) {
 		return;
 	}
 	//RenderBoundingBox();
@@ -36,7 +34,10 @@ void Enemy1::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY1_STATE_DIE:
+	case STATE_DIE:
+		break;
+	case STATE_ITEM:
+		vx = vy = 0;
 		break;
 	}
 }

@@ -6,10 +6,13 @@ Enemy4::Enemy4()
 
 void Enemy4::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + ENEMY4_BBOX_WIDTH;
-	bottom = y + ENEMY4_BBOX_HEIGHT;
+	if (state != STATE_DIE)
+	{
+		left = x;
+		top = y;
+		right = x + ENEMY4_BBOX_WIDTH;
+		bottom = y + ENEMY4_BBOX_HEIGHT;
+	}
 }
 
 void Enemy4::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -37,12 +40,10 @@ void Enemy4::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy4::Render()
 {
-	int ani = ENEMY4_ANI_WALKING;
-	if (this->GetState() == ENEMY4_STATE_DIE)
-	{
-		ani = ENEMY4_ANI_ITEM;
-	}
-	else animation_set->at(ani)->Render(x, y);
+	int ani = get_hit;
+	if (state == STATE_DIE)
+		return;
+	animation_set->at(ani)->Render(x, y);
 }
 
 void Enemy4::SetState(int state)
@@ -50,11 +51,15 @@ void Enemy4::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY4_STATE_DIE:
+	case STATE_DIE:
 		vx = 0;
 		vy = 0;
 		break;
 	case ENEMY4_STATE_WALKING:
 		vx = -ENEMY4_WALKING_SPEED;
+		break;
+	case STATE_ITEM:
+		vx = vy = 0;
+		break;
 	}
 }

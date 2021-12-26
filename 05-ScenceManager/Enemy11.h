@@ -1,10 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
-#define DAN_HEIGHT_H	10
-#define DAN_WIDTH_H	24
-#define DAN_HEIGHT_UP	24
-#define DAN_WIDTH_UP	10
+
+#define BULLET_HEIGHT	10
+#define BULLET_WIDTH	10
 
 #define	BULLET_STATE_DIE	1
 #define BULLET_UNTOUCHABLE_TIME 			5000

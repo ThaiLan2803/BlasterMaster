@@ -32,12 +32,11 @@ void Enemy3::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy3::Render()
 {
-	int ani = ENEMY3_ANI_WALKING;
-	if (this->GetState() != ENEMY3_STATE_DIE) {
-		animation_set->at(ani)->Render(x, y);
-	}
-	else
+	int ani = get_hit;
+	if (state == STATE_DIE) {
 		return;
+	}
+	animation_set->at(ani)->Render(x, y);
 
 }
 
@@ -46,11 +45,15 @@ void Enemy3::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY3_STATE_DIE:
+	case STATE_DIE:
 		vx = 0;
 		vy = 0;
 		break;
 	case ENEMY3_STATE_WALKING:
 		vx = -ENEMY3_WALKING_SPEED;
+		break;
+	case STATE_ITEM:
+		vx = vy = 0;
+		break;
 	}
 }

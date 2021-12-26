@@ -12,8 +12,8 @@ Enemy11::Enemy11(int nx, int ny)
 }
 void Enemy11::Render()
 {
-
-	//animation_set->at(0)->Render(x + nx * 5, y);
+	animation_set->at(0)->Render(x + nx * 5, y + ny_ *5);
+	RenderBoundingBox();
 }
 
 
@@ -21,16 +21,8 @@ void Enemy11::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	if (ny_ != 0)
-	{
-		r = x + DAN_WIDTH_UP;
-		b = y + DAN_HEIGHT_UP;
-	}
-	else
-	{
-		r = x + DAN_WIDTH_H;
-		b = y + DAN_HEIGHT_H;
-	}
+	r = x + BULLET_WIDTH;
+	b = y + BULLET_HEIGHT;
 }
 
 void Enemy11::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

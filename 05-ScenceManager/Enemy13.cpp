@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "Brick2.h"
 #include "BrickNoColli.h"
+
 Enemy13::Enemy13()
 {
 	state = ENEMY13_STATE_IDLE;
@@ -37,17 +38,14 @@ void Enemy13::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Enemy13::Render()
 {
-	//DebugOut(L"State ene: %d \n", state);
-	int ani = ENEMY13_ANI_IDLE;
-	if (state == ENEMY13_STATE_ITEM) {
-		ani = ENEMY13_ANI_ITEM;
-	
-	}
-	if (state == ENEMY13_STATE_DIE)
+	int ani = get_hit;
+	if (state == STATE_DIE)
 	{
 		return;
 	}
-	//RenderBoundingBox();
+	for (int i = 0; i < bullets.size(); i++)
+		bullets[i]->Render();
+	RenderBoundingBox();
 	animation_set->at(ani)->Render(x, y);
 
 }
@@ -57,8 +55,19 @@ void Enemy13::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY13_STATE_DIE:
-		DebugOut(L"ENEMY13 die");
+	case STATE_DIE:
+		break;
+	case STATE_ITEM:
+		vx = vy = 0;
 		break;
 	}
+}
+void Enemy13::Shoot()
+{
+	Enemy11* newBullet;
+	newBullet = new Enemy11(0, -1);
+	newBullet->SetAnimationSet(bullet->animation_set);
+	newBullet->SetPosition(x, y);
+	bullets.push_back(newBullet);
+
 }

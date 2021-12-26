@@ -11,7 +11,8 @@
 #define ENEMY15_ANI_ITEM 1
 #define ENEMY15_ANI_IDLE 0
 
-#define ENEMY_SPEED 0.1f
+#define ENEMY_SPEED 0.009f
+#define DISTANCE 100
 class Enemy15 : public CGameObject
 {
 	int x0, y0 = 0;
