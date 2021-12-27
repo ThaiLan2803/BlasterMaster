@@ -2,9 +2,9 @@
 #include "Utils.h"
 #include "Brick.h"
 
-Enemy11::Enemy11(int nx, int ny)
+Enemy11::Enemy11(int nx, int nyy)
 {
-	this->ny_ = ny;
+	this->ny_ = nyy;
 	this->nx = nx;
 	if (ny_ != 0)
 		vy = ny_ * 0.1f;
@@ -12,6 +12,7 @@ Enemy11::Enemy11(int nx, int ny)
 }
 void Enemy11::Render()
 {
+	DebugOut(L"Vx: %f, vy: %f, x: %d, y: %d ", vx, vy, int(x), int(y));
 	animation_set->at(0)->Render(x + nx * 5, y + ny_ *5);
 	RenderBoundingBox();
 }

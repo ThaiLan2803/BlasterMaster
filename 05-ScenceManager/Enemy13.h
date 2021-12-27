@@ -15,6 +15,8 @@ class Enemy13 : public CGameObject
 {
 	int untouchable;
 	Enemy11* bullet;
+	int timecount;
+	float x0 = 0;
 	DWORD untouchable_start;
 	float vx = ENEMY13_SPEED;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

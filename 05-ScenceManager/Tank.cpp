@@ -17,7 +17,7 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
 	for (int i = 0; i < bullets.size(); i++)
 		if (bullets[i]->GetState() == BULLET_STATE_DIE)
 			bullets.erase(bullets.begin() + i);
@@ -103,7 +103,6 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CTank::Render()
 {
 	int ani;
-
 	if (nx > 0)
 	{
 		ani = TANK_ANI_WALKING_RIGHT;
@@ -192,6 +191,7 @@ void CTank::SetState(int state)
 		{
 			vy = 0;
 			ny = 0;
+			ny_js = 0;
 		}
 		if (WLeft != NULL && WRight != NULL && Gun != NULL)
 		{
@@ -208,6 +208,7 @@ void CTank::SetState(int state)
 		{
 			vy = 0;
 			ny = 0;
+			ny_js = 0;
 		}
 		if (WLeft != NULL && WRight != NULL && Gun != NULL)
 		{
@@ -326,7 +327,7 @@ void CTank::Shoot()
 	int bullet_first = bullets.size();
 	Bullet* newBullet;
 	if (IsJason())
-		newBullet = new Bullet(nx, ny);
+		newBullet = new Bullet(nx, ny_js);
 	else
 		newBullet = new Bullet(nx, bl_ny);
 	newBullet->SetAnimationSet(bullet->animation_set);

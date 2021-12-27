@@ -247,8 +247,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BULLET:
 		obj = new Bullet(0,0);
 		player->SetBullet((Bullet*)obj);
-
-		DebugOut(L"Set bulll");
+		//DebugOut(L"Set bulll");
 		break;
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -281,6 +280,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BANHXE: 
 		break;
 	case OBJECT_TYPE_BULLET:
+		break;
+	case OBJECT_TYPE_ENEMY11:
 		break;
 	case OBJECT_TYPE_BRICKNOCOLLI:
 		p->push_back(obj);
