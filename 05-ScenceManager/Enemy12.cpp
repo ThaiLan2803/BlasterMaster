@@ -27,7 +27,7 @@ void Enemy12::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x = 30;
 		vx = -vx;
-	}
+	} 
 	if (x > 200 && vx > 0)
 	{
 		x = 200;

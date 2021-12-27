@@ -8,12 +8,13 @@ Enemy9::Enemy9()
 
 void Enemy9::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == STATE_DIE)
-		return;
-	left = x;
-	top = y;
-	right = x + ENEMY9_BBOX_WIDTH;
-	bottom = y + ENEMY9_BBOX_HEIGHT;
+	if (state != STATE_DIE)
+	{
+		left = x;
+		top = y;
+		right = x + ENEMY9_BBOX_WIDTH;
+		bottom = y + ENEMY9_BBOX_HEIGHT;
+	}
 }
 
 void Enemy9::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

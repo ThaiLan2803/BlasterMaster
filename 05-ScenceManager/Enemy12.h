@@ -15,6 +15,7 @@ class Enemy12 : public CGameObject
 {
 	int untouchable;
 	DWORD untouchable_start;
+	float vx = ENEMY12_SPEED;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

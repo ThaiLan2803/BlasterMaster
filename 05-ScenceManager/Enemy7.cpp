@@ -6,12 +6,13 @@ Enemy7::Enemy7()
 
 void Enemy7::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == STATE_DIE)
-		return;
-	left = x;
-	top = y;
-	right = x + ENEMY7_BBOX_WIDTH;
-	bottom = y + ENEMY7_BBOX_HEIGHT;
+	if (state != STATE_DIE)
+	{
+		left = x;
+		top = y;
+		right = x + ENEMY7_BBOX_WIDTH;
+		bottom = y + ENEMY7_BBOX_HEIGHT;
+	}
 }
 
 void Enemy7::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

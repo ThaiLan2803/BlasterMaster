@@ -283,9 +283,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY11:
 		break;
-	case OBJECT_TYPE_BRICKNOCOLLI:
+	/*case OBJECT_TYPE_BRICKNOCOLLI:
 		p->push_back(obj);
-		break;
+		break;*/
 	case OBJECT_TYPE_BACKGROUND:
 		break;
 	default:
