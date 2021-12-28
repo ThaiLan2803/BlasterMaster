@@ -85,17 +85,38 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				x += dx;
 				y += dy;
 			}
-			if (dynamic_cast<Enemy2*>(e->obj))
+			else if (dynamic_cast<Enemy1*>(e->obj))
+			{
+				Enemy1* e1 = dynamic_cast<Enemy1*>(e->obj);
+				if (e1->GetState() == STATE_ITEM)
+				{
+					this->get_hit--;
+					e1->Hit();
+					if (get_hit < 0)
+						get_hit = 0;
+				}
+				else
+					this->Hit();
+			}
+			else if (dynamic_cast<Enemy2*>(e->obj))
 			{
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
-				e2->SetState(ENEMY2_STATE_DIE);
+				this->Hit();
 			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
-
+			else if (dynamic_cast<WallEnemy*>(e->obj))
+			{
+				WallEnemy* p = dynamic_cast<WallEnemy*>(e->obj);
+				if (p->GetState() == STATE_ITEM || p->GetState() == STATE_DIE)
+				{
+					x += dx;
+					y += dy;
+				}
+			}
 		}
 	}
 	// clean up collision events
@@ -354,7 +375,7 @@ void CTank::Shoot()
 			Bullet* newBullet;
 			newBullet = new Bullet(nx, ny_js, 0);
 			newBullet->SetAnimationSet(bullet->animation_set);
-			newBullet->SetPosition(x + va * i * 10, y - i * vb * 10);
+			newBullet->SetPosition(x + va * i * 10, y + i * vb * 10);
 			bullets.push_back(newBullet);
 		}
 		for (int i = 0; i < BULLET_NUMBER / 2; i++)
@@ -362,7 +383,7 @@ void CTank::Shoot()
 			Bullet* newBullet;
 			newBullet = new Bullet(nx, ny_js, -1);
 			newBullet->SetAnimationSet(bullet->animation_set);
-			newBullet->SetPosition(x + va * i * 20, y - i * vb * 20);
+			newBullet->SetPosition(x + va * i * 20, y + i * vb * 20);
 			bullets.push_back(newBullet);
 		}
 	}

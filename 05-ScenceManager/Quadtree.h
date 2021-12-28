@@ -6,7 +6,7 @@
 
 #define MAX_LEVEL                25
 #define MAX_OBJECT_IN_REGION     1000
-#define DT	150
+#define DT	250
 
 class Quadtree
 {

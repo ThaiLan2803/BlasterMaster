@@ -7,8 +7,6 @@ WallEnemy::WallEnemy()
 
 void WallEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == STATE_DIE)
-		return;
 	left = x;
 	top = y;
 	right = x + WALLENEMY_BBOX_WIDTH;
@@ -25,10 +23,10 @@ void WallEnemy::Render()
 {
 	//DebugOut(L"State ene: %d %d %d \n", state, get_hit, animation_set->size());
 	int ani = get_hit;
-	if (state == STATE_DIE)
-		animation_set->at(0)->Render(x, y);
-	else
+	if (get_hit >= 1)
 		animation_set->at(1)->Render(x, y);
+	else
+		animation_set->at(0)->Render(x, y);
 }
 
 void WallEnemy::SetState(int state)

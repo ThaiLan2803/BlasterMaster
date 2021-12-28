@@ -5,12 +5,13 @@
 #include "BanhXe.h"
 #include "BottomCircle.h"
 #include "Enemy2.h"
-#include "Enemy3.h"
+#include "Enemy1.h"
 #include "Enemy4.h"
 #include "Enemy5.h"
 #include "Bullet.h"
 #include "Portal.h"
 #include "BrickNoColli.h"
+#include "WallEnemy.h"
 #define TANK_WALKING_SPEED		0.15f 
 #define TANK_JUMP_SPEED_Y		1.0f
 #define TANK_GRAVITY			-0.005f
