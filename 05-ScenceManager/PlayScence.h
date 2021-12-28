@@ -31,6 +31,7 @@
 #include "Enemy15.h"
 #include "WallEnemy.h"
 #include "BrickNoColli.h"
+#include "HealthBar.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -66,6 +67,7 @@
 #define	OBJECT_TYPE_BRICK3	1002
 #define	OBJECT_TYPE_BRICKNOCOLLI	1003
 #define OBJECT_TYPE_WALLENEMY	555
+#define OBJECT_TYPE_HEALTHBAR	556
 #define MAX_SCENE_LINE 1024
 
 

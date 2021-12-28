@@ -12,6 +12,7 @@
 #include "Portal.h"
 #include "BrickNoColli.h"
 #include "WallEnemy.h"
+#include "HealthBar.h"
 #define TANK_WALKING_SPEED		0.15f 
 #define TANK_JUMP_SPEED_Y		1.0f
 #define TANK_GRAVITY			-0.005f
@@ -75,6 +76,7 @@ protected:
 	Sung* Gun;
 	BottomCircle* bc;
 	Bullet* bullet;
+	HealthBar* healthbar;
 	~CTank();
 public:
 
@@ -106,4 +108,5 @@ public:
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);
 	void SetBtc(BottomCircle* btc);
+	void SetHealthBar(HealthBar* h) { this->healthbar = h; };
 };

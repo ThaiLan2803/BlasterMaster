@@ -9,7 +9,26 @@
 9	textures\walldie.png	255	255	255
 10	textures\map1.png	255	255	255
 11	textures\items.png	255	255	255
+12	textures\healthbar.jpg	255	255	255
+13	textures\healthbar1.jpg	255	255	255
+14	textures\healthbar2.jpg	255	255	255
+15	textures\healthbar3.jpg	255	255	255
+16	textures\healthbar4.jpg	255	255	255
+17	textures\healthbar5.jpg	255	255	255
+18	textures\healthbar6.jpg	255	255	255
+19	textures\healthbar7.jpg	255	255	255
+20	textures\healthbar8.jpg	255	255	255
 [SPRITES]
+#healthbar
+1	0	0	8	48	12
+2	0	0	8	48	13
+3	0	0	8	48	14
+4	0	0	8	48	15
+5	0	0	8	48	16
+6	0	0	8	48	17
+7	0	0	8	48	18
+8	0	0	8	48	19
+9	0	0	8	48	20
 #Wallenemy
 10026	464	1424	480	1440	10
 10027	51	306	67	322	9
@@ -411,7 +430,19 @@
 7004	709	100	710	100	711	100
 #BigJasonDie								
 7005	712	100	713	100	714	100	715	100
+#healthbar
+10	1	0
+11	2	0
+12	3	0
+13	4	0
+14	5	0
+15	6	0
+16	7	0
+17	8	0
+18	9	0
 [ANIMATION_SETS]
+#healthbar
+20	10	11	12	13	14	15	16	17	18
 #Wallenemy
 9927	9925	9926
 9928	9925	9926	9927
@@ -2364,3 +2395,5 @@
 555	464	512	9927
 555	464	592	9927
 555	464	576	9927
+#healbar
+556	-100	-10	20
