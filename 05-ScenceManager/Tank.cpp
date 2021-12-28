@@ -18,6 +18,8 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+
+	DebugOut(L"Size: %d", bullets.size());
 	for (int i = 0; i < bullets.size(); i++)
 		if (bullets[i]->GetState() == BULLET_STATE_DIE)
 			bullets.erase(bullets.begin() + i);
@@ -117,6 +119,8 @@ void CTank::Render()
 				WLeft->NewRender(x - 5, y - 12);
 				WRight->NewRender(x + 11, y - 12);
 				bc->NewRender(x + 4, y - 8);
+				bl_x = x + 14;
+				bl_y = y;
 				animation_set->at(1)->Render(x, y, 255);
 			}
 			else
@@ -126,6 +130,8 @@ void CTank::Render()
 				WLeft->NewRender(x + 5, y - 12);
 				WRight->NewRender(x + 15, y - 12);
 				bc->NewRender(x + 11, y - 6);
+				bl_x = x + 14; 
+				bl_y = y;
 				animation_set->at(3)->Render(x, y + 4, 255);
 			}
 		
@@ -145,6 +151,8 @@ void CTank::Render()
 					WLeft->NewRender(x - 5, y - 12);
 					WRight->NewRender(x + 11, y - 12);
 					bc->NewRender(x + 4, y - 8);
+					bl_x = x - 17;
+					bl_y = y;
 					animation_set->at(0)->Render(x, y, 255);
 				}
 				else
@@ -156,6 +164,8 @@ void CTank::Render()
 					WLeft->NewRender(x - 7, y - 12);
 					WRight->NewRender(x + 3, y - 12);
 					bc->NewRender(x - 1, y - 6);
+					bl_x = x + 3;
+					bl_y = y + 13;
 				}
 				
 			}
@@ -323,15 +333,45 @@ void CTank::SetBullet(Bullet* bl)
 	bullet->IsJason = IsJason();
 }
 void CTank::Shoot()
-{
+{/*
 	int bullet_first = bullets.size();
-	Bullet* newBullet;
+	Bullet* newBullet;*/
 	if (IsJason())
-		newBullet = new Bullet(nx, ny_js);
-	else
-		newBullet = new Bullet(nx, bl_ny);
-	newBullet->SetAnimationSet(bullet->animation_set);
-	newBullet->SetPosition(x, y);
-	bullets.push_back(newBullet);
+	{
+		float va, vb;
+		if (bl_ny > 0)
+		{
+			va = 1;
+			vb = 1;
+		}
+		else
+		{
+			va = -1;
+			vb = -1;
+		}
+		for (int i = 0; i < BULLET_NUMBER / 2; i++)
+		{
+			Bullet* newBullet;
+			newBullet = new Bullet(nx, ny_js, 0);
+			newBullet->SetAnimationSet(bullet->animation_set);
+			newBullet->SetPosition(x + va * i * 10, y - i * vb * 10);
+			bullets.push_back(newBullet);
+		}
+		for (int i = 0; i < BULLET_NUMBER / 2; i++)
+		{
+			Bullet* newBullet;
+			newBullet = new Bullet(nx, ny_js, -1);
+			newBullet->SetAnimationSet(bullet->animation_set);
+			newBullet->SetPosition(x + va * i * 20, y - i * vb * 20);
+			bullets.push_back(newBullet);
+		}
+	}
+	else {
+		Bullet* newBullet;
+		newBullet = new Bullet(nx, bl_ny, 0);
+		newBullet->SetAnimationSet(bullet->animation_set);
+		newBullet->SetPosition(bl_x, bl_y);
+		bullets.push_back(newBullet);
+	}
 
 }

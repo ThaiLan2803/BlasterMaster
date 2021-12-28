@@ -20,14 +20,28 @@
 #include "Brick3.h"
 #include "Brick2.h"
 #include "BrickNoColli.h"
-Bullet::Bullet(int nx, int ny)
+Bullet::Bullet(int nx, int ny, int v)
 {
+	this->t = v;
 	this->bl_ny = ny;
-	this->nx = nx; 
+	this->nx = nx;
 	if (bl_ny != 0)
+	{
 		vy = BULLET_SPEED * bl_ny;
+		if (t == 0)
+			v1 = 1;
+		else
+			v1 = -1;
+	}
 	else
-		vx = nx * BULLET_SPEED;
+
+	{
+		if (t == 0)
+			v2 = 1;
+		else
+			v2 = -1;
+		vx = nx * 0.1f;
+	}
 }
 void Bullet::Render()
 {
@@ -93,7 +107,10 @@ void Bullet::GetBoundingBox(float& l, float& t, float& r, float& b)
 void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
-
+	if (x0 == 0)
+		x0 = x;
+	if (y1 == 0)
+		y1 = y;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -113,8 +130,33 @@ void Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		x += dx;
-		y += dy;
+		if (this->animation_set->size() > 1)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			if (vy == 0)
+			{
+				x += dx;
+				y += v2;
+				if (y > y1 + 20)
+					v2 = -v2;
+				if (y < y1 - 20)
+					v2 = -v2;
+			}
+			else
+			{
+				y += dy;
+				x += v1;
+				if (x > x0 + 20)
+					v1 = -v1;
+				if (x < x0 - 20)
+					v1 = -v1;
+
+			}
+		}
 	}
 	else
 	{

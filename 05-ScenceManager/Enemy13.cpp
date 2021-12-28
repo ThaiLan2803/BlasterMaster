@@ -10,14 +10,13 @@ Enemy13::Enemy13()
 
 void Enemy13::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == ENEMY13_STATE_DIE)
+	if (state != STATE_DIE)
 	{
-		return;
+		left = x;
+		top = y;
+		right = x + ENEMY13_BBOX_WIDTH;
+		bottom = y + ENEMY13_BBOX_HEIGHT;
 	}
-	left = x;
-	top = y;
-	right = x + ENEMY13_BBOX_WIDTH;
-	bottom = y + ENEMY13_BBOX_HEIGHT;
 }
 
 void Enemy13::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

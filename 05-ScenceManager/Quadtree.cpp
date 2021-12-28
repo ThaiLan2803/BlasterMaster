@@ -25,8 +25,16 @@ bool Quadtree::IsContain(LPGAMEOBJECT entity)
 	entity->GetBoundingBox(l, t, r, b);
 	x = l;
 	y = t;
-	w = r - l;
-	h = b - t;
+	if (dynamic_cast<CTank*>(entity))
+	{
+		w = r - l + DT;
+		h = b - t + DT;
+	}
+	else
+	{
+		w = r - l;
+		h = b - t;
+	}
 	return !(l + w < m_region->x ||
 		y + h < m_region->y ||
 		x > m_region->x + m_region->getWidth() ||

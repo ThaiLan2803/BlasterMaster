@@ -245,7 +245,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new WallEnemy();
 		break;
 	case OBJECT_TYPE_BULLET:
-		obj = new Bullet(0,0);
+		obj = new Bullet(0,0,0);
 		player->SetBullet((Bullet*)obj);
 		//DebugOut(L"Set bulll");
 		break;

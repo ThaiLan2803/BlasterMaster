@@ -23,10 +23,10 @@ void WallEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void WallEnemy::Render()
 {
-	DebugOut(L"State ene: %d %d %d \n", state, get_hit, animation_set->size());
+	//DebugOut(L"State ene: %d %d %d \n", state, get_hit, animation_set->size());
 	int ani = get_hit;
 	if (state == STATE_DIE)
-		animation_set->at(1)->Render(x, y);
+		animation_set->at(0)->Render(x, y);
 	else
 		animation_set->at(1)->Render(x, y);
 }
