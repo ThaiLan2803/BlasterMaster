@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "Quadtree.h"
 #include "Tank.h"
+#include "Enemy3.h"
 #include "Game.h"
 
 
@@ -17,7 +18,7 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
 	touchable++;
 	if (get_hit == TANK_HEALTH)
 		SetState(TANK_STATE_DIE);
@@ -122,7 +123,40 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						this->Hit();
 					}
 			}
-			
+			else if (dynamic_cast<Enemy3*>(e->obj))
+			{
+				Enemy3* e3 = dynamic_cast<Enemy3*>(e->obj);
+				if (e3->GetState() == STATE_ITEM)
+				{
+					this->get_hit--;
+					e3->Hit();
+					if (get_hit < 0)
+						get_hit = 0;
+				}
+				else
+					if (touchable > 80)
+					{
+						touchable = 0;
+						this->Hit();
+					}
+			}
+			else if (dynamic_cast<Enemy4*>(e->obj))
+			{
+				Enemy4* e4 = dynamic_cast<Enemy4*>(e->obj);
+				if (e4->GetState() == STATE_ITEM)
+				{
+					this->get_hit--;
+					e4->Hit();
+					if (get_hit < 0)
+						get_hit = 0;
+				}
+				else
+					if (touchable > 80)
+					{
+						touchable = 0;
+						this->Hit();
+					}
+			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);

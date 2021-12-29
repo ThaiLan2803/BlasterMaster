@@ -260,7 +260,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_HEALTHBAR:
 		obj = new HealthBar();
-		player->SetHealthBar((HealthBar*)obj); break;
+		player->SetHealthBar((HealthBar*)obj); 
+		break;
 	default:
 		return;
 	}
