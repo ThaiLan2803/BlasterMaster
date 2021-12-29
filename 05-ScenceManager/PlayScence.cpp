@@ -404,9 +404,6 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 		tank->Shoot();
 		break;
-	case DIK_SPACE:
-		tank->SetState(TANK_STATE_JUMP);
-		break;
 	default:
 		tank->SetState(TANK_STATE_IDLE);
 	}
@@ -433,8 +430,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(JASON_STATE_WALKING_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
 		tank->SetState(JASON_STATE_WALKING_DOWN);
-	/*else if (game->IsKeyDown(DIK_SPACE))
-		tank->SetState(TANK_STATE_JUMP);*/
+	else if (game->IsKeyDown(DIK_SPACE))
+		tank->SetState(TANK_STATE_JUMP);
 	//else if (game->IsKeyDown(DIK_A))
 	//	tank->Shoot();
 	else

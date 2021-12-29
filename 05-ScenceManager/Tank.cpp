@@ -17,8 +17,8 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
-
+	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	touchable++;
 	if (get_hit == TANK_HEALTH)
 		SetState(TANK_STATE_DIE);
 	if (state == TANK_STATE_DIE)
@@ -99,13 +99,30 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						get_hit = 0;
 				}
 				else
-					this->Hit();
+					if (touchable > 80)
+					{
+						touchable = 0;
+						this->Hit();
+					}
 			}
 			else if (dynamic_cast<Enemy2*>(e->obj))
 			{
 				Enemy2* e2 = dynamic_cast<Enemy2*>(e->obj);
-				this->Hit();
+				if (e2->GetState() == STATE_ITEM)
+				{
+					this->get_hit--;
+					e2->Hit();
+					if (get_hit < 0)
+						get_hit = 0;
+				}
+				else
+					if (touchable > 80)
+					{
+						touchable = 0;
+						this->Hit();
+					}
 			}
+			
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
@@ -190,7 +207,7 @@ void CTank::Render()
 					ani = TANK_ANI_IDLE_LEFT;
 					animation_set->at(2)->Render(x, y + 4, 255);
 					Gun->SetState(SUNG_STATE_UP);
-					Gun->NewRender(x - 2, y + 13);
+					Gun->NewRender(x - 2, y + 11);
 					WLeft->NewRender(x - 7, y - 12);
 					WRight->NewRender(x + 3, y - 12);
 					bc->NewRender(x - 1, y - 6);
@@ -393,7 +410,7 @@ void CTank::Shoot()
 			Bullet* newBullet;
 			newBullet = new Bullet(nx, ny_js, 0);
 			newBullet->SetAnimationSet(bullet->animation_set);
-			newBullet->SetPosition(x + va * i * 10, y + i * vb * 10);
+			newBullet->SetPosition(x /*+ va * i * 10*/, y + i * vb * 10);
 			bullets.push_back(newBullet);
 		}
 		for (int i = 0; i < BULLET_NUMBER / 2; i++)
@@ -401,7 +418,7 @@ void CTank::Shoot()
 			Bullet* newBullet;
 			newBullet = new Bullet(nx, ny_js, -1);
 			newBullet->SetAnimationSet(bullet->animation_set);
-			newBullet->SetPosition(x + va * i * 20, y + i * vb * 20);
+			newBullet->SetPosition(x /*+ va * i * 20*/, y + i * vb * 20);
 			bullets.push_back(newBullet);
 		}
 	}

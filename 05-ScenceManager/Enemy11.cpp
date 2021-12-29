@@ -1,7 +1,7 @@
 #include "Enemy11.h"
 #include "Utils.h"
 #include "Brick.h"
-
+#include "Tank.h"
 Enemy11::Enemy11(int nx, int nyy)
 {
 	this->ny_ = nyy;
@@ -12,8 +12,8 @@ Enemy11::Enemy11(int nx, int nyy)
 }
 void Enemy11::Render()
 {
-	DebugOut(L"Vx: %f, vy: %f, x: %d, y: %d ", vx, vy, int(x), int(y));
-	animation_set->at(0)->Render(x + nx * 5, y + ny_ *5);
+	int ani = get_hit;
+	animation_set->at(ani)->Render(x + nx * 5, y + ny_ *5);
 	RenderBoundingBox();
 }
 
@@ -79,7 +79,10 @@ void Enemy11::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
+			if (dynamic_cast<CTank*>(e->obj))
+			{
+				e->obj->Hit();
+			}
 		}
 	}
 
@@ -88,5 +91,13 @@ void Enemy11::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void Enemy11::SetState(int state)
 {
-	this->state = state;
+	
+	switch (state)
+	{
+	case STATE_ITEM:
+		vx = vy = 0;
+		break;
+	default:
+		this->state = state;
+	}
 }

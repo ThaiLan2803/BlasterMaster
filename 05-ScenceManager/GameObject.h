@@ -95,7 +95,14 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }
-	void Hit() { get_hit++; if (animation_set->size() > 1 && get_hit == animation_set->size() - 1) SetState(STATE_ITEM); if (get_hit == animation_set->size()) SetState(STATE_DIE); };
+	void Hit() 
+	{
+		get_hit++;
+		if (animation_set->size() > 1 && get_hit == animation_set->size() - 1)
+			SetState(STATE_ITEM);
+		if (get_hit == animation_set->size())
+			SetState(STATE_DIE);
+	};
 	void SetHit() { hit_times = animation_set->size(); }
 	void RenderBoundingBox();
 

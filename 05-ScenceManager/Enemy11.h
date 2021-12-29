@@ -10,6 +10,8 @@
 
 #define SPEED	0.1f;
 
+#define DAN_ENEMY 0
+
 class Enemy11 : public CGameObject
 {
 	int untouchable;

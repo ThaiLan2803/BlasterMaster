@@ -7,14 +7,14 @@
 #include "Enemy2.h"
 #include "Enemy1.h"
 #include "Enemy4.h"
-#include "Enemy5.h"
+#include "Enemy11.h"
 #include "Bullet.h"
 #include "Portal.h"
 #include "BrickNoColli.h"
 #include "WallEnemy.h"
 #include "HealthBar.h"
 #define TANK_WALKING_SPEED		0.15f 
-#define TANK_JUMP_SPEED_Y		20.0f
+#define TANK_JUMP_SPEED_Y		0.5f
 #define TANK_GRAVITY			-0.005f
 
 #define TANK_STATE_IDLE					0
@@ -57,7 +57,7 @@
 
 #define TANK_UNTOUCHABLE_TIME 5000
 #define TANK_AMOUNT_BULLET	1
-#define	BULLET_NUMBER	4
+#define	BULLET_NUMBER	5
 
 class CTank : public CGameObject
 {
@@ -72,6 +72,7 @@ protected:
 	float bl_x, bl_y;
 	bool isJason = false;
 	int ny_js;
+	int touchable = 0;
 	vector<LPGAMEOBJECT> bullets;
 	BanhXe * WLeft, *WRight;
 	Sung* Gun;
