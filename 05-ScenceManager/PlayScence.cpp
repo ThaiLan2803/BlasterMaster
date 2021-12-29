@@ -397,12 +397,18 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
+	CTank *tank = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_A:
-		CTank* tank = ((CPlayScene*)scence)->GetPlayer();
+
 		tank->Shoot();
 		break;
+	case DIK_SPACE:
+		tank->SetState(TANK_STATE_JUMP);
+		break;
+	default:
+		tank->SetState(TANK_STATE_IDLE);
 	}
 }
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
@@ -427,8 +433,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(JASON_STATE_WALKING_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
 		tank->SetState(JASON_STATE_WALKING_DOWN);
-	else if (game->IsKeyDown(DIK_SPACE))
-		tank->SetState(TANK_STATE_JUMP);
+	/*else if (game->IsKeyDown(DIK_SPACE))
+		tank->SetState(TANK_STATE_JUMP);*/
 	//else if (game->IsKeyDown(DIK_A))
 	//	tank->Shoot();
 	else

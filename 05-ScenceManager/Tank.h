@@ -14,13 +14,13 @@
 #include "WallEnemy.h"
 #include "HealthBar.h"
 #define TANK_WALKING_SPEED		0.15f 
-#define TANK_JUMP_SPEED_Y		1.0f
+#define TANK_JUMP_SPEED_Y		20.0f
 #define TANK_GRAVITY			-0.005f
 
 #define TANK_STATE_IDLE					0
 #define TANK_STATE_WALKING_RIGHT		1
 #define TANK_STATE_WALKING_LEFT			2
-#define TANK_STATE_JUMP					3
+#define TANK_STATE_JUMP				   	3
 #define TANK_STATE_DIE					-1
 #define JASON_STATE_WALKING_UP			4
 #define JASON_STATE_WALKING_DOWN		5
