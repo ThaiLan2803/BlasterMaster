@@ -27,6 +27,7 @@
 #define TANK_STATE_STOP					6
 #define TANK_STATE_BULLET				7
 #define TANK_STATE_DAN_UP				8
+#define TANK_HEALTH						9
 
 #define TANK_ANI_IDLE_LEFT				0
 #define TANK_ANI_IDLE_RIGHT				1

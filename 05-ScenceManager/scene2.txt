@@ -6,7 +6,26 @@
 5	textures\enemies.png	255	255	255
 6	textures\jason.png	255	255	255
 7	textures\item.png	255	255	255
+12	textures\healthbar.jpg	255	255	255
+13	textures\healthbar1.jpg	255	255	255
+14	textures\healthbar2.jpg	255	255	255
+15	textures\healthbar3.jpg	255	255	255
+16	textures\healthbar4.jpg	255	255	255
+17	textures\healthbar5.jpg	255	255	255
+18	textures\healthbar6.jpg	255	255	255
+19	textures\healthbar7.jpg	255	255	255
+20	textures\healthbar8.jpg	255	255	255
 [SPRITES]
+#healthbar
+1	0	0	8	48	12
+2	0	0	8	48	13
+3	0	0	8	48	14
+4	0	0	8	48	15
+5	0	0	8	48	16
+6	0	0	8	48	17
+7	0	0	8	48	18
+8	0	0	8	48	19
+9	0	0	8	48	20
 #background
 10001	778	1048	2016	1544	4
 #Portal
@@ -1238,6 +1257,16 @@
 73	70004	100
 #Portal
 200	10002	100
+#healthbar
+10	1	0
+11	2	0
+12	3	0
+13	4	0
+14	5	0
+15	6	0
+16	7	0
+17	8	0
+18	9	0
 #idle right
 #500	50000	100	50001	100	50002	100	50003	100
 #idle left
@@ -2413,6 +2442,8 @@
 5	23
 #portal
 300	200
+#healthbar
+20	10	11	12	13	14	15	16	17	18
 #map
 300000	200000
 300001	200001
@@ -4673,5 +4704,6 @@
 14	0	0	7
 #portal
 15	1195	120	300	1239	180	3
-
+#healbar
+556	-100	-10	20
 

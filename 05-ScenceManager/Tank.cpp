@@ -17,9 +17,12 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
 
-	DebugOut(L"Size: %d", bullets.size());
+	if (get_hit == TANK_HEALTH)
+		SetState(TANK_STATE_DIE);
+	if (state == TANK_STATE_DIE)
+		return;
 	for (int i = 0; i < bullets.size(); i++)
 		if (bullets[i]->GetState() == BULLET_STATE_DIE)
 			bullets.erase(bullets.begin() + i);
@@ -125,40 +128,46 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CTank::Render()
 {
-	int ani;
-	if (nx > 0)
+	if (state == TANK_STATE_DIE)
 	{
-		ani = TANK_ANI_WALKING_RIGHT;
-		if (!IsJason())
+		RenderBoundingBox();
+	}
+	else
+	{
+		int ani;
+		if (nx > 0)
 		{
-			ani = TANK_ANI_IDLE_RIGHT;
-			if (bl_ny == 0)
+			ani = TANK_ANI_WALKING_RIGHT;
+			if (!IsJason())
 			{
 				ani = TANK_ANI_IDLE_RIGHT;
-				Gun->NewRender(x + 15, y);
-				Gun->SetState(SUNG_STATE_RIGHT);
-				WLeft->NewRender(x - 5, y - 12);
-				WRight->NewRender(x + 11, y - 12);
-				bc->NewRender(x + 4, y - 8);
-				bl_x = x + 14;
-				bl_y = y;
-				animation_set->at(1)->Render(x, y, 255);
+				if (bl_ny == 0)
+				{
+					ani = TANK_ANI_IDLE_RIGHT;
+					Gun->NewRender(x + 15, y);
+					Gun->SetState(SUNG_STATE_RIGHT);
+					WLeft->NewRender(x - 5, y - 12);
+					WRight->NewRender(x + 11, y - 12);
+					bc->NewRender(x + 4, y - 8);
+					bl_x = x + 14;
+					bl_y = y;
+					animation_set->at(1)->Render(x, y, 255);
+				}
+				else
+				{
+					Gun->SetState(SUNG_STATE_UP);
+					Gun->NewRender(x + 8, y + 12);
+					WLeft->NewRender(x + 5, y - 12);
+					WRight->NewRender(x + 15, y - 12);
+					bc->NewRender(x + 11, y - 6);
+					bl_x = x + 14;
+					bl_y = y;
+					animation_set->at(3)->Render(x, y + 4, 255);
+				}
+
 			}
-			else
-			{
-				Gun->SetState(SUNG_STATE_UP);
-				Gun->NewRender(x + 8, y + 12);
-				WLeft->NewRender(x + 5, y - 12);
-				WRight->NewRender(x + 15, y - 12);
-				bc->NewRender(x + 11, y - 6);
-				bl_x = x + 14; 
-				bl_y = y;
-				animation_set->at(3)->Render(x, y + 4, 255);
-			}
-		
 		}
-	}
-	else if (nx < 0)
+		else if (nx < 0)
 		{
 			ani = TANK_ANI_WALKING_LEFT;
 			if (!IsJason())
@@ -188,13 +197,13 @@ void CTank::Render()
 					bl_x = x + 3;
 					bl_y = y + 13;
 				}
-				
+
 			}
 		}
 
-	if (Gun == NULL)
-	{
-			if(ny_js < 0)
+		if (Gun == NULL)
+		{
+			if (ny_js < 0)
 				ani = JASON_ANI_IDLE;
 			if (ny_js > 0)
 				ani = JASON_ANI_BACK;
@@ -202,11 +211,20 @@ void CTank::Render()
 				ani = JASON_ANI_RIGHT;
 			if (nx < 0)
 				ani = JASON_ANI_LEFT;
-		animation_set->at(ani)->Render(x, y, 255);
+			animation_set->at(ani)->Render(x, y, 255);
+		}
+		for (int i = 0; i < bullets.size(); i++)
+			bullets[i]->Render();
+		float h_x, h_y;
+		if (x - 160 < 0)
+			h_x = 0;
+		else h_x = x - 160;
+		if (y - 90 < 0)
+			h_y = 0;
+		else h_y = y - 90;
+		healthbar->Render(h_x, h_y, get_hit);
+		RenderBoundingBox();
 	}
-	for (int i = 0; i < bullets.size(); i++)
-		bullets[i]->Render();
-	RenderBoundingBox();
 }
 
 void CTank::SetState(int state)
