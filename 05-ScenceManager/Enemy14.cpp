@@ -78,7 +78,7 @@ void Enemy14::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	timecount++;
 
-	if (timecount >= 100)
+	if (timecount >= TIME && state != STATE_ITEM)
 	{
 		Shoot();
 		timecount = 0;

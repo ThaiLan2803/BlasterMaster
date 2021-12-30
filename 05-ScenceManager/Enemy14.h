@@ -13,6 +13,7 @@
 #define ENEMY14_ANI_IDLE 0
 #define ENEMY14_SPEED 0.009f
 #define	DISTANCE 100
+#define	TIME 100
 class Enemy14 : public CGameObject
 {
 	int x0, y0 = 0;

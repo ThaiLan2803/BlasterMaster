@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Enemy11.h"
+
 #define ENEMY13_BBOX_WIDTH	 22
 #define ENEMY13_BBOX_HEIGHT 18
 
@@ -11,6 +12,8 @@
 #define ENEMY13_ANI_ITEM 1
 #define ENEMY13_ANI_IDLE 0
 #define ENEMY13_SPEED	 0.1f
+
+#define TIME 100
 class Enemy13 : public CGameObject
 {
 	int untouchable;

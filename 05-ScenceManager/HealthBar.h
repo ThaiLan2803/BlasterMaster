@@ -1,6 +1,9 @@
 #pragma once
 #include "GameObject.h"
-
+#define SCREEN_WH	100
+#define SCREEN_HH	100
+#define W	8
+#define H	48
 class HealthBar : public CGameObject
 {
 public:

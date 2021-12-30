@@ -32,6 +32,7 @@
 #include "WallEnemy.h"
 #include "BrickNoColli.h"
 #include "HealthBar.h"
+#include "SmallJason.h"
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3
@@ -63,6 +64,7 @@
 #define OBJECT_TYPE_ENEMY14	21
 #define OBJECT_TYPE_ENEMY15	22
 #define OBJECT_TYPE_ENEMY11	23
+#define OBJECT_TYPE_SMALLJASON	557
 #define	OBJECT_TYPE_BRICK2	1001
 #define	OBJECT_TYPE_BRICK3	1002
 #define	OBJECT_TYPE_BRICKNOCOLLI	1003
@@ -88,8 +90,11 @@ protected:
 	int lx, ly;
 	int Stage;
 	int tank_previous_state = 0;
+	int previous_hit = 0;
 	Quadtree* quadtree;
 	Enemy11* bl;
+	Enemy4* enm4;
+	HealthBar* healthbar;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);

@@ -13,6 +13,7 @@
 #include "BrickNoColli.h"
 #include "WallEnemy.h"
 #include "HealthBar.h"
+#include "SmallJason.h"
 #define TANK_WALKING_SPEED		0.15f 
 #define TANK_JUMP_SPEED_Y		0.5f
 #define TANK_GRAVITY			-0.005f
@@ -79,6 +80,7 @@ protected:
 	BottomCircle* bc;
 	Bullet* bullet;
 	HealthBar* healthbar;
+//	SmallJason* jason;
 	~CTank();
 public:
 
@@ -88,7 +90,7 @@ public:
 	void SetJason() { isJason = true; }
 	bool IsJason() { return isJason; }
 	void SetState(int state);
-//	void SetLevel(int l) { level = l; }
+
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void Reset();
@@ -106,6 +108,7 @@ public:
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void SetBullet(Bullet* bl);
+//	void SetSJason(SmallJason* js) { jason = js; };
 	void Shoot();
 	void SetBanhXe(BanhXe* bx);
 	void SetSung(Sung* s);

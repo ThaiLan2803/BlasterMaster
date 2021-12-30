@@ -32,7 +32,7 @@ void Enemy15::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		vx = vy = ENEMY_SPEED;
-		if (distance <= DISTANCE)
+		if (distance <= DISTANCE && state != STATE_ITEM)
 			FollowPlayer(player_x, player_y);
 	}
 	else

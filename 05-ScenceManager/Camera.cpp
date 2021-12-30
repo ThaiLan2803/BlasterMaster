@@ -6,11 +6,16 @@ Camera::Camera(int w, int h, float corner, DirectX::XMFLOAT3 scale)
 	this->h = h;
 	this->corner = corner;
 	this->scale = scale;
-	scene_h.push_back(344);
-	scene_h.push_back(496);
-	scene_h.push_back(304);
-	scene_h.push_back(496);
-	current_scene_h = scene_h.at(3);
+	scene_h.push_back(S1H);
+	scene_h.push_back(S2H);
+	scene_h.push_back(S3H);
+	scene_h.push_back(S4H);
+	scene_w.push_back(S1W);
+	scene_w.push_back(S2W);
+	scene_w.push_back(S3W);
+	scene_w.push_back(S4W);
+	current_scene_h = scene_h.at(0);
+	current_scene_w = scene_w.at(0);
 	D3DXMatrixOrthoLH(&orthoMatrix, w, -h, 0.0f, 1.0f);
 	D3DXMatrixIdentity(&iMatrix);
 }
@@ -39,7 +44,16 @@ void Camera::Update()
 	{
 		this->following->GetPosition(cam_x, cam_y);
 	}
-	cam_y = current_scene_h - cam_y;
+	LatTruc(cam_y);
+	if (cam_x < w / 2)
+		cam_x = w / 2;
+	if (cam_y < h / 2)
+		cam_y = h / 2;
+	if (cam_x > current_scene_w - w / 2)
+		cam_x = current_scene_w - w / 2;
+	if (cam_y > current_scene_h - h / 2)
+		cam_y = current_scene_h - h / 2;
+
 	this->Matrix = D3DXMATRIX(
 		scale.x * cos(corner), scale.x * sin(corner), 0, 0,
 		-scale.y * sin(corner), scale.y * cos(corner), 0, 0, 

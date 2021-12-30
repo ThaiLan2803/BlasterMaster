@@ -74,8 +74,8 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	{
 		camera->SetTransform(this->GetDirect3DDevice());
 	}
-	float yy = 496 - y;
-	D3DXVECTOR3 p(x-camera->GetPosition().x, yy- camera->GetPosition().y, 0);
+	camera->LatTruc(y);
+	D3DXVECTOR3 p(x-camera->GetPosition().x, y- camera->GetPosition().y, 0);
 	RECT r; 
 	r.left = left;
 	r.top = top;
@@ -396,7 +396,7 @@ void CGame::SwitchScene(int scene_id)
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
 	scenes[current_scene]->Unload();;
-
+	camera->SetSceneHeight(scene_id);
 	CTextures::GetInstance()->Clear();
 	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();

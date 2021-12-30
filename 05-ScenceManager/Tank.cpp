@@ -18,7 +18,9 @@ CTank::CTank(float x, float y) : CGameObject()
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	//DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	DebugOut(L"Tank: %dx, %dy", int(x), int(y));
+	/*if (jason && jason->Active)
+		jason->Update(dt, coObjects);*/
 	touchable++;
 	if (get_hit == TANK_HEALTH)
 		SetState(TANK_STATE_DIE);
@@ -160,6 +162,13 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+			/*	if (p->GetSceneId() == 4)
+				{
+					if (jason->Active == false)
+						jason->SetPosition(x - 10, y + 5);
+					jason->Active = true;
+				}
+*/
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 			else if (dynamic_cast<WallEnemy*>(e->obj))
@@ -171,6 +180,22 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					y += dy;
 				}
 			}
+			/*switch (e->obj->GetState())
+			{
+			case STATE_ITEM:
+				this->get_hit--;
+				e->obj->Hit();
+				if (get_hit < 0)
+					get_hit = 0;
+				break;
+			default:
+				if (touchable > 80)
+				{
+					touchable = 0;
+					this->Hit();
+				}
+				break;
+			}*/
 		}
 	}
 	// clean up collision events
@@ -266,16 +291,12 @@ void CTank::Render()
 		}
 		for (int i = 0; i < bullets.size(); i++)
 			bullets[i]->Render();
-		float h_x, h_y;
-		if (x - 160 < 0)
-			h_x = 0;
-		else h_x = x - 160;
-		if (y - 90 < 0)
-			h_y = 0;
-		else h_y = y - 90;
-		healthbar->Render(h_x, h_y, get_hit);
 		RenderBoundingBox();
 	}
+	/*if (jason && jason->Active)
+	{
+		jason->Render();
+	}*/
 }
 
 void CTank::SetState(int state)
@@ -423,9 +444,7 @@ void CTank::SetBullet(Bullet* bl)
 	bullet->IsJason = IsJason();
 }
 void CTank::Shoot()
-{/*
-	int bullet_first = bullets.size();
-	Bullet* newBullet;*/
+{
 	if (IsJason())
 	{
 		float va, vb;

@@ -6,6 +6,7 @@
 5	textures\enemies.png	255	255	255
 6	textures\jason.png	255	255	255
 7	textures\item.png	255	255	255
+11	textures\items.png	255	255	255
 12	textures\healthbar.jpg	255	255	255
 13	textures\healthbar1.jpg	255	255	255
 14	textures\healthbar2.jpg	255	255	255
@@ -29,6 +30,10 @@
 9	0	0	8	48	20
 #background
 10001	778	1048	2016	1544	4
+#bisat
+12345	91	38	99	46	2
+#Enemy11 (bullet)	
+99	91	38	99	46	2
 #Portal
 10002	1632	1476	1696	1548	4
 #bullet
@@ -2386,6 +2391,8 @@
 201106	101107	100
 #enemy1
 9100	8000	100
+#Enemy bullet	
+9700	99	100
 #enemy2					
 9101	8001	100	8002	100	8003	100
 #enemy3		
@@ -2408,9 +2415,15 @@
 9109	8025	100	8024	100	8023	100	8022	100
 #enemy10
 9110	8026	100
+#bisat
+123456	12345	100
 [ANIMATION_SETS]
 #enemy1
 9200	9100
+#bisat
+999999	123456
+#Enemy bullet	
+9777	9700
 #enemy2
 9201	9101
 #enemy3
@@ -4699,7 +4712,9 @@
 12	645	166	9207
 #enemy9
 #16	350	51	9208
-#enemy10
+#enemy bullet
+23	350	51	9777
+#enemy9
 17	651	59	9209
 #bullet
 14	0	0	7
@@ -4707,4 +4722,5 @@
 15	1195	120	300	1239	180	3
 #healbar
 556	-100	-10	20
-
+#bisat
+2000	999999

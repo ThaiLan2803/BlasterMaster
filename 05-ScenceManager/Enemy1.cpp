@@ -18,14 +18,27 @@ void Enemy1::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void Enemy1::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+	if (state == STATE_ITEM)
+	{
+		tc++;
+		if (tc > 100)
+			enm4->Update(dt, coObjects);
+	}
 }
 
 void Enemy1::Render()
 {
 	int ani = get_hit;
-	if (state == STATE_DIE) {
-		return;
+	if (state == STATE_ITEM) {
+		if (!isSet)
+		{
+			enm4->SetPosition(x, y);
+			isSet = true;
+		}
+		enm4->Render();
 	}
+	else
+
 	//RenderBoundingBox();
 	animation_set->at(ani)->Render(x, y);
 }

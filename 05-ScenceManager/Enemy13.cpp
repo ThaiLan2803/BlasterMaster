@@ -43,7 +43,7 @@ void Enemy13::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (int i = 0; i < bullets.size(); i++)
 		bullets[i]->Update(dt, coObjects);
 	timecount++;
-	if (timecount >= 100)
+	if (timecount >= TIME && state != STATE_ITEM)
 	{
 		Shoot();
 		timecount = 0;

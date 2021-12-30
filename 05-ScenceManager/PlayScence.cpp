@@ -153,6 +153,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player = (CTank*)obj;  
 		if (tank_previous_state != 0)
 			player->SetState(tank_previous_state);
+		if (previous_hit != 0)
+			player->get_hit = previous_hit;
 		break;
 	case OBJECT_TYPE_JASON:
 		if (player != NULL)
@@ -162,8 +164,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CTank(x, y);
 		player = (CTank*)obj;
 		player->SetJason();
-		if (tank_previous_state != 0)
-			player->SetState(tank_previous_state);
+		if (previous_hit != 0)
+			player->get_hit = previous_hit;
 		break;
 	case OBJECT_TYPE_BRICK:
 		obj = new CBrick();
@@ -194,6 +196,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY1:
 		obj = new Enemy1();
+		dynamic_cast<Enemy1*>(obj)->SetEnemy(enm4);
 		break;
 	case OBJECT_TYPE_ENEMY2:
 		obj = new Enemy2();
@@ -204,6 +207,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY4:
 		obj = new Enemy4();
+		enm4 = (Enemy4*)obj;
 		break;
 	case OBJECT_TYPE_ENEMY5:
 		obj = new Enemy5();
@@ -219,6 +223,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY9:
 		obj = new Enemy9();
+		dynamic_cast<Enemy9*>(obj)->AddBullet(bl);
 		break;
 	case OBJECT_TYPE_ENEMY10:
 		obj = new Enemy10();
@@ -260,8 +265,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_HEALTHBAR:
 		obj = new HealthBar();
-		player->SetHealthBar((HealthBar*)obj); 
+		healthbar =(HealthBar*)obj; 
 		break;
+	//case OBJECT_TYPE_SMALLJASON:
+	//	obj = new SmallJason(0, 0);
+	//	player->SetSJason((SmallJason*)obj);
+	//	break;
 	default:
 		return;
 	}
@@ -286,10 +295,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_ENEMY11:
 		break;
+	case OBJECT_TYPE_ENEMY4:
+		break;
 	/*case OBJECT_TYPE_BRICKNOCOLLI:
 		p->push_back(obj);
 		break;*/
 	case OBJECT_TYPE_BACKGROUND:
+		break;
+	case OBJECT_TYPE_JASON:
+		break;
+	case OBJECT_TYPE_SMALLJASON:
 		break;
 	default:
 		objects.push_back(obj);
@@ -382,11 +397,18 @@ void CPlayScene::Render()
 			coObj->at(i)->Render();
 		else
 			if (!coObj->at(i)->IsEnable()) coObj->erase(coObj->begin() + i);
+	float a, b;
+	player->GetPosition(a, b);
+	healthbar->Render(a, b, player->get_hit);
 }
 
 void CPlayScene::Unload()
 {
-
+	if (player != NULL)
+	{
+		tank_previous_state = player->GetState();
+		previous_hit = player->get_hit;
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Disable();
 
@@ -433,6 +455,11 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		tank->SetState(JASON_STATE_WALKING_DOWN);
 	else if (game->IsKeyDown(DIK_SPACE))
 		tank->SetState(TANK_STATE_JUMP);
+	else if (game->IsKeyDown(DIK_P))
+	{
+		tank->get_hit = 0;
+		tank->SetState(TANK_STATE_WALKING_RIGHT);
+	}
 	//else if (game->IsKeyDown(DIK_A))
 	//	tank->Shoot();
 	else
